@@ -82,15 +82,10 @@ class SidebarContent extends Component {
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
                                 <li><Link to="/dashboard">{this.props.t('Overview')}</Link></li>
-                                <li><Link to="crypto-lending">{this.props.t('Lending')}<span
+                                <li><Link to="crypto-lending">{this.props.t('Pools')}<span
                                     className="badge badge-pill badge-success float-right">{this.props.t('New')}</span></Link>
                                 </li>
                                 <li><Link to="crypto-wallet">{this.props.t('Wallet')}</Link></li>
-                                <li><Link to="crypto-buy-sell">{this.props.t('Buy/Sell')}</Link></li>
-                                <li><Link to="crypto-exchange">{this.props.t('Exchange')}</Link></li>
-                                <li><Link to="crypto-orders">{this.props.t('Orders')}</Link></li>
-                                <li><Link to="crypto-kyc-application">{this.props.t('KYC Application')}</Link></li>
-                                <li><Link to="crypto-ico-landing">{this.props.t('ICO Landing')}</Link></li>
                             </ul>
                         </li>
 
