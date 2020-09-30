@@ -50,7 +50,10 @@ const Pools = (props) => {
             </Row>
         </>
     )
-}
+};
+
+export default Pools;
+
 const PoolTable = (props) => {
 
     const context = useContext(Context);

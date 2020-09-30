@@ -1,104 +1,52 @@
-import React, { Component } from "react";
-import { Switch, BrowserRouter as Router } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { BrowserRouter as Router,Switch, Route } from "react-router-dom";
+import { Layout } from 'antd';
+import 'antd/dist/antd.dark.css'
+import './App.css'
 
-// Import Routes
-import { authProtectedRoutes, publicRoutes } from "./routes/";
-import AppRoute from "./routes/route";
+import Headbar from './ui/layout/Headbar'
+import Sidebar from './ui/layout/Sidebar'
 
-// layouts
-import VerticalLayout from "./components/VerticalLayout/";
-import HorizontalLayout from "./components/HorizontalLayout/";
-import NonAuthLayout from "./components/NonAuthLayout";
+import Pools from './ui/pages/Pools'
 
-// Import scss
-import "./assets/scss/theme.scss";
+import AddLiquidity from './ui/pages/AddLiquidity'
+import Swap from './ui/pages/Swap'
+import CreatePool from './ui/pages/CreatePool'
+import { ContextProvider } from './context'
 
-// Import Firebase Configuration file
-// import { initFirebaseBackend } from "./helpers/firebase_helper";
+const {Content } = Layout;
 
-// Import fackbackend Configuration file
-import fakeBackend from './helpers/AuthType/fakeBackend';
+const App = () => {
 
-// Activating fake backend
-fakeBackend();
+	return (
+		<Router>
+			<Layout>
 
-// Activating fake firebase
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_APIKEY,
-//   authDomain: process.env.REACT_APP_AUTHDOMAIN,
-//   databaseURL: process.env.REACT_APP_DATABASEURL,
-//   projectId: process.env.REACT_APP_PROJECTID,
-//   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-//   messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-//   appId: process.env.REACT_APP_APPID,
-//   measurementId: process.env.REACT_APP_MEASUREMENTID,
-// };
+				<ContextProvider>
+					<Sidebar />
+					<Headbar />
+					<Layout>
+						<Content>
+							<div className="wrapper">
+								<Switch>
+									<Route path="/" exact component={Pools} />
+									{/* <Route path="/dao" exact component={Dao} />
+									<Route path="/earn" exact component={Earn} /> */}
+									<Route path="/pools" exact component={Pools} />
+									<Route path="/pool/stake" exact component={AddLiquidity} />
+									<Route path="/pool/swap" exact component={Swap} />
+									<Route path="/pool/create" exact component={CreatePool} />
+								</Switch>
+							</div>
+						</Content>
+					</Layout>
+				</ContextProvider>
 
-// init firebase backend
-// initFirebaseBackend(firebaseConfig);
+			</Layout>
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {  };
-		this.getLayout = this.getLayout.bind(this);
-	}
+		</Router>
 
-	/**
-	 * Returns the layout
-	 */
-	getLayout = () => {
-		let layoutCls = VerticalLayout;
-
-		switch (this.props.layout.layoutType) {
-			case "horizontal":
-				layoutCls = HorizontalLayout;
-				break;
-			default:
-				layoutCls = VerticalLayout;
-				break;
-		}
-		return layoutCls;
-	};
-
-	render() {
-		const Layout = this.getLayout();
-
-		return (
-			<React.Fragment>
-				<Router>
-					<Switch>
-						{publicRoutes.map((route, idx) => (
-							<AppRoute
-								path={route.path}
-								layout={NonAuthLayout}
-								component={route.component}
-								key={idx}
-								isAuthProtected={false}
-							/>
-						))}
-
-						{authProtectedRoutes.map((route, idx) => (
-							<AppRoute
-								path={route.path}
-								layout={Layout}
-								component={route.component}
-								key={idx}
-								isAuthProtected={true}
-							/>
-						))}
-					</Switch>
-				</Router>
-			</React.Fragment>
-		);
-	}
+	);
 }
 
-const mapStateToProps = state => {
-	return {
-		layout: state.Layout
-	};
-};
-
-export default connect(mapStateToProps, null)(App);
+export default App;
