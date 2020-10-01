@@ -20,16 +20,15 @@ import {LoadingOutlined, LoginOutlined, SwapOutlined} from "@ant-design/icons";
 
 
 
-class CryptoLending extends Component {
+class SpartaPools extends Component {
     constructor(props) {
         super(props);
         this.state = {
             assets : [
-                { icon : "mdi mdi-bitcoin", color : "warning", title : "BTC", investRate : "1.2601", investPrice : "6225.74", price : "7525.47", loansRate : "0.1512", loansPrice : "742.32", totalRate : "4.2562", totalPrice : "6425.42" },
-                { icon : "mdi mdi-ethereum", color : "primary", title : "ETH", investRate : "0.0814", investPrice : "3256.29", price : "4235.78", loansRate : "0.0253", loansPrice : "675.04", totalRate : "0.0921", totalPrice : "4536.24" },
-                { icon : "mdi mdi-litecoin", color : "info", title : "LTC", investRate : "0.0682", investPrice : "2936.14", price : "3726.06", loansRate : "0.0234", loansPrice : "523.17", totalRate : "0.0823", totalPrice : "3254.23" },
-                { icon : "mdi mdi-bitcoin", color : "warning", title : "BTC", investRate : "1.2601", investPrice : "6225.74", price : "7525.47", loansRate : "0.1512", loansPrice : "742.32", totalRate : "4.2562", totalPrice : "6425.42" },
-                { icon : "mdi mdi-ethereum", color : "primary", title : "ETH", investRate : "0.0814", investPrice : "3256.29", price : "4235.78", loansRate : "0.0253", loansPrice : "675.04", totalRate : "0.0921", totalPrice : "4536.24" },
+                { icon : "mdi mdi-pooled", color : "warning", title : "BTC", investRate : "1.2601", investPrice : "6225.74", price : "7525.47", loansRate : "0.1512", loansPrice : "742.32", totalRate : "4.2562", totalPrice : "6425.42" },
+                { icon : "mdi mdi-volume", color : "primary", title : "ETH", investRate : "0.0814", investPrice : "3256.29", price : "4235.78", loansRate : "0.0253", loansPrice : "675.04", totalRate : "0.0921", totalPrice : "4536.24" },
+                { icon : "mdi mdi-count", color : "info", title : "LTC", investRate : "0.0682", investPrice : "2936.14", price : "3726.06", loansRate : "0.0234", loansPrice : "523.17", totalRate : "0.0823", totalPrice : "3254.23" },
+                { icon : "mdi mdi-earnings", color : "warning", title : "BTC", investRate : "1.2601", investPrice : "6225.74", price : "7525.47", loansRate : "0.1512", loansPrice : "742.32", totalRate : "4.2562", totalPrice : "6425.42" },
             ],
             isMenu: false,
         }
@@ -49,7 +48,7 @@ class CryptoLending extends Component {
                     <Container fluid>
 
                         {/* Render Breadcrumb */}
-                        <Breadcrumbs title="App" breadcrumbItem="Pools" />
+                        <Breadcrumbs title="App" breadcrumbItem="SpartaPools" />
 
                         <Row>
 
@@ -244,4 +243,4 @@ class CryptoLending extends Component {
     }
 }
 
-export default CryptoLending;
+export default SpartaPools;

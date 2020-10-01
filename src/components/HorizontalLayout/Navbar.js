@@ -171,7 +171,7 @@ class Navbar extends Component {
                                                 <Link to="crypto-wallet" className="dropdown-item">{this.props.t('Wallet')}</Link>
                                                 <Link to="crypto-buy-sell" className="dropdown-item">{this.props.t('Buy/Sell')}</Link>
                                                 <Link to="crypto-exchange" className="dropdown-item">{this.props.t('Exchange')}</Link>
-                                                <Link to="crypto-lending" className="dropdown-item">{this.props.t('Lending')}</Link>
+                                                <Link to="pools" className="dropdown-item">{this.props.t('Lending')}</Link>
                                                 <Link to="crypto-orders" className="dropdown-item">{this.props.t('Orders')}</Link>
                                                 <Link to="crypto-kyc-application" className="dropdown-item">{this.props.t('KYC Application')}</Link>
                                                 <Link to="crypto-ico-landing" className="dropdown-item">{this.props.t('ICO Landing')}</Link>

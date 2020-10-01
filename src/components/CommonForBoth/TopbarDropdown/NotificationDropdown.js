@@ -34,12 +34,12 @@ class NotificationDropdown extends Component {
           className="dropdown d-inline-block"
           tag="li"
         >
-          <DropdownToggle
-            className="btn header-item noti-icon waves-effect"
-            tag="button" id="page-header-notifications-dropdown">
-            <i className="bx bx-bell bx-tada"></i>
-            <span className="badge badge-danger badge-pill">3</span>
-          </DropdownToggle>
+          {/*<DropdownToggle*/}
+          {/*  className="btn header-item noti-icon waves-effect"*/}
+          {/*  tag="button" id="page-header-notifications-dropdown">*/}
+          {/*  <i className="bx bx-bell bx-tada"></i>*/}
+          {/*  <span className="badge badge-danger badge-pill">3</span>*/}
+          {/*</DropdownToggle>*/}
 
           <DropdownMenu className="dropdown-menu dropdown-menu-lg p-0" right>
             <div className="p-3">

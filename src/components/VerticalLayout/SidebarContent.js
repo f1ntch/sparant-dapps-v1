@@ -78,11 +78,11 @@ class SidebarContent extends Component {
                         <li>
                             <Link to="/#" className="has-arrow waves-effect">
                                 <i className="bx bx-bitcoin"></i>
-                                <span>{this.props.t('Crypto')}</span>
+                                <span>{this.props.t('Spartan')}</span>
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">
                                 <li><Link to="/dashboard">{this.props.t('Overview')}</Link></li>
-                                <li><Link to="crypto-lending">{this.props.t('Pools')}<span
+                                <li><Link to="pools">{this.props.t('Pools')}<span
                                     className="badge badge-pill badge-success float-right">{this.props.t('New')}</span></Link>
                                 </li>
                                 <li><Link to="crypto-wallet">{this.props.t('Wallet')}</Link></li>
