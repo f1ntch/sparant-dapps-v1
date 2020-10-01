@@ -119,7 +119,6 @@ class SpartanPools extends Component {
                                                         </div>
                                                         <h5 className="font-size-14 mb-0">Total Pooled</h5>
                                                     </div>
-
                                                     <Row>
                                                         <div className="col-lg-6">
                                                             <div className="text-muted mt-3">

@@ -1,12 +1,22 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Context} from '../../context'
 import {Link} from 'react-router-dom'
-import {Card, Col, Image, Row, Table} from 'antd'
+import {Image,Table} from 'antd'
 
 import {BNB_ADDR, getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../../client/web3'
 import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../../utils'
 
 import {LoadingOutlined, LoginOutlined, SwapOutlined} from '@ant-design/icons';
+import Breadcrumbs from "../../components/Common/Breadcrumb";
+
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+    CardBody,
+} from "reactstrap";
+
 
 const Pools = (props) => {
 
@@ -35,9 +45,6 @@ const Pools = (props) => {
         <>
             <Row type="flex" justify="center" align="middle" style={{textAlign: "center"}}>
                 <Col xs={24}>
-                    <h1>Pools</h1>
-                </Col>
-                <Col xs={24}>
                     <PoolsPaneSide globalData={globalData}/>
                 </Col>
                 <Col xs={24}>
@@ -49,6 +56,195 @@ const Pools = (props) => {
 };
 
 export default Pools;
+
+export const PoolsPaneSide = (props) => {
+
+    const context = useContext(Context)
+
+    return (
+        <div>
+            <React.Fragment>
+                <div className="page-content">
+                    <Container fluid>
+
+                        {/* Render Breadcrumb */}
+                        <Breadcrumbs title="App" breadcrumbItem="Pools"/>
+
+                        <Row>
+                            <Col xl="12">
+                                <Card>
+                                    <CardBody>
+                                        <h4 className="card-title">Deposits</h4>
+
+                                        <Row>
+                                            <Col lg="4">
+                                                <div className="border p-3 rounded mt-4">
+                                                    <div className="d-flex align-items-center mb-3">
+                                                        <div className="avatar-xs mr-3">
+                                                            <span
+                                                                className="avatar-title rounded-circle bg-soft-warning text-warning font-size-18">
+                                                                <i className="mdi mdi-bank-transfer"></i>
+                                                            </span>
+                                                        </div>
+                                                        <h5 className="font-size-14 mb-0">Total Pooled</h5>
+                                                    </div>
+                                                    <Row>
+                                                        <div className="col-lg-6">
+                                                            <div className="text-muted mt-3">
+                                                                <p>Annual XXX</p>
+                                                                <h4>XXX</h4>
+                                                                <p className="mb-0">0.00745 BTC</p>
+
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6 align-self-end">
+                                                            <div className="float-right mt-3">
+                                                                <Link to="#" className="btn btn-primary">Select</Link>
+                                                            </div>
+                                                        </div>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                            <Col lg="4">
+                                                <div className="border p-3 rounded mt-4">
+                                                    <div className="d-flex align-items-center mb-3">
+                                                        <div className="avatar-xs mr-3">
+                                                            <span
+                                                                className="avatar-title rounded-circle bg-soft-primary text-primary font-size-18">
+                                                                <i className="mdi mdi-bank-transfer"></i>
+                                                            </span>
+                                                        </div>
+                                                        <h5 className="font-size-14 mb-0">Total Volume</h5>
+                                                    </div>
+
+                                                    <Row>
+                                                        <div className="col-lg-6">
+                                                            <div className="text-muted mt-3">
+                                                                <p>Annual Yield</p>
+                                                                <h4>5.08 %</h4>
+                                                                <p className="mb-0">0.0056 ETH</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="col-lg-6 align-self-end">
+                                                            <div className="float-right mt-3">
+                                                                <Link to="#" className="btn btn-primary">Select</Link>
+                                                            </div>
+                                                        </div>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                            <Col lg="4">
+                                                <div className="border p-3 rounded mt-4">
+                                                    <div className="d-flex align-items-center mb-3">
+                                                        <div className="avatar-xs mr-3">
+                                                            <span
+                                                                className="avatar-title rounded-circle bg-soft-info text-info font-size-18">
+                                                                <i className="mdi mdi-bank-transfer"></i>
+                                                            </span>
+                                                        </div>
+                                                        <h5 className="font-size-14 mb-0">Txn Count</h5>
+                                                    </div>
+
+                                                    <Row>
+                                                        <div className="col-lg-6">
+                                                            <div className="text-muted mt-3">
+                                                                <p>Annual Yield</p>
+                                                                <h4 className="strong">{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx}</h4>
+                                                                <p className="mb-0">0.00245 LTC</p>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="col-lg-6 align-self-end">
+                                                            <div className="float-right mt-3">
+                                                                <Link to="#" className="btn btn-primary">Select</Link>
+                                                            </div>
+                                                        </div>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                            <Col lg="4">
+                                                <div className="border p-3 rounded mt-4">
+                                                    <div className="d-flex align-items-center mb-3">
+                                                        <div className="avatar-xs mr-3">
+                                                            <span
+                                                                className="avatar-title rounded-circle bg-soft-info text-info font-size-18">
+                                                                <i className="mdi mdi-bank-transfer"></i>
+                                                            </span>
+                                                        </div>
+                                                        <h5 className="font-size-14 mb-0">Total Earnings</h5>
+                                                    </div>
+
+                                                    <Row>
+                                                        <div className="col-lg-6">
+                                                            <div className="text-muted mt-3">
+                                                                <p>Annual Yield</p>
+                                                                <h4>4.12 %</h4>
+                                                                <p className="mb-0">0.00245 LTC</p>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="col-lg-6 align-self-end">
+                                                            <div className="float-right mt-3">
+                                                                <Link to="#" className="btn btn-primary">Select</Link>
+                                                            </div>
+                                                        </div>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                        </Row>
+
+                                    </CardBody>
+                                </Card>
+                            </Col>
+
+                        </Row>
+
+                    </Container>
+                </div>
+
+
+            </React.Fragment>
+
+            {/*<Row type="flex" justify="center" align="middle">*/}
+            {/*    <Col md={2}>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={12} md={5}>*/}
+            {/*        <Card className="leftbar">*/}
+            {/*            <h5 className="strong">TOTAL POOLED</h5>*/}
+
+            {/*            <h4 className="strong">{formatUSDStatBoxes(convertFromWei(props.globalData.totalPooled * 2), context.spartanPrice)}</h4>*/}
+
+
+            {/*        </Card>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={12} md={5}>*/}
+            {/*        <Card className="rightbar">*/}
+            {/*            <h5 className="strong">TOTAL VOLUME</h5>*/}
+            {/*            <h4 className="strong">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h4>*/}
+            {/*        </Card>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={12} md={5}>*/}
+            {/*        <Card className="leftbar">*/}
+            {/*            <h5 className="strong">TXN COUNT</h5>*/}
+            {/*            <h4 className="strong">{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx}</h4>*/}
+            {/*        </Card>*/}
+            {/*    </Col>*/}
+            {/*    <Col xs={12} md={5}>*/}
+            {/*        <Card className="rightbar">*/}
+            {/*            <h5 className="strong">TOTAL EARNINGS</h5>*/}
+            {/*            <h4 className="strong">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice)}</h4>*/}
+            {/*        </Card>*/}
+            {/*    </Col>*/}
+            {/*    <Col md={2}>*/}
+            {/*    </Col>*/}
+            {/*</Row>*/}
+        </div>
+    )
+};
+
 
 const PoolTable = (props) => {
 
@@ -188,48 +384,6 @@ const PoolTable = (props) => {
     )
 };
 
-export const PoolsPaneSide = (props) => {
-
-    const context = useContext(Context)
-
-    return (
-        <div>
-            <Row type="flex" justify="center" align="middle">
-                <Col md={2}>
-                </Col>
-                <Col xs={12} md={5}>
-                    <Card className="leftbar">
-                        <h5 className="strong">TOTAL POOLED</h5>
-
-                        <h4 className="strong">{formatUSDStatBoxes(convertFromWei(props.globalData.totalPooled * 2), context.spartanPrice)}</h4>
-
-
-                    </Card>
-                </Col>
-                <Col xs={12} md={5}>
-                    <Card className="rightbar">
-                        <h5 className="strong">TOTAL VOLUME</h5>
-                        <h4 className="strong">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h4>
-                    </Card>
-                </Col>
-                <Col xs={12} md={5}>
-                    <Card className="leftbar">
-                        <h5 className="strong">TXN COUNT</h5>
-                        <h4 className="strong">{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx}</h4>
-                    </Card>
-                </Col>
-                <Col xs={12} md={5}>
-                    <Card className="rightbar">
-                        <h5 className="strong">TOTAL EARNINGS</h5>
-                        <h4 className="strong">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice)}</h4>
-                    </Card>
-                </Col>
-                <Col md={2}>
-                </Col>
-            </Row>
-        </div>
-    )
-};
 
 
 

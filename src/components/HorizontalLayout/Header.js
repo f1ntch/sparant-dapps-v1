@@ -32,6 +32,9 @@ import { toggleRightSidebar } from "../../store/actions";
 //i18n
 import { withNamespaces } from 'react-i18next';
 
+//import components
+import AddressConn from '../CommonForBoth/AddressConn'
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -107,7 +110,7 @@ class Header extends Component {
                     <img src={logoLightSvg} alt="" height="22" />
                   </span>
                   <span className="logo-lg">
-                    <img src={logoLight} alt="" height="19" />
+                    <img src={logoLight} alt="" height="45" />
                   </span>
                 </Link>
               </div>
@@ -120,150 +123,6 @@ class Header extends Component {
                 data-target="#topnav-menu-content">
                 <i className="fa fa-fw fa-bars"></i>
               </button>
-
-              <form className="app-search d-none d-lg-block">
-                <div className="position-relative">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search..."
-                  />
-                  <span className="bx bx-search-alt"></span>
-                </div>
-              </form>
-
-            <Dropdown className="dropdown-mega d-none d-lg-block ml-2" isOpen={this.state.megaMenuDrp} toggle={() => { this.setState({ megaMenuDrp: !this.state.megaMenuDrp }) }}>
-                <DropdownToggle className="btn header-item waves-effect" caret tag="button"> 
-              {this.props.t('Mega Menu')}  {" "}
-                  <i className="mdi mdi-chevron-down"></i></DropdownToggle>
-                <DropdownMenu className="dropdown-megamenu">
-                  <Row>
-                    <Col sm={8}>
-                      <Row>
-                        <Col md={4}>
-                          <h5 className="font-size-14 mt-0">{this.props.t('UI Components')}</h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{this.props.t('Lightbox')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Range Slider')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Sweet Alert')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Rating')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Forms')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Tables')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Charts')}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-
-                        <Col md={4}>
-                          <h5 className="font-size-14 mt-0">{this.props.t('Applications')}</h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{this.props.t('Ecommerce')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Calendar')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Email')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Projects')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Tasks')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Contacts')}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-
-                        <Col md={4}>
-                          <h5 className="font-size-14 mt-0">{this.props.t('Extra Pages')}</h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{this.props.t('Light Sidebar')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Compact Sidebar')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                {this.props.t('Horizontal layout')}
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">  {this.props.t('Maintenance')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Coming Soon')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Timeline')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('FAQs')}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col sm={4}>
-                      <Row>
-                        <Col sm={6}>
-                          <h5 className="font-size-14 mt-0">{this.props.t('UI Components')}</h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{this.props.t('Lightbox')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Range Slider')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Sweet Alert')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Rating')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Forms')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Tables')}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{this.props.t('Charts')}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-
-                        <Col sm={5}>
-                          <div>
-                            <img
-                              src={megamenuImg}
-                              alt=""
-                              className="img-fluid mx-auto d-block"
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </DropdownMenu>
-              </Dropdown>
             </div>
 
             <div className="d-flex">
@@ -363,17 +222,20 @@ class Header extends Component {
               </div>
 
               <NotificationDropdown />
-
               <ProfileMenu />
 
-              <div className="dropdown d-inline-block">
-                <button
-                  onClick={this.toggleRightbar}
-                  type="button"
-                  className="btn header-item noti-icon right-bar-toggle waves-effect" >
-                  <i className="bx bx-cog bx-spin"></i>
+              <div onClick={this.toggleRightbar} className="dropdown d-inline-block">
+                <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
+                  <i className="bx bx-wallet"></i>
                 </button>
               </div>
+
+              <div onClick={this.toggleRightbar} className="dropdown d-inline-block">
+                <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
+                  <AddressConn />
+                </button>
+              </div>
+
             </div>
           </div>
         </header>

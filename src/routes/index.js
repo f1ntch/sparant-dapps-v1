@@ -13,7 +13,6 @@ import SpartanPools from "../pages/Crypto/spartan-pools";
 import Pools from "../ui/pages/Pools";
 import CryptoOrders from "../pages/Crypto/crypto-orders";
 import CryptoKYCApplication from "../pages/Crypto/crypto-kyc-application";
-import CryptoIcoLanding from "../pages/Crypto/CryptoIcoLanding/index";
 
 // Charts
 import ChartApex from "../pages/Charts/Apexcharts";
@@ -163,7 +162,6 @@ const publicRoutes = [
 
     {path: "/pages-maintenance", component: PagesMaintenance},
     {path: "/pages-comingsoon", component: PagesComingsoon},
-    {path: "/crypto-ico-landing", component: CryptoIcoLanding},
 
     // Authentication Inner
     {path: "/auth-lock-screen", component: LockScreen}

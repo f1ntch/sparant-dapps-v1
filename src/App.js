@@ -9,14 +9,17 @@ import AppRoute from "./routes/route";
 // layouts
 import VerticalLayout from "./components/VerticalLayout/";
 import HorizontalLayout from "./components/HorizontalLayout/";
-import NonAuthLayout from "./components/NonAuthLayout";
+
 
 // Import scss
 import "./assets/scss/theme.scss";
 
 import Pools from './ui/pages/Pools.js'
 
-import SpartanPools from '../src/pages/Crypto/spartan-pools'
+
+
+
+import SpartanPools from '../src/pages/Crypto/crypto-exchange'
 
 import { Layout } from 'antd';
 import { BrowserRouter as Router,Switch, Route } from "react-router-dom";
@@ -25,6 +28,7 @@ import AddLiquidity from './ui/pages/AddLiquidity'
 import Swap from './ui/pages/Swap'
 import CreatePool from './ui/pages/CreatePool'
 import { ContextProvider } from './context'
+import DashboardCrypto from "./pages/Dashboard-crypto";
 
 const {Content } = Layout;
 
@@ -35,12 +39,12 @@ const App = () => {
 			<Layout>
 
 				<ContextProvider>
-					<VerticalLayout />
+					<HorizontalLayout />
 					<Layout>
 						<Content>
 							<div className="wrapper">
 								<Switch>
-									<Route path="/" exact component={Pools} />
+									<Route path="/" exact component={DashboardCrypto} />
 									{/* <Route path="/dao" exact component={Dao} />
 									<Route path="/earn" exact component={Earn} /> */}
 									<Route path="/pools" exact component={Pools} />
