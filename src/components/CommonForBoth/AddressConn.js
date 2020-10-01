@@ -10,7 +10,6 @@ import { message } from 'antd';
 
 // import logo from '../../assets/spartan-logo-white.png';
 
-import WalletDrawer from '../layout/WalletDrawer'
 import { getAddressShort, } from '../../utils'
 import {
     getTokenDetails, getListedTokens,
@@ -85,7 +84,7 @@ const AddressConn = (props) => {
 
             context.setContext({ 'connected': true })
             await getSpartaPrice()
-            
+
     }
 
     const getSpartaPrice = async () => {
@@ -110,16 +109,16 @@ const AddressConn = (props) => {
     return (
       <div>
         {!connected && !connecting &&
-            <div className="btn primary" onClick={connectWallet}>CONNECT</div>
+            <div onClick={connectWallet}>CONNECT</div>
         }
         {connecting &&
-            <div className="btn primary disabled"><LoadingOutlined /> CONNECTING</div>
+            <div>CONNECTING</div>
         }
         {connected &&
-            <div className="btn primary" onClick={showDrawer}><WalletOutlined /> {addr()}</div>
+            <div>{/*onClick={showDrawer}*/}{addr()}</div>
         }
 
-        <Drawer
+        {/*<Drawer
             title={context.walletData?.address}
             placement="right"
             closable={false}
@@ -128,7 +127,7 @@ const AddressConn = (props) => {
             width={'90%'}
         >
             <WalletDrawer />
-        </Drawer>
+        </Drawer>*/}
       </div>
 
     )

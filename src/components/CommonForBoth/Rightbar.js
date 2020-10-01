@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useContext, useState } from 'react';
+import { Context } from '../../context'
 import { FormGroup } from "reactstrap";
 
 import { connect } from "react-redux";
@@ -76,7 +77,7 @@ class RightSidebar extends Component {
 
   /**
    * Changes layout width
-   * @param {*} e 
+   * @param {*} e
    */
   changeLayoutWidth(e) {
     if (e.target.checked) {
@@ -116,222 +117,17 @@ class RightSidebar extends Component {
                 <Link to="#" onClick={this.hideRightbar} className="right-bar-toggle float-right">
                   <i className="mdi mdi-close noti-icon"></i>
                 </Link>
-                <h5 className="m-0">Settings</h5>
+                <h5 className="m-0">Wallet</h5>
               </div>
-
-              <hr className="my-0" />
 
               <div className="p-4">
                 <div className="radio-toolbar">
-                  <span className="mb-2 d-block">Layouts</span>
-                  <input
-                    type="radio"
-                    id="radioVertical"
-                    name="radioFruit"
-                    value="vertical"
-                    checked={this.state.layoutType === "vertical"}
-                    onChange={this.changeLayout} />
-                  <label htmlFor="radioVertical">Vertical</label>
-                  {"   "}
-                  <input
-                    type="radio"
-                    id="radioHorizontal"
-                    name="radioFruit"
-                    value="horizontal"
-                    checked={this.state.layoutType === "horizontal"}
-                    onChange={this.changeLayout} />
-                  <label htmlFor="radioHorizontal">Horizontal</label>
-                </div>
-
-                <hr className="mt-1" />
-
-                <div className="radio-toolbar">
-                  <span className="mb-2 d-block" id="radio-title">Layout Width</span>
-                  <input
-                    type="radio"
-                    id="radioFluid"
-                    name="radioWidth"
-                    value="fluid"
-                    checked={this.state.layoutWidth !== "boxed"}
-                    onChange={this.changeLayoutWidth} />
-                  <label htmlFor="radioFluid">Fluid</label>
-                  {"   "}
-                  <input
-                    type="radio"
-                    id="radioBoxed"
-                    name="radioWidth"
-                    value="boxed"
-                    checked={this.state.layoutWidth === "boxed"}
-                    onChange={this.changeLayoutWidth} />
-                  <label htmlFor="radioBoxed">Boxed</label>
+                  <span className="mb-2 d-block">Assets</span>
+                  <AssetTable />
                 </div>
                 <hr className="mt-1" />
-
-                <div className="radio-toolbar">
-                  <span className="mb-2 d-block" id="radio-title">Topbar Theme</span>
-                  <input
-                    type="radio"
-                    id="radioThemeLight"
-                    name="radioTheme"
-                    value="light"
-                    checked={this.state.topbarTheme === "light"}
-                    onChange={this.changeTopbarTheme} />
-
-                  <label htmlFor="radioThemeLight">Light</label>
-                  {"   "}
-                  <input
-                    type="radio"
-                    id="radioThemeDark"
-                    name="radioTheme"
-                    value="dark"
-                    checked={this.state.topbarTheme === "dark"}
-                    onChange={this.changeTopbarTheme} />
-                  <label htmlFor="radioThemeDark">Dark</label>
-                  {"   "}
-                  {this.state.layoutType === "vertical" ? null :
-                    <> <input
-                      type="radio"
-                      id="radioThemeColored"
-                      name="radioTheme"
-                      value="colored"
-                      checked={this.state.topbarTheme === "colored"}
-                      onChange={this.changeTopbarTheme} />
-                      <label htmlFor="radioThemeColored">Colored</label> </>}
-
-                </div>
-
-
-                {this.state.layoutType === "vertical" ? <React.Fragment>
-                  <hr className="mt-1" />
-                  <div className="radio-toolbar">
-                    <span className="mb-2 d-block" id="radio-title">Left Sidebar Type</span>
-                    <input
-                      type="radio"
-                      id="sidebarDefault"
-                      name="sidebarType"
-                      value="light"
-                      checked={this.state.sidebarType === "default" || this.state.sidebarType === "light"}
-                      onChange={this.changeLeftSidebarType} />
-
-                    <label htmlFor="sidebarDefault">Default</label>
-                    {"   "}
-                    <input
-                      type="radio"
-                      id="sidebarCompact"
-                      name="sidebarType"
-                      value="compact"
-                      checked={this.state.sidebarType === "compact"}
-                      onChange={this.changeLeftSidebarType} />
-                    <label htmlFor="sidebarCompact">Compact</label>
-                    {"   "}
-                    <input
-                      type="radio"
-                      id="sidebarIcon"
-                      name="sidebarType"
-                      value="icon"
-                      checked={this.state.sidebarType === "icon"}
-                      onChange={this.changeLeftSidebarType}
-                    />
-                    <label htmlFor="sidebarIcon">Icon</label>
-
-                  </div>
-
-                  <hr className="mt-1" />
-
-                  <div className="radio-toolbar">
-                    <span className="mb-2 d-block" id="radio-title">Left Sidebar Type</span>
-                    <input
-                      type="radio"
-                      id="leftsidebarThemelight"
-                      name="leftsidebarTheme"
-                      value="light"
-                      checked={this.state.sidebarTheme === "light"}
-                      onChange={this.changeLeftSidebarTheme} />
-
-                    <label htmlFor="leftsidebarThemelight">Light</label>
-                    {"   "}
-                    <input
-                      type="radio"
-                      id="leftsidebarThemedark"
-                      name="leftsidebarTheme"
-                      value="dark"
-                      checked={this.state.sidebarTheme === "dark"}
-                      onChange={this.changeLeftSidebarTheme} />
-                    <label htmlFor="leftsidebarThemedark">Dark</label>
-                    {"   "}
-                    <input
-                      type="radio"
-                      id="leftsidebarThemecolored"
-                      name="leftsidebarTheme"
-                      value="colored"
-                      checked={this.state.sidebarTheme === "colored"}
-                      onChange={this.changeLeftSidebarTheme}
-                    />
-                    <label htmlFor="leftsidebarThemecolored">Colored</label>
-
-                  </div>
-                  <hr className="mt-1" />
-
-
-                </React.Fragment> : null}
-
-                <FormGroup>
-
-                  <span className="mb-2 d-block" id="radio-title">Preloader</span>
-
-                  <div className="custom-control custom-switch">
-                    <input type="checkbox" className="custom-control-input checkbox" id="checkbox_1"
-                      checked={this.props.isPreloader}
-                      onChange={this.changeThemePreloader} />
-                    <label className="custom-control-label" htmlFor="checkbox_1">Preloader</label>
-                  </div>
-                </FormGroup>
-
-                <h6 className="text-center">Choose Layouts</h6>
-
-                <div className="mb-2">
-                  <Link to="//skote-v-light.react.themesbrand.com" target="_blank">
-                    <img
-                      src={layout1}
-                      className="img-fluid img-thumbnail"
-                      alt=""
-                    />
-                  </Link>
-                </div>
-
-                <div className="mb-2">
-                  <Link
-                    to="//skote-v-dark.react.themesbrand.com"
-                    target="_blank"
-                  >
-                    <img
-                      src={layout2}
-                      className="img-fluid img-thumbnail"
-                      alt=""
-                    />
-                  </Link>
-                </div>
-
-                <div className="mb-2">
-                  <Link
-                    to="//skote-v-rtl.react.themesbrand.com"
-                    target="_blank"
-                  >
-                    <img
-                      src={layout3}
-                      className="img-fluid img-thumbnail"
-                      alt=""
-                    />
-                  </Link>
-                </div>
-
-                <Link
-                  to="#"
-                  className="btn btn-primary btn-block mt-3"
-                  target="_blank"
-                >
-                  <i className="mdi mdi-cart mr-1"></i> Purchase Now
-                </Link>
+                  <span className="mb-2 d-block">Pool Shares</span>
+                  <PoolShareTable />
               </div>
 
             </div>
@@ -347,6 +143,81 @@ class RightSidebar extends Component {
 const mapStatetoProps = state => {
   return { ...state.Layout };
 };
+
+export const AssetTable = () => {
+
+    const context = useContext(Context)
+    useEffect(() => {
+        // updateWallet()
+
+    }, [context.transaction])
+
+    // const updateWallet = async () => {
+    //     context.setContext({ walletData: await getWalletData(context.poolArray) })
+    // }
+
+    const columns = [
+        {
+            render: (record) => (
+                <div>
+                    {/*<CoinRow
+                            symbol={record.symbol}
+                            name={record.name}
+                            balance={record.balance}
+                            address={record.address}
+                            size={32} />*/}
+                </div>
+            )
+        }
+    ]
+
+    return (
+        <div>
+            Show 'assets/tokens' held in wallet here
+            {/*<Table dataSource={context.walletData.tokens}
+                pagination={false}
+                showHeader={false}
+                columns={columns}
+                rowKey="symbol" />*/}
+        </div>
+    )
+}
+
+export const PoolShareTable = () => {
+
+    const context = useContext(Context)
+
+    useEffect(() => {
+        // getPoolSharess()
+        // console.log(context.stakes)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const columns = [
+        {
+            render: (record) => (
+                <div>
+                    {/*<CoinRow
+                            symbol={record.symbol}
+                            name={record.name}
+                            balance={record.units}
+                            size={32} />*/}
+                </div>
+            )
+        }
+    ]
+
+    return (
+        <div>
+            Show 'Liquidity pool tokens' held in wallet here
+            {/*<Table dataSource={context.stakesData}
+                pagination={false}
+                showHeader={false}
+                columns={columns}
+                rowKey="symbol" />*/}
+        </div>
+    )
+}
 
 export default connect(mapStatetoProps, {
   hideRightSidebar,

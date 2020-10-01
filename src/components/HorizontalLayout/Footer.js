@@ -12,7 +12,7 @@ const Footer = () => {
                         </Col>
                         <Col md={6}>
                             <div className="text-sm-right d-none d-sm-block">
-                                Design & Develop by the community
+                                A Spartan Community Project
                             </div>
                         </Col>
                     </Row>

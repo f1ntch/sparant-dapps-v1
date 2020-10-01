@@ -10,7 +10,7 @@ const Footer = () => {
             <Col sm={6}>{new Date().getFullYear()} © Spartan Protocol.</Col>
             <Col sm={6}>
               <div className="text-sm-right d-none d-sm-block">
-                Design & Develop by the community
+                A Spartan Community Project
               </div>
             </Col>
           </Row>
