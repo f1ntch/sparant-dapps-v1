@@ -27,6 +27,9 @@ import dropbox from "../../assets/images/brands/dropbox.png";
 import mail_chimp from "../../assets/images/brands/mail_chimp.png";
 import slack from "../../assets/images/brands/slack.png";
 
+//import components
+import AddressConn from '../CommonForBoth/AddressConn'
+
 //i18n
 import { withNamespaces } from 'react-i18next';
 
@@ -339,7 +342,13 @@ class Header extends Component {
 
               <div onClick={this.toggleRightbar} className="dropdown d-inline-block">
                 <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
-                  <i className="bx bx-cog bx-spin"></i>
+                  <i className="bx bx-wallet"></i>
+                </button>
+              </div>
+
+              <div onClick={this.toggleRightbar} className="dropdown d-inline-block">
+                <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
+                  <AddressConn />
                 </button>
               </div>
 

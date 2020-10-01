@@ -18,8 +18,6 @@ import Pools from './ui/pages/Pools.js'
 
 import SpartanPools from '../src/pages/Crypto/spartan-pools'
 
-import Headbar from './ui/layout/Headbar'
-
 import { Layout } from 'antd';
 import { BrowserRouter as Router,Switch, Route } from "react-router-dom";
 
@@ -38,7 +36,6 @@ const App = () => {
 
 				<ContextProvider>
 					<VerticalLayout />
-					<Headbar />
 					<Layout>
 						<Content>
 							<div className="wrapper">
