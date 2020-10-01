@@ -14,7 +14,7 @@ class FooterLink extends Component {
                                     <img src={logolight} alt="" height="20"/>
                                 </div>
             
-                                <p className="mb-2">2020 © Skote. Design & Develop by Themesbrand</p>
+                                <p className="mb-2">2020 © Spartan Protocol. Design & Develop by the Spartan Community</p>
                                 <p>It will be as simple as occidental in fact, it will be to an english person, it will seem like simplified English, as a skeptical</p>
                             </Col>
 

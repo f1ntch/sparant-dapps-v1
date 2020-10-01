@@ -7,7 +7,7 @@ import './App.css'
 import Headbar from './ui/layout/Headbar'
 import Sidebar from './ui/layout/Sidebar'
 
-import Pools from './ui/pages/SpartaPools'
+import Pools from './ui/pages/SpartanPools'
 
 import AddLiquidity from './ui/pages/AddLiquidity'
 import Swap from './ui/pages/Swap'

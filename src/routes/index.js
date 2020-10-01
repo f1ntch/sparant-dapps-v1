@@ -9,7 +9,8 @@ import DashboardCrypto from "../pages/Dashboard-crypto/index";
 import CryptoWallet from "../pages/Crypto/crypto-wallet";
 import CryptoBuySell from "../pages/Crypto/crypto-buy-sell";
 import CryptoExchange from "../pages/Crypto/crypto-exchange";
-import SpartaPools from "../pages/Crypto/sparta-pools";
+import SpartanPools from "../pages/Crypto/spartan-pools";
+import Pools from "../ui/pages/Pools";
 import CryptoOrders from "../pages/Crypto/crypto-orders";
 import CryptoKYCApplication from "../pages/Crypto/crypto-kyc-application";
 import CryptoIcoLanding from "../pages/Crypto/CryptoIcoLanding/index";
@@ -83,7 +84,8 @@ const authProtectedRoutes = [
 
     //App pages
     {path: "/dashboard", component: DashboardCrypto},
-    {path: "/pools", component: SpartaPools},
+    {path: "/pools", component: SpartanPools},
+    {path: "/poolsssss", component: Pools},
     {path: "/crypto-wallet", component: CryptoWallet},
     {path: "/crypto-buy-sell", component: CryptoBuySell},
     {path: "/crypto-exchange", component: CryptoExchange},

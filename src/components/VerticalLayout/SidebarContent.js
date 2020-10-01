@@ -5,6 +5,7 @@ import MetisMenu from "metismenujs";
 import {withRouter} from "react-router-dom";
 import {Link} from "react-router-dom";
 
+
 //i18n
 import {withNamespaces} from 'react-i18next';
 
@@ -77,7 +78,7 @@ class SidebarContent extends Component {
                         <li className="menu-title">{this.props.t('Apps')}</li>
                         <li>
                             <Link to="/#" className="has-arrow waves-effect">
-                                <i className="bx bx-bitcoin"></i>
+                                <i className="bx bx-coin-stack"></i>
                                 <span>{this.props.t('Spartan')}</span>
                             </Link>
                             <ul className="sub-menu" aria-expanded="false">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, BrowserRouter as Router } from "react-router-dom";
+
 import { connect } from "react-redux";
 
 // Import Routes
@@ -14,91 +14,54 @@ import NonAuthLayout from "./components/NonAuthLayout";
 // Import scss
 import "./assets/scss/theme.scss";
 
-// Import Firebase Configuration file
-// import { initFirebaseBackend } from "./helpers/firebase_helper";
+import Pools from './ui/pages/Pools.js'
 
-// Import fackbackend Configuration file
-import fakeBackend from './helpers/AuthType/fakeBackend';
+import SpartanPools from '../src/pages/Crypto/spartan-pools'
 
-// Activating fake backend
-fakeBackend();
+import Headbar from './ui/layout/Headbar'
 
-// Activating fake firebase
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_APIKEY,
-//   authDomain: process.env.REACT_APP_AUTHDOMAIN,
-//   databaseURL: process.env.REACT_APP_DATABASEURL,
-//   projectId: process.env.REACT_APP_PROJECTID,
-//   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-//   messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-//   appId: process.env.REACT_APP_APPID,
-//   measurementId: process.env.REACT_APP_MEASUREMENTID,
-// };
+import { Layout } from 'antd';
+import { BrowserRouter as Router,Switch, Route } from "react-router-dom";
 
-// init firebase backend
-// initFirebaseBackend(firebaseConfig);
+import AddLiquidity from './ui/pages/AddLiquidity'
+import Swap from './ui/pages/Swap'
+import CreatePool from './ui/pages/CreatePool'
+import { ContextProvider } from './context'
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {  };
-		this.getLayout = this.getLayout.bind(this);
-	}
+const {Content } = Layout;
 
-	/**
-	 * Returns the layout
-	 */
-	getLayout = () => {
-		let layoutCls = VerticalLayout;
+const App = () => {
 
-		switch (this.props.layout.layoutType) {
-			case "horizontal":
-				layoutCls = HorizontalLayout;
-				break;
-			default:
-				layoutCls = VerticalLayout;
-				break;
-		}
-		return layoutCls;
-	};
+	return (
+		<Router>
+			<Layout>
 
-	render() {
-		const Layout = this.getLayout();
+				<ContextProvider>
+					<VerticalLayout />
+					<Headbar />
+					<Layout>
+						<Content>
+							<div className="wrapper">
+								<Switch>
+									<Route path="/" exact component={Pools} />
+									{/* <Route path="/dao" exact component={Dao} />
+									<Route path="/earn" exact component={Earn} /> */}
+									<Route path="/pools" exact component={Pools} />
+									<Route path="/test" exact component={SpartanPools} />
+									<Route path="/pool/stake" exact component={AddLiquidity} />
+									<Route path="/pool/swap" exact component={Swap} />
+									<Route path="/pool/create" exact component={CreatePool} />
+								</Switch>
+							</div>
+						</Content>
+					</Layout>
+				</ContextProvider>
 
-		return (
-			<React.Fragment>
-				<Router>
-					<Switch>
-						{publicRoutes.map((route, idx) => (
-							<AppRoute
-								path={route.path}
-								layout={NonAuthLayout}
-								component={route.component}
-								key={idx}
-								isAuthProtected={false}
-							/>
-						))}
+			</Layout>
 
-						{authProtectedRoutes.map((route, idx) => (
-							<AppRoute
-								path={route.path}
-								layout={Layout}
-								component={route.component}
-								key={idx}
-								isAuthProtected={false}
-							/>
-						))}
-					</Switch>
-				</Router>
-			</React.Fragment>
-		);
-	}
+		</Router>
+
+	);
 }
 
-const mapStateToProps = state => {
-	return {
-		layout: state.Layout
-	};
-};
-
-export default connect(mapStateToProps, null)(App);
+export default App;
