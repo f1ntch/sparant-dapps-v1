@@ -10,6 +10,7 @@ import { message } from 'antd';
 
 // import logo from '../../assets/spartan-logo-white.png';
 
+
 import { getAddressShort, } from '../../utils'
 import {
     getTokenDetails, getListedTokens,
@@ -114,20 +115,20 @@ const AddressConn = (props) => {
         {connecting &&
             <div>CONNECTING</div>
         }
-        {connected &&
-            <div>{/*onClick={showDrawer}*/}{addr()}</div>
-        }
+          {connected &&
+          <div className="btn primary" onClick={showDrawer}><WalletOutlined /> {addr()}</div>
+          }
 
-        {/*<Drawer
-            title={context.walletData?.address}
-            placement="right"
-            closable={false}
-            onClose={onClose}
-            visible={visible}
-            width={'90%'}
-        >
-            <WalletDrawer />
-        </Drawer>*/}
+          {/*<Drawer
+              title={context.walletData?.address}
+              placement="right"
+              closable={false}
+              onClose={onClose}
+              visible={visible}
+              width={'90%'}
+          >
+              <WalletDrawer />
+          </Drawer>*/}
       </div>
 
     )
