@@ -67,10 +67,11 @@ class Navbar extends Component {
                                             <i className="bx bx-customize mr-2"></i>{this.props.t('Apps')} <div className="arrow-down"></div>
                                         </Link>
                                         <div className={classname("dropdown-menu", { show: this.state.isDashboard })}>
+                                            <Link to="overview" className="dropdown-item">{this.props.t('Overview')}</Link>
                                             <Link to="pools" className="dropdown-item">{this.props.t('Pools')}</Link>
-                                            <Link to="dashboard-saas" className="dropdown-item">{this.props.t('Dao')}</Link>
-                                            <Link to="dashboard-crypto" className="dropdown-item">{this.props.t('Earn')}</Link>
-                                            <Link to="dashboard-crypto" className="dropdown-item">{this.props.t('Swap')}</Link>
+                                            <Link to="dao" className="dropdown-item">{this.props.t('Dao')}</Link>
+                                            <Link to="earn" className="dropdown-item">{this.props.t('Earn')}</Link>
+                                            <Link to="swap" className="dropdown-item">{this.props.t('Swap')}</Link>
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
@@ -78,9 +79,8 @@ class Navbar extends Component {
                                             <i className="bx bx-info-circle mr-2"></i>{this.props.t('Info')} <div className="arrow-down"></div>
                                         </Link>
                                         <div className={classname("dropdown-menu", { show: this.state.isDashboard })}>
-                                            <Link to="index" className="dropdown-item">{this.props.t('How to start?')}</Link>
-                                            <Link to="dashboard-saas" className="dropdown-item">{this.props.t('FAQ')}</Link>
-                                            <Link to="dashboard-crypto" className="dropdown-item">{this.props.t('Help')}</Link>
+                                            <Link to="start" className="dropdown-item">{this.props.t('How to start?')}</Link>
+                                            <Link to="faq" className="dropdown-item">{this.props.t('FAQ')}</Link>
                                         </div>
                                     </li>
                                 </ul>

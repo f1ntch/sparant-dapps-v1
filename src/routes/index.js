@@ -79,6 +79,7 @@ import PagesFaqs from "../pages/Utility/pages-faqs";
 import PagesPricing from "../pages/Utility/pages-pricing";
 
 
+
 const authProtectedRoutes = [
 
     //App pages
