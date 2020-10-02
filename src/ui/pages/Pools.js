@@ -42,16 +42,22 @@ const Pools = (props) => {
     }
 
     return (
-        <>
-            <Row type="flex" justify="center" align="middle" style={{textAlign: "center"}}>
-                <Col xs={24}>
-                    <PoolsPaneSide globalData={globalData}/>
-                </Col>
-                <Col xs={24}>
-                    <PoolTable/>
-                </Col>
-            </Row>
-        </>
+      <React.Fragment>
+          <div className="page-content">
+              <Container fluid>
+                  {/* Render Breadcrumb */}
+                  <Breadcrumbs title="App" breadcrumbItem="Liquidity Pools" />
+                  <Row>
+                    <Col xs="12">
+                      <PoolsPaneSide globalData={globalData}/>
+                    </Col>
+                    <Col xs="12">
+                      <PoolTable/>
+                    </Col>
+                  </Row>
+              </Container>
+          </div>
+      </React.Fragment>
     )
 };
 
@@ -64,20 +70,17 @@ export const PoolsPaneSide = (props) => {
     return (
         <div>
             <React.Fragment>
-                <div className="page-content">
+                <div>
                     <Container fluid>
 
-                        {/* Render Breadcrumb */}
-                        <Breadcrumbs title="App" breadcrumbItem="Pools"/>
-
                         <Row>
-                            <Col xl="12">
+                            <Col>
                                 <Card>
                                     <CardBody>
-                                        <h4 className="card-title">Deposits</h4>
+                                        <h4 className="card-title">Pool Stats</h4>
 
                                         <Row>
-                                            <Col lg="4">
+                                            <Col lg="6">
                                                 <div className="border p-3 rounded mt-4">
                                                     <div className="d-flex align-items-center mb-3">
                                                         <div className="avatar-xs mr-3">
@@ -89,23 +92,23 @@ export const PoolsPaneSide = (props) => {
                                                         <h5 className="font-size-14 mb-0">Total Pooled</h5>
                                                     </div>
                                                     <Row>
-                                                        <div className="col-lg-6">
+                                                        <Col lg="6">
                                                             <div className="text-muted mt-3">
                                                                 <p>Annual XXX</p>
                                                                 <h4>XXX</h4>
                                                                 <p className="mb-0">0.00745 BTC</p>
 
                                                             </div>
-                                                        </div>
-                                                        <div className="col-lg-6 align-self-end">
+                                                        </Col>
+                                                        <Col lg="6" className="align-self-end">
                                                             <div className="float-right mt-3">
                                                                 <Link to="#" className="btn btn-primary">Select</Link>
                                                             </div>
-                                                        </div>
+                                                        </Col>
                                                     </Row>
                                                 </div>
                                             </Col>
-                                            <Col lg="4">
+                                            <Col lg="6">
                                                 <div className="border p-3 rounded mt-4">
                                                     <div className="d-flex align-items-center mb-3">
                                                         <div className="avatar-xs mr-3">
@@ -118,23 +121,23 @@ export const PoolsPaneSide = (props) => {
                                                     </div>
 
                                                     <Row>
-                                                        <div className="col-lg-6">
+                                                        <Col lg="6">
                                                             <div className="text-muted mt-3">
                                                                 <p>Annual Yield</p>
                                                                 <h4>5.08 %</h4>
                                                                 <p className="mb-0">0.0056 ETH</p>
                                                             </div>
-                                                        </div>
+                                                        </Col>
 
-                                                        <div className="col-lg-6 align-self-end">
+                                                        <Col lg="6" className="align-self-end">
                                                             <div className="float-right mt-3">
                                                                 <Link to="#" className="btn btn-primary">Select</Link>
                                                             </div>
-                                                        </div>
+                                                        </Col>
                                                     </Row>
                                                 </div>
                                             </Col>
-                                            <Col lg="4">
+                                            <Col lg="6">
                                                 <div className="border p-3 rounded mt-4">
                                                     <div className="d-flex align-items-center mb-3">
                                                         <div className="avatar-xs mr-3">
@@ -147,24 +150,24 @@ export const PoolsPaneSide = (props) => {
                                                     </div>
 
                                                     <Row>
-                                                        <div className="col-lg-6">
+                                                        <Col lg="6">
                                                             <div className="text-muted mt-3">
                                                                 <p>Annual Yield</p>
                                                                 <h4 className="strong">{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx}</h4>
                                                                 <p className="mb-0">0.00245 LTC</p>
 
                                                             </div>
-                                                        </div>
+                                                        </Col>
 
-                                                        <div className="col-lg-6 align-self-end">
+                                                        <Col lg="6" className="align-self-end">
                                                             <div className="float-right mt-3">
                                                                 <Link to="#" className="btn btn-primary">Select</Link>
                                                             </div>
-                                                        </div>
+                                                        </Col>
                                                     </Row>
                                                 </div>
                                             </Col>
-                                            <Col lg="4">
+                                            <Col lg="6">
                                                 <div className="border p-3 rounded mt-4">
                                                     <div className="d-flex align-items-center mb-3">
                                                         <div className="avatar-xs mr-3">
@@ -177,20 +180,20 @@ export const PoolsPaneSide = (props) => {
                                                     </div>
 
                                                     <Row>
-                                                        <div className="col-lg-6">
+                                                        <Col lg="6">
                                                             <div className="text-muted mt-3">
                                                                 <p>Annual Yield</p>
                                                                 <h4>4.12 %</h4>
                                                                 <p className="mb-0">0.00245 LTC</p>
 
                                                             </div>
-                                                        </div>
+                                                        </Col>
 
-                                                        <div className="col-lg-6 align-self-end">
+                                                        <Col lg="6" className="align-self-end">
                                                             <div className="float-right mt-3">
                                                                 <Link to="#" className="btn btn-primary">Select</Link>
                                                             </div>
-                                                        </div>
+                                                        </Col>
                                                     </Row>
                                                 </div>
                                             </Col>
@@ -366,25 +369,24 @@ const PoolTable = (props) => {
 
     return (
         <>
-            {!context.connected &&
-            <LoadingOutlined/>
-            }
-            {context.connected &&
-            <Row>
-                <Col xs={24}>
-                    <Table
-                        dataSource={context.poolsData}
-                        columns={columns} pagination={false}
-                        rowKey="symbol"/>
-                </Col>
-            </Row>
-            }
-            <br/>
+          <Card>
+            <Container fluid>
+              {!context.connected &&
+              <LoadingOutlined/>
+              }
+              {context.connected &&
+              <Row>
+                  <Col xs={24}>
+                      <Table
+                          dataSource={context.poolsData}
+                          columns={columns} pagination={false}
+                          rowKey="symbol"/>
+                  </Col>
+              </Row>
+              }
+              <br/>
+            </Container>
+          </Card>
         </>
     )
 };
-
-
-
-
-
