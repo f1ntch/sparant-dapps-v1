@@ -159,7 +159,6 @@ const authProtectedRoutes = [
 ];
 
 const publicRoutes = [
-    ,
 
     {path: "/pages-maintenance", component: PagesMaintenance},
     {path: "/pages-comingsoon", component: PagesComingsoon},

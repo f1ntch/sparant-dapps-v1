@@ -76,7 +76,7 @@ class Dashboard extends Component {
                                                             </Media>
                                                             <div className="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
                                                                 <span className="avatar-title">
-                                                                    <i className={"bx " + report.iconClass + " font-size-24"}></i>
+                                                                    <i className={"bx " + "mdi mdi-bank-transfer" + " font-size-24"}></i>
                                                                 </span>
                                                             </div>
                                                         </Media>

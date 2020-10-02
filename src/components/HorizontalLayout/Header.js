@@ -225,13 +225,7 @@ class Header extends Component {
               <ProfileMenu />
 
               <div onClick={this.toggleRightbar} className="dropdown d-inline-block">
-                <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
-                  <i className="bx bx-wallet"></i>
-                </button>
-              </div>
-
-              <div onClick={this.toggleRightbar} className="dropdown d-inline-block">
-                <button type="button" className="btn header-item noti-icon right-bar-toggle waves-effect">
+                <button type="button" className="btn header-item waves-effect">
                   <AddressConn />
                 </button>
               </div>

@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '../../context'
-import { Drawer } from 'antd';
-import { WalletOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import Web3 from 'web3'
 import axios from 'axios'
@@ -110,13 +108,13 @@ const AddressConn = (props) => {
     return (
       <div>
         {!connected && !connecting &&
-            <div onClick={connectWallet}>CONNECT</div>
+            <div onClick={connectWallet}><i className="bx bx-wallet" /> CONNECT</div>
         }
         {connecting &&
-            <div>CONNECTING</div>
+            <div><i className="bx bx-wallet" /> Connecting <i className="bx bx-loader-alt bx-spin" /></div>
         }
           {connected &&
-          <div className="btn primary" onClick={showDrawer}><WalletOutlined /> {addr()}</div>
+          <div onClick={showDrawer}><i className="bx bx-wallet" /> {addr()}</div>
           }
 
           {/*<Drawer
