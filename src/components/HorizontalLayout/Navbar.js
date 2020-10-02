@@ -63,7 +63,7 @@ class Navbar extends Component {
                             <Collapse isOpen={this.props.menuOpen} className="navbar-collapse" id="topnav-menu-content">
                                 <ul className="navbar-nav">
                                     <li className="nav-item dropdown">
-                                        <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); this.setState({ isDashboard: !this.state.isDashboard }); }} to="pools">
+                                        <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); this.setState({ isDashboard: !this.state.isDashboard }); }} to="#">
                                             <i className="bx bx-customize mr-2"></i>{this.props.t('Apps')} <div className="arrow-down"></div>
                                         </Link>
                                         <div className={classname("dropdown-menu", { show: this.state.isDashboard })}>
@@ -75,7 +75,7 @@ class Navbar extends Component {
                                         </div>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); this.setState({ isDashboard: !this.state.isDashboard }); }} to="pools">
+                                        <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); this.setState({ isDashboard: !this.state.isDashboard }); }} to="#">
                                             <i className="bx bx-info-circle mr-2"></i>{this.props.t('Info')} <div className="arrow-down"></div>
                                         </Link>
                                         <div className={classname("dropdown-menu", { show: this.state.isDashboard })}>

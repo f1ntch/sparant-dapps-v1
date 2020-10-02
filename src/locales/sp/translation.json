@@ -1,4 +1,5 @@
 {
+  "TOTAL POOLED": "Menú",
   "Mega Menu": "Mega menú",
   "Search": "Buscar",
   "Menu": "Menú",
@@ -132,6 +133,5 @@
   "Applications": "Aplicaciones",
   "Extra Pages": "Páginas extra",
   "Horizontal layout": "Diseño horizontal",
-  "Light Sidebar": "Barra lateral ligera",
-  "Compact Sidebar": "Barra lateral compacta"
+  "Light Sidebar": "Barra lateral ligera"
 }

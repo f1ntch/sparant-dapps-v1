@@ -6,7 +6,6 @@ import {Image, Table} from 'antd'
 import {BNB_ADDR, getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../../client/web3'
 import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../../utils'
 
-
 import {LoadingOutlined, LoginOutlined, SwapOutlined} from '@ant-design/icons';
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -15,11 +14,9 @@ import {
     Row,
     Col,
     Card,
-    CardBody, Media,
+    CardBody, Media,Modal, ModalHeader, ModalBody, ModalFooter,Button
 } from "reactstrap";
 import CardWelcome from "../../pages/Dashboard-crypto/card-welcome";
-
-
 
 
 const Pools = (props) => {
@@ -153,6 +150,8 @@ const PoolTable = (props) => {
         context.setContext({'poolsData': await getPoolsData(tokenArray)})
     };
 
+
+
     const columns = [
         {
             title: 'POOL',
@@ -176,13 +175,13 @@ const PoolTable = (props) => {
             )
         },
         {
-            title: 'SYMBOL',
+            title: 'Symbol',
             render: (record) => (
                 <h3>{record.symbol}</h3>
             )
         },
         {
-            title: 'PRICE',
+            title: 'Price',
             dataIndex: 'price',
             key: 'price',
             responsive: ['sm'],
@@ -191,7 +190,7 @@ const PoolTable = (props) => {
             )
         },
         {
-            title: 'DEPTH',
+            title: 'Depth',
             dataIndex: 'depth',
             key: 'depth',
             responsive: ['sm'],
@@ -204,7 +203,7 @@ const PoolTable = (props) => {
             )
         },
         {
-            title: 'VOLUME',
+            title: 'Volume',
             dataIndex: 'volume',
             key: 'volume',
             responsive: ['sm'],
@@ -213,7 +212,7 @@ const PoolTable = (props) => {
             )
         },
         {
-            title: 'TXNS',
+            title: 'Txns',
             dataIndex: 'txCount',
             key: 'txCount',
             responsive: ['md'],
@@ -222,7 +221,7 @@ const PoolTable = (props) => {
             )
         },
         {
-            title: 'REVENUE',
+            title: 'Revenue',
             dataIndex: 'fees',
             key: 'fees',
             responsive: ['md'],
@@ -236,7 +235,10 @@ const PoolTable = (props) => {
             //         <PlusCircleOutlined/> CREATE POOL
             //     </Col>
             // </a>,
+
+
             render: (record) => (
+
                 <Row type="flex" justify="center" align="middle">
                     <Col className="btn primary">
                         <Link to={`/pool/stake?pool=${record.address}`}>
@@ -256,24 +258,26 @@ const PoolTable = (props) => {
 
     return (
         <>
-            <Card>
-                <Container fluid>
-                    {!context.connected &&
-                    <LoadingOutlined/>
-                    }
-                    {context.connected &&
-                    <Row>
-                        <Col xs={24}>
-                            <Table
-                                dataSource={context.poolsData}
-                                columns={columns} pagination={false}
-                                rowKey="symbol"/>
-                        </Col>
-                    </Row>
-                    }
-                    <br/>
-                </Container>
-            </Card>
+            <Row>
+                <Col sm={12} md={12}>
+                    <Card>
+                        <br/>
+                        {!context.connected &&
+                        <LoadingOutlined/>
+                        }
+                        {context.connected &&
+
+                        <Table
+                            dataSource={context.poolsData}
+                            columns={columns} pagination={false}
+                            rowKey="symbol"/>
+
+
+                        }
+                        <br/>
+                    </Card>
+                </Col>
+            </Row>
         </>
     )
 };
