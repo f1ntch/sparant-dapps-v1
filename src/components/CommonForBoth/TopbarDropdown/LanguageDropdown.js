@@ -11,10 +11,10 @@ import i18n from '../../../i18n';
 import { withNamespaces } from 'react-i18next';
 
 // falgs
-import usFlag from "../../../assets/images/flags/us.jpg";
-import spain from "../../../assets/images/flags/spain.jpg";
-import germany from "../../../assets/images/flags/germany.jpg";
-import italy from "../../../assets/images/flags/italy.jpg";
+import usFlag from "../../../assets/images/flags/united-states.png";
+import spain from "../../../assets/images/flags/china.png";
+import germany from "../../../assets/images/flags/russia.png";
+import italy from "../../../assets/images/flags/turkey.png";
 import russia from "../../../assets/images/flags/russia.jpg";
 
 class LanguageDropdown extends Component {
@@ -80,19 +80,15 @@ class LanguageDropdown extends Component {
             </DropdownItem>
             <DropdownItem tag="a" href="#" onClick={() => this.changeLanguageAction('sp')} className={`notify-item ${this.state.lng === 'Spanish' ? 'active' : 'none'}`}>
               <img src={spain} alt="Skote" className="mr-1" height="12" />
-              <span className="align-middle">Spanish</span>
+              <span className="align-middle">Chinese</span>
             </DropdownItem>
             <DropdownItem tag="a" href="#" onClick={() => this.changeLanguageAction('gr')} className={`notify-item ${this.state.lng === 'German' ? 'active' : 'none'}`}>
               <img src={germany} alt="Skote" className="mr-1" height="12" />
-              <span className="align-middle">German</span>
+              <span className="align-middle">Russian</span>
             </DropdownItem>
             <DropdownItem tag="a" href="#" onClick={() => this.changeLanguageAction('it')} className={`notify-item ${this.state.lng === 'Italian' ? 'active' : 'none'}`}>
               <img src={italy} alt="Skote" className="mr-1" height="12" />
-              <span className="align-middle">Italian</span>
-            </DropdownItem>
-            <DropdownItem tag="a" href="#" onClick={() => this.changeLanguageAction('rs')} className={`notify-item ${this.state.lng === 'Russian' ? 'active' : 'none'}`}>
-              <img src={russia} alt="Skote" className="mr-1" height="12" />
-              <span className="align-middle">Russian</span>
+              <span className="align-middle">Turkish</span>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

@@ -1,23 +1,34 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { Context } from '../../context'
-import { Tabs, Row, Col, message } from 'antd';
-import { LoadingOutlined, LeftOutlined, DoubleRightOutlined, UnlockOutlined } from '@ant-design/icons';
+import React, {useEffect, useState, useContext} from 'react'
+import {Context} from '../../context'
+import {Tabs, message} from 'antd';
+import {Link} from "react-router-dom";
 
-import { withRouter } from 'react-router-dom';
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+    CardBody, Media, Modal, ModalHeader, ModalBody, ModalFooter, Button
+} from "reactstrap";
+import {LoadingOutlined, LeftOutlined, DoubleRightOutlined, UnlockOutlined} from '@ant-design/icons';
+
+import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
-import { BreadcrumbCombo, InputPane, PoolPaneSide,  } from '../components/common'
-import { HR, Sublabel, LabelGroup } from '../components/elements';
-import { bn, formatBN, convertFromWei, convertToWei } from '../../utils'
-import { getSwapOutput, getSwapSlip } from '../../math'
+import {BreadcrumbCombo, InputPane, PoolPaneSide,} from '../components/common'
+import {HR, Sublabel, LabelGroup} from '../components/elements';
+import {bn, formatBN, convertFromWei, convertToWei} from '../../utils'
+import {getSwapOutput, getSwapSlip} from '../../math'
 
 import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getRouterContract, getTokenContract, getListedTokens,
     getPoolData, getNewTokenData, getTokenDetails,
     getListedPools, getPoolsData, getPool
 } from '../../client/web3'
+import Breadcrumbs from "../../components/Common/Breadcrumb";
+import {PoolsPaneSide} from "./Pools";
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 
 const NewSwap = (props) => {
 
@@ -60,7 +71,7 @@ const NewSwap = (props) => {
         outputSymbol: "XXX",
         slip: 0
     })
-     const [sellData, setSellData] = useState({
+    const [sellData, setSellData] = useState({
         address: BNB_ADDR,
         balance: 0,
         input: 0,
@@ -84,10 +95,10 @@ const NewSwap = (props) => {
 
     const getPools = async () => {
         let tokenArray = await getListedTokens()
-        context.setContext({ 'tokenArray': tokenArray })
+        context.setContext({'tokenArray': tokenArray})
         let poolArray = await getListedPools()
-        context.setContext({ 'poolArray': poolArray })
-        context.setContext({ 'poolsData': await getPoolsData(tokenArray) })
+        context.setContext({'poolArray': poolArray})
+        context.setContext({'poolsData': await getPoolsData(tokenArray)})
     }
 
     useEffect(() => {
@@ -120,7 +131,8 @@ const NewSwap = (props) => {
 
     const getSwapData = async (input, inputTokenData, outputTokenData, poolData, toBase) => {
 
-        var output; var slip
+        var output;
+        var slip
         output = getSwapOutput(input, poolData, toBase)
         slip = getSwapSlip(input, poolData, toBase)
         console.log(formatBN(output), formatBN(slip))
@@ -205,7 +217,7 @@ const NewSwap = (props) => {
         setStartTx(false)
         setEndTx(true)
         updatePool()
-        context.setContext({ 'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray) })
+        context.setContext({'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray)})
     }
 
     const sell = async () => {
@@ -222,10 +234,10 @@ const NewSwap = (props) => {
         setStartTx(false)
         setEndTx(true)
         updatePool()
-        context.setContext({ 'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray) })
+        context.setContext({'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray)})
     }
 
-    const updatePool = async()  => {
+    const updatePool = async () => {
         setPool(await getPool(pool.address))
     }
 
@@ -239,63 +251,79 @@ const NewSwap = (props) => {
     }
 
 
-
     return (
-        <>
-          <div>
-            <BreadcrumbCombo title={'SWAP'} parent={'POOLS'} link={'/pools'} child={'SWAP'}></BreadcrumbCombo>
-            <HR></HR>
-            <br />
-            <div className="btn primary" onClick={back} style={{ maxWidth:'100px'}}><LeftOutlined />BACK</div>
+        <> <React.Fragment>
+            <div className="page-content">
+                <Container fluid>
 
-            <Row type="flex" align="middle" justify="center">
-                <Col xs={24}>
+                    {/* Render Breadcrumb */}
+                    <Breadcrumbs title="Pools" breadcrumbItem="Add Liquidity"/>
 
-                    <PoolPaneSide pool={pool} price={context.spartanPrice} />
-
-                </Col>
-                <Col xs={24}>
-                  <div className="minimal-card ant-card-bordered">
                     <Row>
-                        <Col xs={24} >
-                            <Tabs defaultActiveKey="1" onChange={changeTabs}>
-                                <TabPane tab={`BUY ${pool.symbol}`} key="1">
-                                        <TradePane
-                                            pool={pool}
-                                            tradeData={buyData}
-                                            onTradeChange={onBuyChange}
-                                            changeTradeAmount={changeBuyAmount}
-                                            approval={approvalS}
-                                            unlock={unlockSparta}
-                                            trade={buy}
-                                            startTx={startTx}
-                                            endTx={endTx}
-                                            type={"BUY"}
-                                        />
-                                </TabPane>
-                                <TabPane tab={`SELL ${pool.symbol}`} key="2">
 
-                                        <TradePane
-                                            pool={pool}
-                                            tradeData={sellData}
-                                            onTradeChange={onSellChange}
-                                            changeTradeAmount={changeSellAmount}
-                                            approval={approval}
-                                            unlock={unlockToken}
-                                            trade={sell}
-                                            startTx={startTx}
-                                            endTx={endTx}
-                                            type={"SELL"}
-                                        />
+                        <Col xl="12">
+                            <Card>
+                                <CardBody>
+                                    <h4 className="card-title">Deposits</h4>
+                                    <Row>
+                                        <Col lg="6">
+                                            <div className="border p-3 rounded mt-4">
+                                                <div className="d-flex align-items-center mb-3">
+                                                    <div className="avatar-xs mr-3">
+                                                            <span
+                                                                className="avatar-title rounded-circle bg-soft-info text-info font-size-18">
+                                                                <i className="mdi mdi-bank-transfer"></i>
+                                                            </span>
+                                                    </div>
+                                                    <h5 className="font-size-14 mb-0">Txn Count</h5>
+                                                </div>
 
-                                </TabPane>
-                            </Tabs>
+                                                <Row>
+                                                    <div className="col-lg-6">
+                                                        <div className="text-muted mt-3">
+                                                            <p>Annual Yield</p>
+                                                            <h4>4.12 %</h4>
+                                                            <p className="mb-0">0.00245 LTC</p>
+
+                                                        </div>
+                                                    </div>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                        <Col lg="6">
+                                            <div className="border p-3 rounded mt-4">
+                                                <div className="d-flex align-items-center mb-3">
+                                                    <div className="avatar-xs mr-3">
+                                                            <span
+                                                                className="avatar-title rounded-circle bg-soft-info text-info font-size-18">
+                                                                <i className="mdi mdi-bank-transfer"></i>
+                                                            </span>
+                                                    </div>
+                                                    <h5 className="font-size-14 mb-0">Total Earnings</h5>
+                                                </div>
+
+                                                <Row>
+                                                    <div className="col-lg-6">
+                                                        <div className="text-muted mt-3">
+                                                            <p>Annual Yield</p>
+                                                            <h4>4.12 %</h4>
+                                                            <p className="mb-0">0.00245 LTC</p>
+
+                                                        </div>
+                                                    </div>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                    </Row>
+
+                                </CardBody>
+                            </Card>
                         </Col>
                     </Row>
-                  </div>
-                </Col>
-            </Row>
-          </div>
+                </Container>
+            </div>
+        </React.Fragment>
+
 
         </>
     )
@@ -313,7 +341,7 @@ const TradePane = (props) => {
                     <Row className="cntr" align="middle" justify="center">
 
                         <Col xs={10}>
-                            <Sublabel size={20}>{'INPUT'}</Sublabel><br />
+                            <Sublabel size={20}>{'INPUT'}</Sublabel><br/>
                             <InputPane
                                 pool={props.pool}
                                 paneData={props.tradeData}
@@ -321,15 +349,17 @@ const TradePane = (props) => {
                                 changeAmount={props.changeTradeAmount}
                             />
                         </Col>
-                        <Col xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: "center" }}>
-                            <DoubleRightOutlined style={{ fontSize: 24 }} />
+                        <Col xs={4} style={{display: 'flex', alignItems: 'center', justifyContent: "center"}}>
+                            <DoubleRightOutlined style={{fontSize: 24}}/>
                         </Col>
                         <Col xs={10}>
-                            <LabelGroup size={30} element={`${convertFromWei(props.tradeData.output)}`} label={`OUTPUT (${props.tradeData.outputSymbol})`} />
+                            <LabelGroup size={30} element={`${convertFromWei(props.tradeData.output)}`}
+                                        label={`OUTPUT (${props.tradeData.outputSymbol})`}/>
 
                             <Row>
                                 <Col xs={12}>
-                                    <LabelGroup size={20} element={`${((props.tradeData.slip) * 100).toFixed(0)}%`} label={'SLIP'} />
+                                    <LabelGroup size={20} element={`${((props.tradeData.slip) * 100).toFixed(0)}%`}
+                                                label={'SLIP'}/>
                                 </Col>
                                 {/* <Col xs={12}>
                                     <LabelGroup size={20} element={((props.tradeData.slip) * 100).toFixed(2)} label={'FEE'} />
@@ -339,18 +369,20 @@ const TradePane = (props) => {
                         </Col>
                     </Row>
 
-                    <br /><br />
+                    <br/><br/>
 
                     <Row>
                         <Col xs={24}>
-                            {!props.approval && 
-                                <div className="btn primary" onClick={props.unlock}><UnlockOutlined /> UNLOCK</div>
+                            {!props.approval &&
+                            <div className="btn primary" onClick={props.unlock}><UnlockOutlined/> UNLOCK</div>
                             }
                             {props.approval && props.startTx && !props.endTx &&
-                                <div className="btn primary" onClick={props.trade}><LoadingOutlined />{`${props.type} ${props.pool.symbol}`}</div>
+                            <div className="btn primary" onClick={props.trade}>
+                                <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</div>
                             }
                             {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
-                                <div className="btn primary" onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</div>
+                            <div className="btn primary"
+                                 onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</div>
                             }
 
                         </Col>
