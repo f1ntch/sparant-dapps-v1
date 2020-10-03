@@ -15,7 +15,7 @@ import usFlag from "../../../assets/images/flags/united-states.png";
 import spain from "../../../assets/images/flags/china.png";
 import germany from "../../../assets/images/flags/russia.png";
 import italy from "../../../assets/images/flags/turkey.png";
-import russia from "../../../assets/images/flags/russia.jpg";
+import russia from "../../../assets/images/flags/russia.png";
 
 class LanguageDropdown extends Component {
   constructor(props) {
