@@ -1,6 +1,10 @@
 import React, { Component, useEffect, useContext, useState } from 'react';
 import { Context } from '../../context'
-import { FormGroup } from "reactstrap";
+import { Row, Col, Card, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import classnames from 'classnames';
+
+import {Image, Table} from 'antd'
+import {LoadingOutlined} from '@ant-design/icons';
 
 import { connect } from "react-redux";
 import {
@@ -12,16 +16,15 @@ import {
   changeTopbarTheme
 } from "../../store/actions";
 
+import {BNB_ADDR} from '../../client/web3'
+import {formatUnits, convertFromWei} from '../../utils'
+
 //SimpleBar
 import SimpleBar from "simplebar-react";
 
 import { Link } from "react-router-dom";
 
 import "./rightbar.scss";
-//Import images
-import layout1 from "../../assets/images/layouts/layout-1.jpg";
-import layout2 from "../../assets/images/layouts/layout-2.jpg";
-import layout3 from "../../assets/images/layouts/layout-3.jpg";
 
 class RightSidebar extends Component {
   constructor(props) {
@@ -109,9 +112,9 @@ class RightSidebar extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="right-bar">
+        <div className="right-bar dark-bg">
 
-          <SimpleBar style={{ height: "900px" }}>
+        <SimpleBar style={{ height: "900px" }}>
             <div data-simplebar className="h-100">
               <div className="rightbar-title px-3 py-4">
                 <Link to="#" onClick={this.hideRightbar} className="right-bar-toggle float-right">
@@ -122,12 +125,8 @@ class RightSidebar extends Component {
 
               <div className="p-4">
                 <div className="radio-toolbar">
-                  <span className="mb-2 d-block">Assets</span>
-                  <AssetTable />
+                  <Example />
                 </div>
-                <hr className="mt-1" />
-                  <span className="mb-2 d-block">Pool Shares</span>
-                  <PoolShareTable />
               </div>
 
             </div>
@@ -140,13 +139,62 @@ class RightSidebar extends Component {
   }
 }
 
+export const Example = (props) => {
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = tab => {
+    if(activeTab !== tab) setActiveTab(tab);
+  }
+
+  return (
+    <>
+      <Nav tabs>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '1' })}
+            onClick={() => { toggle('1'); }}
+          >
+          Assets
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '2' })}
+            onClick={() => { toggle('2'); }}
+            >
+            LP Shares
+          </NavLink>
+        </NavItem>
+      </Nav>
+
+      <TabContent activeTab={activeTab}>
+        <TabPane tabId="1">
+          <Row>
+            <Col sm="12">
+              <AssetTable />
+            </Col>
+          </Row>
+        </TabPane>
+        <TabPane tabId="2">
+          <Row>
+            <Col sm="12">
+              <PoolShareTable />
+            </Col>
+          </Row>
+        </TabPane>
+      </TabContent>
+    </>
+  );
+}
+
 const mapStatetoProps = state => {
   return { ...state.Layout };
 };
 
 export const AssetTable = () => {
 
-    const context = useContext(Context)
+    const context = useContext(Context);
+
     useEffect(() => {
         // updateWallet()
 
@@ -158,28 +206,52 @@ export const AssetTable = () => {
 
     const columns = [
         {
-            render: (record) => (
-                <div>
-                    {/*<CoinRow
-                            symbol={record.symbol}
-                            name={record.name}
-                            balance={record.balance}
-                            address={record.address}
-                            size={32} />*/}
-                </div>
-            )
+          title: 'Symbol',
+          render: (record) => (
+            <div>
+                {record.address === BNB_ADDR &&
+                <img
+                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
+                    style={{height: 40}} alt='BNB'/>
+                }
+
+                {record.address !== BNB_ADDR &&
+                <Image
+                    width={40}
+                    height={40}
+                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + record.address + "/logo.png"}
+                    fallback="../fallback.png"
+                />
+                }
+            </div>
+          )
+        },
+        {
+          title: 'Balance',
+          render: (record) => (
+            <div>
+              <h5>{formatUnits(convertFromWei(record.balance))}</h5>
+              <h6>{record.symbol}</h6>
+            </div>
+          )
         }
     ]
 
     return (
-        <div>
-            Show 'assets/tokens' held in wallet here
-            {/*<Table dataSource={context.walletData.tokens}
-                pagination={false}
-                showHeader={false}
-                columns={columns}
-                rowKey="symbol" />*/}
-        </div>
+      <div>
+        <br/>
+          {!context.connected &&
+            <div style={{textAlign:"center"}}><LoadingOutlined/></div>
+          }
+          {context.connected &&
+
+          <Table
+              dataSource={context.walletData.tokens}
+              columns={columns}
+              pagination={false}
+              rowKey="symbol"/>
+          }
+      </div>
     )
 }
 
@@ -195,26 +267,41 @@ export const PoolShareTable = () => {
 
     const columns = [
         {
-            render: (record) => (
-                <div>
-                    {/*<CoinRow
-                            symbol={record.symbol}
-                            name={record.name}
-                            balance={record.units}
-                            size={32} />*/}
-                </div>
-            )
+          title: 'Symbol',
+          render: (record) => (
+            <div>
+                <Image
+                    width={40}
+                    height={40}
+                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + record.address + "/logo.png"}
+                    fallback="../fallback.png"
+                />
+            </div>
+          )
+        },
+        {
+          title: 'Balance',
+          render: (record) => (
+            <div>
+              <h5>{formatUnits(convertFromWei(record.units))}</h5>
+              <h6>{record.symbol}</h6>
+            </div>
+          )
         }
     ]
 
     return (
         <div>
-            Show 'Liquidity pool tokens' held in wallet here
-            {/*<Table dataSource={context.stakesData}
-                pagination={false}
-                showHeader={false}
-                columns={columns}
-                rowKey="symbol" />*/}
+            <br/>
+            {!context.connected &&
+              <div style={{textAlign:"center"}}><LoadingOutlined/></div>
+            }
+            {context.connected &&
+              <Table dataSource={context.stakesData}
+                  columns={columns}
+                  pagination={false}
+                  rowKey="symbol" />
+            }
         </div>
     )
 }

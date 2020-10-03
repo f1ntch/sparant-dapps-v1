@@ -261,9 +261,8 @@ const PoolTable = (props) => {
             <Row>
                 <Col sm={12} md={12}>
                     <Card>
-                        <br/>
                         {!context.connected &&
-                        <LoadingOutlined/>
+                          <div style={{textAlign:"center"}}><LoadingOutlined/></div>
                         }
                         {context.connected &&
 
@@ -271,10 +270,7 @@ const PoolTable = (props) => {
                             dataSource={context.poolsData}
                             columns={columns} pagination={false}
                             rowKey="symbol"/>
-
-
                         }
-                        <br/>
                     </Card>
                 </Col>
             </Row>
