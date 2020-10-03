@@ -1,20 +1,13 @@
 import React, { Component, useEffect, useContext, useState } from 'react';
 import { Context } from '../../context'
-import { Row, Col, Card, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import { Row, Col, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from 'classnames';
 
 import {Image, Table} from 'antd'
 import {LoadingOutlined} from '@ant-design/icons';
 
 import { connect } from "react-redux";
-import {
-  hideRightSidebar,
-  changeLayout,
-  changeLayoutWidth,
-  changeSidebarTheme,
-  changeSidebarType, changePreloader,
-  changeTopbarTheme
-} from "../../store/actions";
+import { hideRightSidebar } from "../../store/actions";
 
 import {BNB_ADDR} from '../../client/web3'
 import {formatUnits, convertFromWei} from '../../utils'
@@ -29,20 +22,7 @@ import "./rightbar.scss";
 class RightSidebar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      layoutType: this.props.layoutType,
-      sidebarType: this.props.leftSideBarType,
-      layoutWidth: this.props.layoutWidth,
-      sidebarTheme: this.props.leftSideBarTheme,
-      topbarTheme: this.props.topbarTheme,
-    };
     this.hideRightbar = this.hideRightbar.bind(this);
-    this.changeLayout = this.changeLayout.bind(this);
-    this.changeLayoutWidth = this.changeLayoutWidth.bind(this);
-    this.changeLeftSidebarTheme = this.changeLeftSidebarTheme.bind(this);
-    this.changeLeftSidebarType = this.changeLeftSidebarType.bind(this);
-    this.changeTopbarTheme = this.changeTopbarTheme.bind(this);
-    this.changeThemePreloader = this.changeThemePreloader.bind(this);
   }
 
   /**
@@ -51,62 +31,6 @@ class RightSidebar extends Component {
   hideRightbar(e) {
     e.preventDefault();
     this.props.hideRightSidebar();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      this.setState({
-        layoutType: this.props.layoutType,
-        sidebarType: this.props.leftSideBarType,
-        layoutWidth: this.props.layoutWidth,
-        sidebarTheme: this.props.leftSideBarTheme,
-        topbarTheme: this.props.topbarTheme
-      });
-    }
-  }
-
-  changeThemePreloader = () => {
-    this.props.changePreloader(!this.props.isPreloader);
-  }
-  /**
-   * Change the layout
-   * @param {*} e
-   */
-  changeLayout(e) {
-    if (e.target.checked) {
-      this.props.changeLayout(e.target.value);
-    }
-  }
-
-  /**
-   * Changes layout width
-   * @param {*} e
-   */
-  changeLayoutWidth(e) {
-    if (e.target.checked) {
-      this.props.changeLayoutWidth(e.target.value);
-    }
-  }
-
-  // change left sidebar design
-  changeLeftSidebarType(e) {
-    if (e.target.checked) {
-      this.props.changeSidebarType(e.target.value);
-    }
-  }
-
-  // change left sidebar theme
-  changeLeftSidebarTheme(e) {
-    if (e.target.checked) {
-      this.props.changeSidebarTheme(e.target.value);
-    }
-  }
-
-  // change topbar theme
-  changeTopbarTheme(e) {
-    if (e.target.checked) {
-      this.props.changeTopbarTheme(e.target.value);
-    }
   }
 
   render() {
@@ -133,7 +57,7 @@ class RightSidebar extends Component {
 
           </SimpleBar>
         </div>
-        <div className="rightbar-overlay"></div>
+        <div className="rightbar-overlay" onClick={this.hideRightbar}></div>
       </React.Fragment>
     );
   }
@@ -306,12 +230,4 @@ export const PoolShareTable = () => {
     )
 }
 
-export default connect(mapStatetoProps, {
-  hideRightSidebar,
-  changeLayout,
-  changeSidebarTheme,
-  changeSidebarType,
-  changeLayoutWidth,
-  changeTopbarTheme,
-  changePreloader
-})(RightSidebar);
+export default connect(mapStatetoProps, {hideRightSidebar})(RightSidebar);
