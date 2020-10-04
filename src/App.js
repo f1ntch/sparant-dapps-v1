@@ -16,7 +16,7 @@ import "./assets/scss/theme.scss";
 import "./App.css";
 
 
-import Pools from './ui/pages/Pools.js'
+import Pools from './pages/Pools.js'
 
 
 import SpartanPools from '../src/pages/Crypto/crypto-exchange'
@@ -24,9 +24,9 @@ import SpartanPools from '../src/pages/Crypto/crypto-exchange'
 import {Layout} from 'antd';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import AddLiquidity from './ui/pages/AddLiquidity'
-import Swap from './ui/pages/Swap'
-import CreatePool from './ui/pages/CreatePool'
+import AddLiquidity from './pages/AddLiquidity'
+import Swap from './pages/Swap'
+import CreatePool from './pages/CreatePool'
 import {ContextProvider} from './context'
 import DashboardCrypto from "./pages/Dashboard-crypto";
 import PagesStarter from "./pages/Utility/pages-starter";

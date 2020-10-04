@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useContext } from 'react'
-import { Context } from '../../context'
+import { Context } from '../context'
 
-import { getSpartaContract, getDaoContract } from '../../client/web3'
+import { getSpartaContract, getDaoContract } from '../client/web3'
 
 import { Row, Col, Input } from 'antd';
 

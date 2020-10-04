@@ -17,7 +17,7 @@ import {Link} from "react-router-dom";
 //Import Breadcrumb
 import Breadcrumbs from '../../components/Common/Breadcrumb';
 
-import getPooledValue from '../../ui/pages/Pools'
+import getPooledValue from '../Pools'
 
 
 

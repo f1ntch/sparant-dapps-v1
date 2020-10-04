@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Context } from '../../context'
+import { Context } from '../context'
 
 import { withRouter } from 'react-router-dom'
 import { Row, Col, Input } from 'antd'
@@ -19,9 +19,9 @@ import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getTokenContract, getRouterContract,
     getTokenData, getNewTokenData, getAssets, getListedTokens, getListedPools, getPoolsData,
     getTokenDetails, getWalletData
-} from '../../client/web3'
+} from '../client/web3'
 
-import { convertToWei, formatBN } from '../../utils'
+import { convertToWei, formatBN } from '../utils'
 // var utils = require('ethers').utils;
 
 const CreatePool = (props) => {

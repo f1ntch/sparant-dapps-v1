@@ -1,5 +1,5 @@
 import React, { useEffect, useContext,useState } from 'react';
-import { Context } from '../../context'
+import { Context } from '../context'
 import { Tabs, Table, Row, Col, Button, Divider } from 'antd';
  import { Label, Center } from '../components/elements';
 import { CoinRow, CDPDetails } from '../components/common';

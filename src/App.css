@@ -1,6 +1,6 @@
-@import "./ui/css/general.css";
-@import "./ui/css/card.css";
-@import "./ui/css/button.css";
-@import "./ui/css/table.css";
+@import "css/general.css";
+@import "css/card.css";
+@import "css/button.css";
+@import "css/table.css";
 /*!*@import "./ui/css/sidebar.css";*!*/
 /*!*@import "./ui/css/headbar.css";*!*/

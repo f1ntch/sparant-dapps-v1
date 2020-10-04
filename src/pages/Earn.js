@@ -1,16 +1,16 @@
 
 import React, { useState, useEffect, useContext } from 'react'
-import { Context } from '../../context'
+import { Context } from '../context'
 import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
 
-import { getDaoContract, getRewards, getPoolSharesData, getListedTokens } from '../../client/web3'
+import { getDaoContract, getRewards, getPoolSharesData, getListedTokens } from '../client/web3'
 
 import { Table, Row, Col, Card, message } from 'antd';
 
 import { ColourCoin } from '../components/common'
 import { H1, Center } from '../components/elements';
 
-import { convertFromWei } from '../../utils'
+import { convertFromWei } from '../utils'
 
 const Earn = (props) => {
 

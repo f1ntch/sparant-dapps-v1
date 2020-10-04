@@ -7,7 +7,7 @@ import {
 
 import {
     POOLS_ADDR,
-} from '../../client/web3'
+} from '../client/web3'
 
 const About = (props) => {
 

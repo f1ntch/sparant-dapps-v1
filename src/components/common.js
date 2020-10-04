@@ -7,11 +7,11 @@ import {
   rainbowStop, getIntFromName, formatUnits,
   convertFromWei, formatUSD, formatUSDStatBoxes, 
   // formatAPY,
-} from '../../utils'
-import { getTokenSymbol } from '../../client/web3'
-import { H1, HR, Text, Center, Label, Sublabel } from '../components/elements'
+} from '../utils'
+import { getTokenSymbol } from '../client/web3'
+import { H1, HR, Text, Center, Label, Sublabel } from './elements'
 
-import { BNB_ADDR, SPARTA_ADDR } from '../../client/web3'
+import { BNB_ADDR, SPARTA_ADDR } from '../client/web3'
 
 // Check If Responsive
 export const useWindowSize = () => {

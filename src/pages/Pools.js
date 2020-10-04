@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Context} from '../../context'
+import {Context} from '../context'
 import {Link} from 'react-router-dom'
 import {Image, Table} from 'antd'
 
-import {BNB_ADDR, getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../../client/web3'
-import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../../utils'
+import {BNB_ADDR, getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../client/web3'
+import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../utils'
 
 import {LoadingOutlined, LoginOutlined, SwapOutlined} from '@ant-design/icons';
-import Breadcrumbs from "../../components/Common/Breadcrumb";
+import Breadcrumbs from "../components/Common/Breadcrumb";
 
 import {
     Container,
@@ -16,7 +16,7 @@ import {
     Card,
     CardBody, Media,Modal, ModalHeader, ModalBody, ModalFooter,Button
 } from "reactstrap";
-import CardWelcome from "../../pages/Dashboard-crypto/card-welcome";
+import CardWelcome from "./Dashboard-crypto/card-welcome";
 
 
 const Pools = (props) => {

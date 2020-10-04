@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Context } from '../../context'
+import { Context } from '../context'
 import { Tabs, Row, Col, message } from 'antd';
 import { LoadingOutlined, LeftOutlined, UnlockOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -8,14 +8,14 @@ import queryString from 'query-string';
 
 import { BreadcrumbCombo, InputPane, PoolPaneSide, OutputPane } from '../components/common'
 import { HR, LabelGroup, Center } from '../components/elements';
-import { bn, formatBN, convertFromWei, convertToWei } from '../../utils'
-import { getLiquidityUnits } from '../../math'
+import { bn, formatBN, convertFromWei, convertToWei } from '../utils'
+import { getLiquidityUnits } from '../math'
 
 import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getRouterContract, getTokenContract, getListedTokens,
     getPoolData, getTokenData, getTokenDetails,
     getListedPools, getPoolsData, getPool, getPoolShares, WBNB_ADDR
-} from '../../client/web3'
+} from '../client/web3'
 
 const { TabPane } = Tabs;
 

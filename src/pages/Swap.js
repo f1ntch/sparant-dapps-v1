@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import {Context} from '../../context'
+import {Context} from '../context'
 import {Tabs, message} from 'antd';
 import {Link} from "react-router-dom";
 
@@ -17,15 +17,15 @@ import queryString from 'query-string';
 
 import {BreadcrumbCombo, InputPane, PoolPaneSide,} from '../components/common'
 import {HR, Sublabel, LabelGroup} from '../components/elements';
-import {bn, formatBN, convertFromWei, convertToWei} from '../../utils'
-import {getSwapOutput, getSwapSlip} from '../../math'
+import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
+import {getSwapOutput, getSwapSlip} from '../math'
 
 import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getRouterContract, getTokenContract, getListedTokens,
     getPoolData, getNewTokenData, getTokenDetails,
     getListedPools, getPoolsData, getPool
-} from '../../client/web3'
-import Breadcrumbs from "../../components/Common/Breadcrumb";
+} from '../client/web3'
+import Breadcrumbs from "../components/Common/Breadcrumb";
 import {PoolsPaneSide} from "./Pools";
 
 const {TabPane} = Tabs;

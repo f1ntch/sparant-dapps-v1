@@ -10,7 +10,7 @@ import CryptoWallet from "../pages/Crypto/crypto-wallet";
 import CryptoBuySell from "../pages/Crypto/crypto-buy-sell";
 import CryptoExchange from "../pages/Crypto/crypto-exchange";
 import SpartanPools from "../pages/Crypto/spartan-pools";
-import Pools from "../ui/pages/Pools";
+import Pools from "../pages/Pools";
 import CryptoOrders from "../pages/Crypto/crypto-orders";
 import CryptoKYCApplication from "../pages/Crypto/crypto-kyc-application";
 
