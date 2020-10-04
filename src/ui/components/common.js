@@ -492,6 +492,7 @@ export const CLTButtonRow = (props) => {
     </>
   )
 }
+
 export const CDPPane = (props) => {
 
   return (
@@ -508,4 +509,12 @@ export const CDPPane = (props) => {
       </Col>
     </div>
   )
+}
+
+/**
+ * Toggle the class on body
+ * @param {*} cssClass
+ */
+export const manageBodyClass = (cssClass) => {document.body.classList.toggle(cssClass)
+  return true;
 }

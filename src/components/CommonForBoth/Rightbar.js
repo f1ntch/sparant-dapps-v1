@@ -12,6 +12,8 @@ import { hideRightSidebar } from "../../store/actions";
 import {BNB_ADDR} from '../../client/web3'
 import {formatUnits, convertFromWei} from '../../utils'
 
+import { manageBodyClass } from '../../ui/components/common.js';
+
 //SimpleBar
 import SimpleBar from "simplebar-react";
 
@@ -19,95 +21,80 @@ import { Link } from "react-router-dom";
 
 import "./rightbar.scss";
 
-class RightSidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.hideRightbar = this.hideRightbar.bind(this);
-  }
+const RightSidebar = (props) => {
 
-  /**
-    * Hides the right sidebar
-    */
-  hideRightbar(e) {
-    e.preventDefault();
-    this.props.hideRightSidebar();
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <div className="right-bar dark-bg">
-
-        <SimpleBar style={{ height: "900px" }}>
-            <div data-simplebar className="h-100">
-              <div className="rightbar-title px-3 py-4">
-                <Link to="#" onClick={this.hideRightbar} className="right-bar-toggle float-right">
-                  <i className="mdi mdi-close noti-icon"></i>
-                </Link>
-                <h5 className="m-0">Wallet</h5>
-              </div>
-
-              <div className="p-4">
-                <div className="radio-toolbar">
-                  <Example />
-                </div>
-              </div>
-
-            </div>
-
-          </SimpleBar>
-        </div>
-        <div className="rightbar-overlay" onClick={this.hideRightbar}></div>
-      </React.Fragment>
-    );
-  }
-}
-
-export const Example = (props) => {
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
 
-  return (
-    <>
-      <Nav tabs>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '1' })}
-            onClick={() => { toggle('1'); }}
-          >
-          Assets
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '2' })}
-            onClick={() => { toggle('2'); }}
-            >
-            LP Shares
-          </NavLink>
-        </NavItem>
-      </Nav>
+  /**
+   * Toggles the sidebar
+   */
+  const toggleRightbar = (cssClass) => {
+    manageBodyClass("right-bar-enabled");
+  }
 
-      <TabContent activeTab={activeTab}>
-        <TabPane tabId="1">
-          <Row>
-            <Col sm="12">
-              <AssetTable />
-            </Col>
-          </Row>
-        </TabPane>
-        <TabPane tabId="2">
-          <Row>
-            <Col sm="12">
-              <PoolShareTable />
-            </Col>
-          </Row>
-        </TabPane>
-      </TabContent>
-    </>
+  return (
+    <React.Fragment>
+      <div className="right-bar dark-bg">
+
+      <SimpleBar style={{ height: "900px" }}>
+          <div data-simplebar className="h-100">
+            <div className="rightbar-title px-3 py-4">
+              <Link to="#" onClick={toggleRightbar} className="right-bar-toggle float-right">
+                <i className="mdi mdi-close noti-icon"></i>
+              </Link>
+              <h5 className="m-0">Wallet</h5>
+            </div>
+
+            <div className="p-4">
+              <div className="radio-toolbar">
+                <Nav tabs>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: activeTab === '1' })}
+                      onClick={() => { toggle('1'); }}
+                    >
+                    Assets
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: activeTab === '2' })}
+                      onClick={() => { toggle('2'); }}
+                      >
+                      LP Shares
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+
+                <TabContent activeTab={activeTab}>
+                  <TabPane tabId="1">
+                    <Row>
+                      <Col sm="12">
+                        <AssetTable />
+                      </Col>
+                    </Row>
+                  </TabPane>
+                  <TabPane tabId="2">
+                    <Row>
+                      <Col sm="12">
+                        <PoolShareTable />
+                      </Col>
+                    </Row>
+                  </TabPane>
+                </TabContent>
+              </div>
+            </div>
+
+          </div>
+
+        </SimpleBar>
+      </div>
+      <div className="rightbar-overlay" onClick={toggleRightbar}></div>
+    </React.Fragment>
   );
 }
 
@@ -205,6 +192,8 @@ export const PoolShareTable = () => {
         },
         {
           title: 'Balance',
+          sorter: (a, b) => a.units - b.units,
+          sortOrder: 'descend',
           render: (record) => (
             <div>
               <h5>{formatUnits(convertFromWei(record.units))}</h5>
