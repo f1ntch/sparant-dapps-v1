@@ -145,7 +145,7 @@ export const LabelGroup = (props) => {
 
   return (
     <div style={{ display: 'block' }}>
-      <Sublabel size={props.size/(1.5)}>{props.label}</Sublabel><br />
+      <Label size={props.size/(1.5)}>{props.label}</Label><br />
       <Label size={props.size}>{props.element}</Label><br />
     </div>
   )

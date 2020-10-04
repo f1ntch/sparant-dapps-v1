@@ -340,7 +340,6 @@ const NewSwap = (props) => {
                                                                 />
                                                             </TabPane>
                                                             <TabPane tab={`SELL ${pool.symbol}`} key="2">
-
                                                                 <TradePane
                                                                     pool={pool}
                                                                     tradeData={sellData}
@@ -362,7 +361,7 @@ const NewSwap = (props) => {
                                             <TabPane tabId="2">
                                                 <Row>
                                                     <Col sm="6">
-                                                        <h1>XX</h1>
+
                                                     </Col>
                                                 </Row>
                                             </TabPane>
@@ -376,8 +375,6 @@ const NewSwap = (props) => {
                         </div>
                     </React.Fragment>
                 </div>
-                {/*<Col xs={24}>*/}
-
 
             </>
         )
@@ -390,61 +387,54 @@ const TradePane = (props) => {
 
     return (
         <>
-            <Row>
-                <Col xs={24}>
 
-                    <Row className="cntr" align="middle" justify="center">
+                    <Col xs={10}>
+                        <Label xs={10} size={20}>{'INPUT'}</Label><br/>
+                        <InputPane
+                            pool={props.pool}
+                            paneData={props.tradeData}
+                            onInputChange={props.onTradeChange}
+                            changeAmount={props.changeTradeAmount}
+                        />
+                    </Col>
+                    <Col xs={4} style={{display: 'flex', alignItems: 'center', justifyContent: "center"}}>
+                        <DoubleRightOutlined style={{fontSize: 24}}/>
+                    </Col>
+                    <Col xs={10}>
+                        <LabelGroup size={30} element={`${convertFromWei(props.tradeData.output)}`}
+                                    label={`OUTPUT (${props.tradeData.outputSymbol})`}/>
 
-                        <Col xs={10}>
-                            <Sublabel size={20}>{'INPUT'}</Sublabel><br/>
-                            <InputPane
-                                pool={props.pool}
-                                paneData={props.tradeData}
-                                onInputChange={props.onTradeChange}
-                                changeAmount={props.changeTradeAmount}
-                            />
-                        </Col>
-                        <Col xs={4} style={{display: 'flex', alignItems: 'center', justifyContent: "center"}}>
-                            <DoubleRightOutlined style={{fontSize: 24}}/>
-                        </Col>
-                        <Col xs={10}>
-                            <LabelGroup size={30} element={`${convertFromWei(props.tradeData.output)}`}
-                                        label={`OUTPUT (${props.tradeData.outputSymbol})`}/>
-
-                            <Row>
-                                <Col xs={12}>
-                                    <LabelGroup size={20} element={`${((props.tradeData.slip) * 100).toFixed(0)}%`}
-                                                label={'SLIP'}/>
-                                </Col>
-                                {/* <Col xs={12}>
+                        <Row>
+                            <Col xs={12}>
+                                <LabelGroup size={20} element={`${((props.tradeData.slip) * 100).toFixed(0)}%`}
+                                            label={'SLIP'}/>
+                            </Col>
+                            {/* <Col xs={12}>
                                     <LabelGroup size={20} element={((props.tradeData.slip) * 100).toFixed(2)} label={'FEE'} />
                                 </Col> */}
-                            </Row>
+                        </Row>
 
-                        </Col>
-                    </Row>
+                    </Col>
 
-                    <br/><br/>
+                <br/><br/>
 
-                    <Row>
-                        <Col xs={24}>
-                            {!props.approval &&
-                            <div className="btn primary" onClick={props.unlock}><UnlockOutlined/> UNLOCK</div>
-                            }
-                            {props.approval && props.startTx && !props.endTx &&
-                            <div className="btn primary" onClick={props.trade}>
-                                <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</div>
-                            }
-                            {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
-                            <div className="btn primary"
-                                 onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</div>
-                            }
+                <Row>
+                    <Col xs={24}>
+                        {!props.approval &&
+                        <div className="btn primary" onClick={props.unlock}><UnlockOutlined/> UNLOCK</div>
+                        }
+                        {props.approval && props.startTx && !props.endTx &&
+                        <div className="btn primary" onClick={props.trade}>
+                            <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</div>
+                        }
+                        {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
+                        <div className="btn primary"
+                             onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</div>
+                        }
 
-                        </Col>
-                    </Row>
+                    </Col>
+                </Row>
 
-                </Col>
-            </Row>
 
 
         </>
