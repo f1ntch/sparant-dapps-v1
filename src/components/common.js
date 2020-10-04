@@ -1,132 +1,155 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Row, Col, Breadcrumb, Button, Input, Dropdown, Menu, Divider, Card, Image } from 'antd'
-import { DownOutlined, } from '@ant-design/icons';
+import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
+import {Breadcrumb, Menu, Divider, Image} from 'antd'
+import {DownOutlined,} from '@ant-design/icons';
 // PlusCircleOutlined, MinusCircleOutlined, Tooltip
 import {
-  rainbowStop, getIntFromName, formatUnits,
-  convertFromWei, formatUSD, formatUSDStatBoxes, 
-  // formatAPY,
+    rainbowStop, getIntFromName, formatUnits,
+    convertFromWei, formatUSD, formatUSDStatBoxes,
+    // formatAPY,
 } from '../utils'
-import { getTokenSymbol } from '../client/web3'
-import { H1, HR, Text, Center, Label, Sublabel } from './elements'
+import {getTokenSymbol} from '../client/web3'
+import {H1, HR, Text, Center, Sublabel} from './elements'
 
-import { BNB_ADDR, SPARTA_ADDR } from '../client/web3'
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+    CardBody,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+    Button,
+    Nav,
+    NavItem,
+    NavLink,
+    TabContent,
+    TabPane,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    InputGroup,
+    InputGroupAddon, CardTitle, Progress
+} from "reactstrap";
+
+import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
 
 // Check If Responsive
 export const useWindowSize = () => {
-  // Initialize state with undefined width/height so server and client renders match
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
+    // Initialize state with undefined width/height so server and client renders match
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
 
-  useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
 
-    // Add event listener
-    window.addEventListener("resize", handleResize);
+        // Add event listener
+        window.addEventListener("resize", handleResize);
 
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
 
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
 
-  return windowSize;
+    return windowSize;
 }
 
 export const BreadcrumbCombo = (props) => {
 
-  return (
-    <div>
-      <H1>{props.title}</H1>
-      <Breadcrumb>
-        <Breadcrumb.Item><Link to={props.link}>{props.parent}</Link></Breadcrumb.Item>
-        <Breadcrumb.Item>{props.child}</Breadcrumb.Item>
-      </Breadcrumb>
-    </div>
-  )
+    return (
+        <div>
+            <H1>{props.title}</H1>
+            <Breadcrumb>
+                <Breadcrumb.Item><Link to={props.link}>{props.parent}</Link></Breadcrumb.Item>
+                <Breadcrumb.Item>{props.child}</Breadcrumb.Item>
+            </Breadcrumb>
+        </div>
+    )
 }
 
 export const InputPane = (props) => {
 
-  return (
-    <div>
-      <Row>
-        <Col xs={24}>
-          <Input onChange={props.onInputChange}
-            placeholder={convertFromWei(props.paneData?.input)}
-            size={'large'}
-            // defaultValue={convertFromWei(props.paneData?.input)}
-            allowClear={true}
-          // addonAfter={<TokenDropDown default={props.paneData?.address}
-          //   changeToken={props.changeToken}
-          //   tokenList={props.tokenList} />}
-          ></Input>
-          <Sublabel>Balance:
-            {convertFromWei(props.paneData?.balance)} ({props.paneData?.symbol})</Sublabel>
-        </Col>
-      </Row>
-      <PercentButtonRow changeAmount={props.changeAmount} />
-    </div>
-  )
+    return (
+        <div>
+            <Row>
+                <Col xs={24}>
+                    <Input onChange={props.onInputChange}
+                           placeholder={convertFromWei(props.paneData?.input)}
+                           size={'large'}
+                        // defaultValue={convertFromWei(props.paneData?.input)}
+                           allowClear={true}
+                        // addonAfter={<TokenDropDown default={props.paneData?.address}
+                        //   changeToken={props.changeToken}
+                        //   tokenList={props.tokenList} />}
+                    ></Input>
+                    <Sublabel>Balance:
+                        {convertFromWei(props.paneData?.balance)} ({props.paneData?.symbol})</Sublabel>
+                </Col>
+            </Row>
+            <PercentButtonRow changeAmount={props.changeAmount}/>
+        </div>
+    )
 }
 
 export const InputPaneStatic = (props) => {
-  //tokenList
-  //paneData: {address, input, balance}
-  //inputChange, changeToken, changeAmount
+    //tokenList
+    //paneData: {address, input, balance}
+    //inputChange, changeToken, changeAmount
 
-  return (
-    <div>
-      <Row>
-        <Col xs={24}>
-          <Input onChange={props.onInputChange}
-            placeholder={convertFromWei(props.paneData?.input)}
-            // defaultValue={convertFromWei(props.paneData?.input)}
-            allowClear={true}
-            addonAfter={
-              <TokenSymbol
-                symbol={props.tokenSymbol?.symbol} />}
-          ></Input>
-          <Sublabel>Balance:
-            {convertFromWei(props.paneData?.balance)} ({props.tokenSymbol?.symbol})</Sublabel>
-        </Col>
-      </Row>
-      <PercentButtonRow changeAmount={props.changeAmount} />
-    </div>
-  )
+    return (
+        <div>
+            <Row>
+                <Col xs={24}>
+                    <Input onChange={props.onInputChange}
+                           placeholder={convertFromWei(props.paneData?.input)}
+                        // defaultValue={convertFromWei(props.paneData?.input)}
+                           allowClear={true}
+                           addonAfter={
+                               <TokenSymbol
+                                   symbol={props.tokenSymbol?.symbol}/>}
+                    ></Input>
+                    <Sublabel>Balance:
+                        {convertFromWei(props.paneData?.balance)} ({props.tokenSymbol?.symbol})</Sublabel>
+                </Col>
+            </Row>
+            <PercentButtonRow changeAmount={props.changeAmount}/>
+        </div>
+    )
 }
-
 
 
 export const OutputPane = (props) => {
 
-  // const [secondToken, setSecondToken] = useState(false)
+    // const [secondToken, setSecondToken] = useState(false)
 
-  // const handleSecondToken = () => {
-  //   secondToken ? setSecondToken(false) : setSecondToken(true)
-  // }
+    // const handleSecondToken = () => {
+    //   secondToken ? setSecondToken(false) : setSecondToken(true)
+    // }
 
-  return (
-    <div style={{ margin: 0 }}>
-      <Center>
-        <Row>
-          <Col xs={24}>
-            <PercentButtonRow changeAmount={props.changeAmount} />
-          </Col>
-        </Row>
-      </Center>
-      {/* <Center>
+    return (
+        <div style={{margin: 0}}>
+            <Center>
+                <Row>
+                    <Col xs={24}>
+                        <PercentButtonRow changeAmount={props.changeAmount}/>
+                    </Col>
+                </Row>
+            </Center>
+            {/* <Center>
         {!secondToken &&
           <div>
             <Row>
@@ -157,357 +180,456 @@ export const OutputPane = (props) => {
           </div>
         }
       </Center> */}
-      <br />
-    </div >
-  )
+            <br/>
+        </div>
+    )
 }
 
 export const PercentButtonRow = (props) => {
 
-  const change25 = () => { props.changeAmount(25) }
-  const change50 = () => { props.changeAmount(50) }
-  const change75 = () => { props.changeAmount(75) }
-  const change100 = () => { props.changeAmount(100) }
+    const change25 = () => {
+        props.changeAmount(25)
+    }
+    const change50 = () => {
+        props.changeAmount(50)
+    }
+    const change75 = () => {
+        props.changeAmount(75)
+    }
+    const change100 = () => {
+        props.changeAmount(100)
+    }
 
-  const btnStyle = {
-    marginRight: 3.5,
-    marginTop: 10,
-  }
-  return (
-    <>
-      <Row style={{ marginBottom: 10 }}>
-        <Col xs={24}>
-          <Button type="dashed" style={btnStyle} onClick={change25}>25%</Button>
-          <Button type="dashed" style={btnStyle} onClick={change50}>50%</Button>
-          <Button type="dashed" style={btnStyle} onClick={change75}>75%</Button>
-          <Button style={btnStyle} onClick={change100}>ALL</Button>
-        </Col>
-      </Row>
-    </>
-  )
+    const btnStyle = {
+        marginRight: 3.5,
+        marginTop: 10,
+    }
+    return (
+        <>
+            <Row style={{marginBottom: 10}}>
+                <Col xs={24}>
+                    <Button type="dashed" style={btnStyle} onClick={change25}>25%</Button>
+                    <Button type="dashed" style={btnStyle} onClick={change50}>50%</Button>
+                    <Button type="dashed" style={btnStyle} onClick={change75}>75%</Button>
+                    <Button style={btnStyle} onClick={change100}>ALL</Button>
+                </Col>
+            </Row>
+        </>
+    )
 }
 
 export const TokenDropDown = (props) => {
 
-  const [symbol, setSymbol] = useState("SPARTA")
-  const [arraySymbols, setArraySymbols] = useState(["SPARTA"])
+    const [symbol, setSymbol] = useState("SPARTA")
+    const [arraySymbols, setArraySymbols] = useState(["SPARTA"])
 
-  useEffect(() => {
-    if (props.tokenList) {
-      loadSymbols()
+    useEffect(() => {
+        if (props.tokenList) {
+            loadSymbols()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.tokenList])
+
+    const loadSymbols = async () => {
+        setSymbol(await getTokenSymbol(props.default))
+        const symbols = props.tokenList.map(async (item) => await getTokenSymbol(item))
+        setArraySymbols(symbols)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.tokenList])
 
-  const loadSymbols = async () => {
-    setSymbol(await getTokenSymbol(props.default))
-    const symbols = props.tokenList.map(async (item) => await getTokenSymbol(item))
-    setArraySymbols(symbols)
-  }
+    const handleMenuClick = async (e) => {
+        setSymbol(await getTokenSymbol(props.tokenList[e.key]))
+        props.changeToken(props.tokenList[e.key])
+    }
 
-  const handleMenuClick = async (e) => {
-    setSymbol(await getTokenSymbol(props.tokenList[e.key]))
-    props.changeToken(props.tokenList[e.key])
-  }
+    const style = {
+        width: 100,
+        // background: Colour().white,
+        // padding:'-20px'
+    }
 
-  const style = {
-    width: 100,
-    // background: Colour().white,
-    // padding:'-20px'
-  }
+    const menu = (
+        <Menu>
+            {arraySymbols.map((item, index) => (
+                <Menu.Item key={index} onClick={handleMenuClick}>
+                    <Row>
+                        <Col xs={8} style={{paddingLeft: 2}}>
+                            <ColourCoin symbol={item} size={22}/>
+                        </Col>
+                        <Col xs={8} style={{paddingLeft: 2}}>
+                            {item}
+                        </Col>
+                    </Row>
+                </Menu.Item>
+            ))}
+        </Menu>
+    );
+    return (
+        <div>
+            <Dropdown overlay={menu}>
+                {/* <Button style={{ width: 120 }}> */}
+                <Row style={style}>
+                    <Col xs={8} style={{paddingLeft: 2}}>
+                        <ColourCoin symbol={symbol} size={22}/>
+                    </Col>
+                    <Col xs={8} style={{paddingLeft: 2}}>
+                        {symbol}
+                    </Col>
+                    <Col xs={8} style={{paddingLeft: 2}}>
+                        <DownOutlined/>
+                    </Col>
+                </Row>
+                {/* </Button> */}
+            </Dropdown>
+        </div>
 
-  const menu = (
-    <Menu>
-      {arraySymbols.map((item, index) => (
-        <Menu.Item key={index} onClick={handleMenuClick}>
-          <Row >
-            <Col xs={8} style={{ paddingLeft: 2 }}>
-              <ColourCoin symbol={item} size={22} />
-            </Col>
-            <Col xs={8} style={{ paddingLeft: 2 }}>
-              {item}
-            </Col>
-          </Row>
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
-  return (
-    <div>
-      <Dropdown overlay={menu}>
-        {/* <Button style={{ width: 120 }}> */}
-        <Row style={style}>
-          <Col xs={8} style={{ paddingLeft: 2 }}>
-            <ColourCoin symbol={symbol} size={22} />
-          </Col>
-          <Col xs={8} style={{ paddingLeft: 2 }}>
-            {symbol}
-          </Col>
-          <Col xs={8} style={{ paddingLeft: 2 }}>
-            <DownOutlined />
-          </Col>
-        </Row>
-        {/* </Button> */}
-      </Dropdown>
-    </div>
-
-  )
+    )
 
 }
 export const TokenSymbol = (props) => {
 
-  useEffect(() => {
+    useEffect(() => {
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.symbol])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.symbol])
 
-  const style = {
-    width: 100,
-    // background: Colour().white,
-    // padding:'-20px'
-  }
-  return (
-    <div>
-      <Row style={style}>
-        <Col xs={8} style={{ paddingLeft: 2 }}>
-          <ColourCoin symbol={props.symbol} size={22} />
-        </Col>
-        <Col xs={8} style={{ paddingLeft: 2 }}>
-          {props.symbol}
-        </Col>
-        <Col xs={8} style={{ paddingLeft: 2 }}>
+    const style = {
+        width: 100,
+        // background: Colour().white,
+        // padding:'-20px'
+    }
+    return (
+        <div>
+            <Row style={style}>
+                <Col xs={8} style={{paddingLeft: 2}}>
+                    <ColourCoin symbol={props.symbol} size={22}/>
+                </Col>
+                <Col xs={8} style={{paddingLeft: 2}}>
+                    {props.symbol}
+                </Col>
+                <Col xs={8} style={{paddingLeft: 2}}>
 
-        </Col>
-      </Row>
-    </div>
+                </Col>
+            </Row>
+        </div>
 
-  )
+    )
 
 }
 
 export const PoolPaneSide = (props) => {
 
-  return (
-    <Card>
-      <Row type="flex" align="middle" className="cntr">
-        <Col xs={24}>
-          <Row type="flex" align="middle" className="cntr">
-            <Col xs={12}>
-              <h2 className="strong">{props.pool.symbol}</h2>
-              { props.pool.address === BNB_ADDR &&
-                  <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"} style={{ height:50 }} alt='BNB' />
-              }
-              { props.pool.address !== BNB_ADDR &&
-                <Image
-                  width={50}
-                  height={50}
-                  src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.pool.address + "/logo.png"}
-                  fallback="../fallback.png"
-                />
-              }
-            </Col>
-            <Col xs={12}>
-              <h2 className="strong">SPARTA</h2>
-              <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"} style={{ height:50 }} alt='SPARTA' />
-            </Col>
-          </Row>
+    return (
+        <Col lg="12">
+            <Card>
+                <CardBody>
+                    <CardTitle className="mb-4">
+                        Overview
+                    </CardTitle>
+                    <div className="text-center">
+                        <div className="mb-4">
+                            <i className="text-primary display-4">{props.pool.address === BNB_ADDR &&
+                            <img
+                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
+                                style={{height: 50}} alt='BNB'/>
+                            }</i>
+                        </div>
+                        <h2>{props.pool.symbol}</h2>
+                        <br/>
+                    </div>
+                    <div className="table-responsive mt-4">
+                        <table className="table table-centered table-nowrap mb-0">
+                            <tbody>
+                            <tr>
+                                <td style={{width: "100%"}}>
+                                    <p className="mb-0">Volume</p>
+                                </td>
+                                <td style={{width: "10%"}}>
+                                    <h5 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.pool.volume), props.price)}</h5>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p className="mb-0">Tx Count</p>
+                                </td>
+                                <td>
+                                    <h5 className="mb-0">{props.pool.txCount}</h5>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p className="mb-0">Fees</p>
+                                </td>
+                                <td>
+                                    <h5 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.pool.fees), props.price)}</h5>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p className="mb-0">Depth</p>
+                                </td>
+                                <td>
+                                    <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.tokenAmount))}</h5>
+                                    <p>{props.pool.symbol}</p>
+                                    <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.baseAmount))}</h5>
+                                    <p>SPARTA</p>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
 
-          <Row>
-            <Col xs={12} md={8}>
-              <h4>VOLUME</h4>
-              <h3 className="strong">{formatUSDStatBoxes(convertFromWei(props.pool.volume), props.price)}</h3>
-            </Col>
-            <Col xs={12} md={8}>
-              <h4>DEPTH</h4>
-              <h4 className="strong">{formatUnits(convertFromWei(props.pool.tokenAmount))} {props.pool.symbol}</h4>
-              <h4 className="strong">{formatUnits(convertFromWei(props.pool.baseAmount))} SPARTA</h4>
-            </Col>
-            <Col xs={12} md={8}>
-              <h4>PRICE</h4>
-              <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
-            </Col>
-
-            <Col xs={12} md={8}>
-              <h4>TX COUNT</h4>
-              <h3 className="strong">{props.pool.txCount}</h3>
-            </Col>
-            <Col xs={12} md={8}>
-              <h4>FEES</h4>
-              <h3 className="strong">{formatUSDStatBoxes(convertFromWei(props.pool.fees), props.price)}</h3>
-            </Col>
-            <Col xs={12} md={8}>
-              {/* <h4>APY</h4>
-              <h3 className="strong">{formatAPY(props.pool.apy)}</h3> */}
-            </Col>
-          </Row>
-
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="text-center">
+                        <div className="mb-4">
+                            <i className="text-primary display-4">{props.pool.address === BNB_ADDR &&
+                            <img
+                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"}
+                                style={{height: 50}} alt='SPARTA'/>
+                            }</i>
+                        </div>
+                        <h2>SPARTA</h2>
+                        <p>Price</p>
+                        <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
+                    </div>
+                </CardBody>
+            </Card>
         </Col>
-      </Row>
-    </Card>
-  )
-}
+        // <Card>
+        //   <Row type="flex" align="middle" className="cntr">
+        //     <Col xs={24}>
+        //       <Row type="flex" align="middle" className="cntr">
+        //         <Col xs={12}>
+        //
+        //           { props.pool.address !== BNB_ADDR &&
+        //             <Image
+        //               width={50}
+        //               height={50}
+        //               src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.pool.address + "/logo.png"}
+        //               fallback="../fallback.png"
+        //             />
+        //           }
+        //         </Col>
+        //         <Col xs={12}>
+        //           <h2 className="strong">SPARTA</h2>
+        //           <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"} style={{ height:50 }} alt='SPARTA' />
+        //         </Col>
+        //       </Row>
+        //
+        //       <Row>
+        //         <Col xs={12} md={8}>
+        //           <h4>VOLUME</h4>
+        //           <h3 className="strong">{formatUSDStatBoxes(convertFromWei(props.pool.volume), props.price)}</h3>
+        //         </Col>
+        //         <Col xs={12} md={8}>
+        //           <h4>DEPTH</h4>
+        //           <h4 className="strong">{formatUnits(convertFromWei(props.pool.tokenAmount))} {props.pool.symbol}</h4>
+        //           <h4 className="strong">{formatUnits(convertFromWei(props.pool.baseAmount))} SPARTA</h4>
+        //         </Col>
+        //         <Col xs={12} md={8}>
+        //           <h4>PRICE</h4>
+        //           <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
+        //         </Col>
+        //
+        //         <Col xs={12} md={8}>
+        //           <h4>TX COUNT</h4>
+        //           <h3 className="strong">{props.pool.txCount}</h3>
+        //         </Col>
+        //         <Col xs={12} md={8}>
+        //           <h4>FEES</h4>
+        //           <h3 className="strong">{formatUSDStatBoxes(convertFromWei(props.pool.fees), props.price)}</h3>
+        //         </Col>
+        //         <Col xs={12} md={8}>
+        //           {/* <h4>APY</h4>
+        //           <h3 className="strong">{formatAPY(props.pool.apy)}</h3> */}
+        //         </Col>
+        //       </Row>
+        //
+        //     </Col>
+        //   </Row>
+        // </Card>
+    )
+};
 
 export const PoolPane = (props) => {
 
-  return (
-    <div>
-      <Col xs={24} sm={24} xl={24}>
-        <Row>
-          <Col xs={24}>
-            <ColourCoin symbol={props.symbol} size={40} />
-            <Center><Text size={30} margin={"-40px 0px 5px 0px"}>{convertFromWei(props?.balance)}</Text></Center>
-            {/* <Center><Label margin={"0px 0px 0px 0px"}>({formatUSD(convertFromWei(props?.balance))})</Label></Center> */}
-            <Center><Sublabel margin={"0px 0px 5px 0px"}>DEPTH ({props?.symbol})</Sublabel></Center>
-
-            {!props.hideSubpane &&
-              <div>
-                <HR />
+    return (
+        <div>
+            <Col xs={24} sm={24} xl={24}>
                 <Row>
-                  <Col xs={8}>
-                    <Label>{props.data.field1.data}</Label><br />
-                    <Sublabel>{props.data.field1.title}</Sublabel>
-                  </Col>
-                  <Col xs={8}>
-                    <Label>{props.data.field2.data}</Label><br />
-                    <Sublabel>{props.data.field2.title}</Sublabel>
-                  </Col>
-                  <Col xs={8}>
-                    <Label>{props.data.field3.data}</Label><br />
-                    <Sublabel>{props.data.field3.title}</Sublabel>
-                  </Col>
+                    <Col xs={24}>
+                        <ColourCoin symbol={props.symbol} size={40}/>
+                        <Center><Text size={30}
+                                      margin={"-40px 0px 5px 0px"}>{convertFromWei(props?.balance)}</Text></Center>
+                        {/* <Center><Label margin={"0px 0px 0px 0px"}>({formatUSD(convertFromWei(props?.balance))})</Label></Center> */}
+                        <Center><Sublabel margin={"0px 0px 5px 0px"}>DEPTH ({props?.symbol})</Sublabel></Center>
+
+                        {!props.hideSubpane &&
+                        <div>
+                            <HR/>
+                            <Row>
+                                <Col xs={8}>
+                                    <Label>{props.data.field1.data}</Label><br/>
+                                    <Sublabel>{props.data.field1.title}</Sublabel>
+                                </Col>
+                                <Col xs={8}>
+                                    <Label>{props.data.field2.data}</Label><br/>
+                                    <Sublabel>{props.data.field2.title}</Sublabel>
+                                </Col>
+                                <Col xs={8}>
+                                    <Label>{props.data.field3.data}</Label><br/>
+                                    <Sublabel>{props.data.field3.title}</Sublabel>
+                                </Col>
+                            </Row>
+                        </div>
+                        }
+                    </Col>
                 </Row>
-              </div>
-            }
-          </Col>
-        </Row>
-      </Col>
-    </div>
-  )
+            </Col>
+        </div>
+    )
 }
 
 export const ColourCoin = (props) => {
-  const symbol = props.symbol ? props.symbol : 'XXX'
-  const numbers = getIntFromName(symbol)
-  const startCol = rainbowStop(numbers[0])
-  const stopCol = rainbowStop(numbers[1])
-  const coinName = symbol.length > 4 ? symbol.substr(0, 4) : symbol
+    const symbol = props.symbol ? props.symbol : 'XXX'
+    const numbers = getIntFromName(symbol)
+    const startCol = rainbowStop(numbers[0])
+    const stopCol = rainbowStop(numbers[1])
+    const coinName = symbol.length > 4 ? symbol.substr(0, 4) : symbol
 
-  const coinStyle = {
-    marginTop:5,
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '50%',
-    width: props.size,
-    height: props.size,
-    background: `linear-gradient(45deg, ${startCol}, ${stopCol})`,
-}
+    const coinStyle = {
+        marginTop: 5,
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '50%',
+        width: props.size,
+        height: props.size,
+        background: `linear-gradient(45deg, ${startCol}, ${stopCol})`,
+    }
 
-  return (
-    <div >
-       <Row style={coinStyle}>
-        <Col style={{marginTop:5}}>
-          <p>{coinName}</p>
-        </Col>
-      </Row>
-    </div>
-  )
+    return (
+        <div>
+            <Row style={coinStyle}>
+                <Col style={{marginTop: 5}}>
+                    <p>{coinName}</p>
+                </Col>
+            </Row>
+        </div>
+    )
 }
 
 export const CoinRow = (props) => {
 
-  return (
-    <div>
-      <Row align="middle" justify="center" className="cntr">
-        <Col xs={12}>
-            { props.address === BNB_ADDR &&
-              <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"} style={{ height:40 }} alt='BNB' />
-            }
-            { props.address !== BNB_ADDR &&
-              <Image
-                width={40}
-                height={40}
-                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.address + "/logo.png"}
-                fallback="../fallback.png"
-              />
-            }
-          </Col>
-          <Col xs={12}>
-            <Label size={props.size / 2.2}>{props.name}</Label>
-          </Col>
-          <Col xs={12}>
-            <Label size={props.size / 1.8}>{props.symbol}</Label><br />
-          </Col>
-          <Col xs={12}>
-            <Text size={props.size / 2}>{convertFromWei(props.balance)}</Text><br />
-            {/* <Text size={props.size / 3}>({formatUSD(convertFromWei(props.balance))})</Text> */}
-          </Col>
-      </Row>
+    return (
+        <div>
+            <Row align="middle" justify="center" className="cntr">
+                <Col xs={12}>
+                    {props.address === BNB_ADDR &&
+                    <img
+                        src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
+                        style={{height: 40}} alt='BNB'/>
+                    }
+                    {props.address !== BNB_ADDR &&
+                    <Image
+                        width={40}
+                        height={40}
+                        src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.address + "/logo.png"}
+                        fallback="../fallback.png"
+                    />
+                    }
+                </Col>
+                <Col xs={12}>
+                    <Label size={props.size / 2.2}>{props.name}</Label>
+                </Col>
+                <Col xs={12}>
+                    <Label size={props.size / 1.8}>{props.symbol}</Label><br/>
+                </Col>
+                <Col xs={12}>
+                    <Text size={props.size / 2}>{convertFromWei(props.balance)}</Text><br/>
+                    {/* <Text size={props.size / 3}>({formatUSD(convertFromWei(props.balance))})</Text> */}
+                </Col>
+            </Row>
 
-    </div>
-  )
+        </div>
+    )
 }
 export const CDPDetails = (props) => {
 
-  return (
-    <div>
-      <Row>
-        <Col span={4}>
-          <ColourCoin symbol={props.symbol} size={props.size} />
-        </Col>
-        <Col span={12}>
-          <Label size={props.size / 2.2}>{props.name}</Label><br />
-        </Col>
-        <Col span={6}>
-          <Text size={props.size / 2}>{convertFromWei(props.balance)}</Text><br />
-          <Text size={props.size / 3}>({formatUSD(convertFromWei(props.balance))})</Text>
-        </Col>
+    return (
+        <div>
+            <Row>
+                <Col span={4}>
+                    <ColourCoin symbol={props.symbol} size={props.size}/>
+                </Col>
+                <Col span={12}>
+                    <Label size={props.size / 2.2}>{props.name}</Label><br/>
+                </Col>
+                <Col span={6}>
+                    <Text size={props.size / 2}>{convertFromWei(props.balance)}</Text><br/>
+                    <Text size={props.size / 3}>({formatUSD(convertFromWei(props.balance))})</Text>
+                </Col>
 
-      </Row>
-    </div>
-  )
+            </Row>
+        </div>
+    )
 }
 
 export const CLTButtonRow = (props) => {
 
-  const change110 = () => { props.changeAmount(110) }
-  const change125 = () => { props.changeAmount(125) }
-  const change150 = () => { props.changeAmount(150) }
-  const change200 = () => { props.changeAmount(200) }
+    const change110 = () => {
+        props.changeAmount(110)
+    }
+    const change125 = () => {
+        props.changeAmount(125)
+    }
+    const change150 = () => {
+        props.changeAmount(150)
+    }
+    const change200 = () => {
+        props.changeAmount(200)
+    }
 
-  const btnStyle = {
-    marginRight: 3.5
-  }
-  return (
-    <>
-      <Row style={{ marginBottom: 10 }}>
-        <Col xs={24}>
-          <Button type="dashed" style={btnStyle} onClick={change110}>110%</Button>
-          <Button type="dashed" style={btnStyle} onClick={change125}>125%</Button>
-          <Button type="dashed" style={btnStyle} onClick={change150}>150%</Button>
-          <Button type="dashed" style={btnStyle} onClick={change200}>200%</Button>
-        </Col>
-      </Row>
-    </>
-  )
+    const btnStyle = {
+        marginRight: 3.5
+    }
+    return (
+        <>
+            <Row style={{marginBottom: 10}}>
+                <Col xs={24}>
+                    <Button type="dashed" style={btnStyle} onClick={change110}>110%</Button>
+                    <Button type="dashed" style={btnStyle} onClick={change125}>125%</Button>
+                    <Button type="dashed" style={btnStyle} onClick={change150}>150%</Button>
+                    <Button type="dashed" style={btnStyle} onClick={change200}>200%</Button>
+                </Col>
+            </Row>
+        </>
+    )
 }
 export const CDPPane = (props) => {
 
-  return (
-    <div>
-      <Col xs={24} sm={24} xl={24}>
-        <Row>
-          <Col xs={24}>
-            <Divider><Label size={20}>{props.name}</Label> </Divider>
-            <ColourCoin symbol={props.symbol} size={40} />
-            <Center><Text size={30} margin={"-40px 0px 5px 0px"}>{convertFromWei(props?.balance)}</Text></Center>
-            <Center><Label margin={"0px 0px 0px 0px"}>({formatUSD(convertFromWei(props?.balance))})</Label></Center>
-          </Col>
-        </Row>
-      </Col>
-    </div>
-  )
+    return (
+        <div>
+            <Col xs={24} sm={24} xl={24}>
+                <Row>
+                    <Col xs={24}>
+                        <Divider><Label size={20}>{props.name}</Label> </Divider>
+                        <ColourCoin symbol={props.symbol} size={40}/>
+                        <Center><Text size={30}
+                                      margin={"-40px 0px 5px 0px"}>{convertFromWei(props?.balance)}</Text></Center>
+                        <Center><Label margin={"0px 0px 0px 0px"}>({formatUSD(convertFromWei(props?.balance))})</Label></Center>
+                    </Col>
+                </Row>
+            </Col>
+        </div>
+    )
 }
 
 /**
