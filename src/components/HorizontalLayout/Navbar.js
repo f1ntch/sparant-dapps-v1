@@ -68,7 +68,7 @@ class Navbar extends Component {
                                         </Link>
                                         <div className={classname("dropdown-menu", { show: this.state.isDashboard })}>
                                             <Link to="overview" className="dropdown-item">{this.props.t('Overview')}</Link>
-                                            <Link to="pools" className="dropdown-item">{this.props.t('Pools')}</Link>
+                                            <Link to="pool" className="dropdown-item">{this.props.t('Pools')}</Link>
                                             <Link to="dao" className="dropdown-item">{this.props.t('Dao')}</Link>
                                             <Link to="earn" className="dropdown-item">{this.props.t('Earn')}</Link>
                                             <Link to="swap" className="dropdown-item">{this.props.t('Swap')}</Link>

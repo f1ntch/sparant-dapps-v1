@@ -22,7 +22,7 @@ import {
     Input,
     Label,
     Button,
-    Nav,
+    CarNa,
     NavItem,
     NavLink,
     TabContent,

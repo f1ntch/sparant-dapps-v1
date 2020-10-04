@@ -54,7 +54,7 @@ const App = () => {
                                     <Route path="/overview" exact component={DashboardCrypto}/>
 
                                     // Apps
-                                    <Route path="/pools" exact component={Pools}/>
+                                    <Route path="/pool" exact component={Pools}/>
                                     <Route path="/test" exact component={SpartanPools}/>
                                     <Route path="/pool/stake" exact component={AddLiquidity}/>
                                     <Route path="/pool/swap" exact component={Swap}/>
