@@ -394,7 +394,7 @@ export const PoolPaneSide = (props) => {
                                 style={{height: 50}} alt='SPARTA'/>
                             }</i>
                         </div>
-                        <h2>SPARTAAAA</h2>
+                        <h2>SPARTA</h2>
                         <p>Price</p>
                         <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
                     </div>
