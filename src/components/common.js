@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import {Breadcrumb, Menu, Divider, Image} from 'antd'
+import { Menu, Divider,Image} from 'antd'
 import {DownOutlined,} from '@ant-design/icons';
 // PlusCircleOutlined, MinusCircleOutlined, Tooltip
 import {
@@ -32,7 +32,7 @@ import {
     DropdownMenu,
     DropdownItem,
     InputGroup,
-    InputGroupAddon, CardTitle, Progress
+    InputGroupAddon, CardTitle, Progress, Breadcrumb,Media
 } from "reactstrap";
 
 import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
@@ -327,11 +327,17 @@ export const PoolPaneSide = (props) => {
                     </CardTitle>
                     <div className="text-center">
                         <div className="mb-4">
-                            <i className="text-primary display-4">{props.pool.address === BNB_ADDR &&
+                            { props.pool.address === BNB_ADDR &&
+                            <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"} style={{ height:50 }} alt='BNB' />
+                            }
+                            { props.pool.address !== BNB_ADDR &&
                             <img
-                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
-                                style={{height: 50}} alt='BNB'/>
-                            }</i>
+                                src-data="holder.js/171x180"
+                                width={50}
+                                height={50}
+                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.pool.address + "/logo.png"}
+                            />
+                            }
                         </div>
                         <h2>{props.pool.symbol}</h2>
                         <br/>
@@ -388,11 +394,10 @@ export const PoolPaneSide = (props) => {
                     </div>
                     <div className="text-center">
                         <div className="mb-4">
-                            <i className="text-primary display-4">{props.pool.address === BNB_ADDR &&
+                            <i className="text-primary display-4">
                             <img
                                 src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"}
-                                style={{height: 50}} alt='SPARTA'/>
-                            }</i>
+                                style={{height: 50}} alt='SPARTA'/></i>
                         </div>
                         <h2>SPARTA</h2>
                         <p>Price</p>
@@ -401,59 +406,8 @@ export const PoolPaneSide = (props) => {
                 </CardBody>
             </Card>
         </Col>
-        // <Card>
-        //   <Row type="flex" align="middle" className="cntr">
-        //     <Col xs={24}>
-        //       <Row type="flex" align="middle" className="cntr">
-        //         <Col xs={12}>
-        //
-        //           { props.pool.address !== BNB_ADDR &&
-        //             <Image
-        //               width={50}
-        //               height={50}
-        //               src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.pool.address + "/logo.png"}
-        //               fallback="../fallback.png"
-        //             />
-        //           }
-        //         </Col>
-        //         <Col xs={12}>
-        //           <h2 className="strong">SPARTA</h2>
-        //           <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"} style={{ height:50 }} alt='SPARTA' />
-        //         </Col>
-        //       </Row>
-        //
-        //       <Row>
-        //         <Col xs={12} md={8}>
-        //           <h4>VOLUME</h4>
-        //           <h3 className="strong">{formatUSDStatBoxes(convertFromWei(props.pool.volume), props.price)}</h3>
-        //         </Col>
-        //         <Col xs={12} md={8}>
-        //           <h4>DEPTH</h4>
-        //           <h4 className="strong">{formatUnits(convertFromWei(props.pool.tokenAmount))} {props.pool.symbol}</h4>
-        //           <h4 className="strong">{formatUnits(convertFromWei(props.pool.baseAmount))} SPARTA</h4>
-        //         </Col>
-        //         <Col xs={12} md={8}>
-        //           <h4>PRICE</h4>
-        //           <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
-        //         </Col>
-        //
-        //         <Col xs={12} md={8}>
-        //           <h4>TX COUNT</h4>
-        //           <h3 className="strong">{props.pool.txCount}</h3>
-        //         </Col>
-        //         <Col xs={12} md={8}>
-        //           <h4>FEES</h4>
-        //           <h3 className="strong">{formatUSDStatBoxes(convertFromWei(props.pool.fees), props.price)}</h3>
-        //         </Col>
-        //         <Col xs={12} md={8}>
         //           {/* <h4>APY</h4>
         //           <h3 className="strong">{formatAPY(props.pool.apy)}</h3> */}
-        //         </Col>
-        //       </Row>
-        //
-        //     </Col>
-        //   </Row>
-        // </Card>
     )
 };
 
@@ -636,6 +590,7 @@ export const CDPPane = (props) => {
  * Toggle the class on body
  * @param {*} cssClass
  */
-export const manageBodyClass = (cssClass) => {document.body.classList.toggle(cssClass)
-  return true;
+export const manageBodyClass = (cssClass) => {
+    document.body.classList.toggle(cssClass)
+    return true;
 } 
