@@ -509,3 +509,11 @@ export const CDPPane = (props) => {
     </div>
   )
 }
+
+/**
+ * Toggle the class on body
+ * @param {*} cssClass
+ */
+export const manageBodyClass = (cssClass) => {document.body.classList.toggle(cssClass)
+  return true;
+} 
