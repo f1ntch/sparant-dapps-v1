@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext, Component} from 'react'
 import {Context} from '../context'
-import {Tabs, message} from 'antd';
+import {message} from 'antd';
+
 import {LoadingOutlined, LeftOutlined, DoubleRightOutlined, UnlockOutlined} from '@ant-design/icons';
 
 import {withRouter} from 'react-router-dom';
@@ -32,14 +33,14 @@ import {
     Nav,
     NavItem,
     NavLink,
-    TabContent,
     TabPane,
     Dropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
     InputGroup,
-    InputGroupAddon
+    InputGroupAddon,
+    TabContent
 } from "reactstrap";
 
 import classnames from 'classnames';
@@ -47,6 +48,13 @@ import Breadcrumbs from "../components/Common/Breadcrumb";
 
 
 const NewSwap = (props) => {
+
+        const [activeTab, setActiveTab] = useState('1');
+
+        const toggle = tab => {
+            if (activeTab !== tab) setActiveTab(tab);
+        };
+
 
         const context = useContext(Context)
         const [poolURL, setPoolURL] = useState('')
@@ -267,7 +275,6 @@ const NewSwap = (props) => {
         };
 
 
-
         return (
             <>
                 <div>
@@ -283,46 +290,81 @@ const NewSwap = (props) => {
                                     <Col lg="8">
 
 
-                                        {/*<Col xs={24}>*/}
-                                        {/*    <div className="minimal-card ant-card-bordered">*/}
-                                        {/*        <Row>*/}
-                                        {/*            <Col xs={24}>*/}
-                                        {/*                <Tabs defaultActiveKey="1" onChange={changeTabs}>*/}
-                                        {/*                    <TabPane tab={`BUY ${pool.symbol}`} key="1">*/}
-                                        {/*                        <TradePane*/}
-                                        {/*                            pool={pool}*/}
-                                        {/*                            tradeData={buyData}*/}
-                                        {/*                            onTradeChange={onBuyChange}*/}
-                                        {/*                            changeTradeAmount={changeBuyAmount}*/}
-                                        {/*                            approval={approvalS}*/}
-                                        {/*                            unlock={unlockSparta}*/}
-                                        {/*                            trade={buy}*/}
-                                        {/*                            startTx={startTx}*/}
-                                        {/*                            endTx={endTx}*/}
-                                        {/*                            type={"BUY"}*/}
-                                        {/*                        />*/}
-                                        {/*                    </TabPane>*/}
-                                        {/*                    <TabPane tab={`SELL ${pool.symbol}`} key="2">*/}
+                                        <div className="crypto-buy-sell-nav">
+                                        <Nav tabs className="nav-tabs-custom" role="tablist">
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({active: activeTab === '1'})}
+                                                    onClick={() => {
+                                                        toggle('1');
+                                                    }}
+                                                >
+                                                    Join
+                                                </NavLink>
+                                            </NavItem>
+                                            <NavItem>
+                                                <NavLink
+                                                    className={classnames({active: activeTab === '2'})}
+                                                    onClick={() => {
+                                                        toggle('2');
+                                                    }}
+                                                >
+                                                    Trade
+                                                </NavLink>
+                                            </NavItem>
+                                        </Nav>
+                                        <TabContent activeTab={activeTab}
+                                            className="crypto-buy-sell-nav-content p-4">
+                                            <TabPane tabId="1" id="buy">
+                                                <Row>
+                                                    <Col sm="12">
+                                                        <TabContent defaultActiveKey="1" onChange={changeTabs}>
+                                                            <TabPane tab={`BUY ${pool.symbol}`} key="1">
+                                                                <TradePane
+                                                                    pool={pool}
+                                                                    tradeData={buyData}
+                                                                    onTradeChange={onBuyChange}
+                                                                    changeTradeAmount={changeBuyAmount}
+                                                                    approval={approvalS}
+                                                                    unlock={unlockSparta}
+                                                                    trade={buy}
+                                                                    startTx={startTx}
+                                                                    endTx={endTx}
+                                                                    type={"BUY"}
+                                                                />
+                                                            </TabPane>
+                                                            <TabPane tab={`SELL ${pool.symbol}`} key="2">
 
-                                        {/*                        <TradePane*/}
-                                        {/*                            pool={pool}*/}
-                                        {/*                            tradeData={sellData}*/}
-                                        {/*                            onTradeChange={onSellChange}*/}
-                                        {/*                            changeTradeAmount={changeSellAmount}*/}
-                                        {/*                            approval={approval}*/}
-                                        {/*                            unlock={unlockToken}*/}
-                                        {/*                            trade={sell}*/}
-                                        {/*                            startTx={startTx}*/}
-                                        {/*                            endTx={endTx}*/}
-                                        {/*                            type={"SELL"}*/}
-                                        {/*                        />*/}
+                                                                <TradePane
+                                                                    pool={pool}
+                                                                    tradeData={sellData}
+                                                                    onTradeChange={onSellChange}
+                                                                    changeTradeAmount={changeSellAmount}
+                                                                    approval={approval}
+                                                                    unlock={unlockToken}
+                                                                    trade={sell}
+                                                                    startTx={startTx}
+                                                                    endTx={endTx}
+                                                                    type={"SELL"}
+                                                                />
 
-                                        {/*                    </TabPane>*/}
-                                        {/*                </Tabs>*/}
-                                        {/*            </Col>*/}
-                                        {/*        </Row>*/}
-                                        {/*    </div>*/}
+                                                            </TabPane>
+                                                        </TabContent>
+                                                    </Col>
+                                                </Row>
+                                            </TabPane>
+                                            <TabPane tabId="2">
+                                                <Row>
+                                                    <Col sm="6">
+                                                        <h1>XX</h1>
+                                                    </Col>
+                                                </Row>
+                                            </TabPane>
+                                        </TabContent>
+                                        </div>
+
                                     </Col>
+
                                 </Row>
                             </Container>
                         </div>
@@ -407,6 +449,7 @@ const TradePane = (props) => {
 // class SwapTrade extends Component {
 //     constructor(props) {
 //         super(props);
+
 //         this.state = {
 //             activeTab: '1',
 //             isMenu: false,
