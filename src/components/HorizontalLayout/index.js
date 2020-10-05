@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -15,30 +15,31 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Rightbar from "../CommonForBoth/Rightbar";
 
-class Layout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMenuOpened: false
-    };
-    this.toggleRightSidebar = this.toggleRightSidebar.bind(this);
-  }
+const Layout = (props) => {
+
+  const [isMenuOpened,SetIsMenuOpened] = useState('false')
 
   /**
   * Open/close right sidebar
   */
-  toggleRightSidebar() {
-    this.props.toggleRightSidebar();
+  const toggleRightSidebar = () => {
+    props.toggleRightSidebar();
   }
 
-  componentDidMount() {
+  /**
+  * Opens the menu - mobile
+  */
+  const openMenu = (e) => {
+    SetIsMenuOpened(!isMenuOpened);
+  }
 
-    if (this.props.isPreloader === true) {
+  useEffect(() => {
+
+    if (props.isPreloader === true) {
       document.getElementById('preloader').style.display = "block";
       document.getElementById('status').style.display = "block";
 
-      setTimeout(function () {
-
+      setTimeout(() => {
         document.getElementById('preloader').style.display = "none";
         document.getElementById('status').style.display = "none";
       }, 2500);
@@ -51,69 +52,60 @@ class Layout extends Component {
     // Scrollto 0,0
     window.scrollTo(0, 0);
 
-    const title = this.props.location.pathname;
+    const title = props.location.pathname;
     let currentage = title.charAt(1).toUpperCase() + title.slice(2);
 
     document.title =
       currentage + " | Spartan - Protocol";
 
-    this.props.changeLayout('horizontal');
-    if (this.props.topbarTheme) {
-      this.props.changeTopbarTheme(this.props.topbarTheme);
+    props.changeLayout('horizontal');
+    if (props.topbarTheme) {
+      props.changeTopbarTheme(props.topbarTheme);
     }
-    if (this.props.layoutWidth) {
-      this.props.changeLayoutWidth(this.props.layoutWidth);
+    if (props.layoutWidth) {
+      props.changeLayoutWidth(props.layoutWidth);
     }
-    if (this.props.showRightSidebar) {
-      this.toggleRightSidebar();
-    }
-  }
+  },[])
 
-  /**
-   * Opens the menu - mobile
-   */
-  openMenu = e => {
-    this.setState({ isMenuOpened: !this.state.isMenuOpened });
-  };
-  render() {
-    return (
-      <React.Fragment>
+  return (
+    <React.Fragment>
 
-        <div id="preloader">
-          <div id="status">
-            <div className="spinner-chase">
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-              <div className="chase-dot"></div>
-            </div>
+      <div id="preloader">
+        <div id="status">
+          <div className="spinner-chase">
+            <div className="chase-dot"></div>
+            <div className="chase-dot"></div>
+            <div className="chase-dot"></div>
+            <div className="chase-dot"></div>
+            <div className="chase-dot"></div>
+            <div className="chase-dot"></div>
           </div>
         </div>
+      </div>
 
-        <div id="layout-wrapper">
-          <Header theme={this.props.topbarTheme}
-            isMenuOpened={this.state.isMenuOpened}
-            toggleRightSidebar={this.toggleRightSidebar}
-            openLeftMenuCallBack={this.openMenu} />
-          <Navbar menuOpen={this.state.isMenuOpened} />
-          <div className="main-content">
-            {this.props.children}
-          </div>
-          <Footer />
+      <div id="layout-wrapper">
+        <Header theme={props.topbarTheme}
+          isMenuOpened={isMenuOpened}
+          toggleRightSidebar={toggleRightSidebar}
+          openLeftMenuCallBack={openMenu} />
+        <Navbar menuOpen={isMenuOpened} />
+        <div className="main-content">
+          {props.children}
         </div>
+        <Footer />
+      </div>
 
-        <Rightbar />
-      </React.Fragment>
-    );
-  }
+      <Rightbar />
+    </React.Fragment>
+  );
 }
-const mapStatetoProps = state => {
+
+const mapStatetoProps = () => {
   return {
-    ...state.Layout
+    ...Layout
   };
 };
+
 export default connect(mapStatetoProps, {
   changeTopbarTheme, toggleRightSidebar, changeLayout, changeLayoutWidth
 })(withRouter(Layout));
