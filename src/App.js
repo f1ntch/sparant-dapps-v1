@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 
 import {connect} from "react-redux";
 
@@ -47,13 +47,13 @@ const App = () => {
                         <Content>
                             <div className="wrapper">
                                 <Switch>
-                                    // Homepage
+                                    {/*Homepage*/}
                                     <Route path="/" exact component={DashboardCrypto}/>
 
-                                    // Overview
+                                    {/*Overview*/}
                                     <Route path="/overview" exact component={DashboardCrypto}/>
 
-                                    // Apps
+                                    {/*Apps*/}
                                     <Route path="/pool" exact component={Pools}/>
                                     <Route path="/test" exact component={SpartanPools}/>
                                     <Route path="/pool/stake" exact component={AddLiquidity}/>
@@ -62,7 +62,7 @@ const App = () => {
                                     {/* <Route path="/dao" exact component={Dao} />
 									<Route path="/earn" exact component={Earn} /> */}
 
-                                    // Help
+                                    {/*Help*/}
                                     <Route path="/start" exact component={PagesStarter}/>
                                     <Route path="/faq" exact component={PagesFaqs}/>
 

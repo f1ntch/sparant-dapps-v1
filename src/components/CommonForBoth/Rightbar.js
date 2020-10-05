@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Context } from '../../context'
 import { Row, Col, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from 'classnames';
