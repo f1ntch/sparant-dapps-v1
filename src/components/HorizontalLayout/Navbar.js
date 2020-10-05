@@ -27,6 +27,21 @@ const Navbar = (props) => {
         }
     },[])
 
+    const toggleDropdown1 = () => {
+        setIsDropdown1(!isDropdown1);
+        setIsDropdown2('false');
+    }
+
+    const toggleDropdown2 = () => {
+        setIsDropdown2(!isDropdown2);
+        setIsDropdown1('false');
+    }
+
+    const closeDropdowns = () => {
+        setIsDropdown2('false');
+        setIsDropdown1('false');
+    }
+
     const activateParentDropdown = (item) => {
         item.classList.add("active");
         const parent = item.parentElement;
@@ -62,19 +77,19 @@ const Navbar = (props) => {
                         <Collapse isOpen={props.menuOpen} className="navbar-collapse" id="topnav-menu-content">
                             <ul className="navbar-nav">
                                 <li className="nav-item dropdown">
-                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); setIsDropdown1(!isDropdown1); setIsDropdown2('false'); }} to="#">
+                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={toggleDropdown1} to="#">
                                         <i className="bx bx-customize mr-2"></i>{props.t('Apps')} <div className="arrow-down"></div>
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown1 })}>
-                                        <Link to="overview" className="dropdown-item">{props.t('Overview')}</Link>
-                                        <Link to="pool" className="dropdown-item">{props.t('Pools')}</Link>
-                                        <Link to="dao" className="dropdown-item">{props.t('Dao')}</Link>
-                                        <Link to="earn" className="dropdown-item">{props.t('Earn')}</Link>
-                                        <Link to="swap" className="dropdown-item">{props.t('Swap')}</Link>
+                                        <Link to="overview" className="dropdown-item" onClick={closeDropdowns}>{props.t('Overview')}</Link>
+                                        <Link to="pool" className="dropdown-item" onClick={closeDropdowns}>{props.t('Pools')}</Link>
+                                        <Link to="dao" className="dropdown-item" onClick={closeDropdowns}>{props.t('Dao')}</Link>
+                                        <Link to="earn" className="dropdown-item" onClick={closeDropdowns}>{props.t('Earn')}</Link>
+                                        <Link to="swap" className="dropdown-item" onClick={closeDropdowns}>{props.t('Swap')}</Link>
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); setIsDropdown2(!isDropdown2); setIsDropdown1('false'); }} to="#">
+                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={toggleDropdown2} to="#">
                                         <i className="bx bx-info-circle mr-2"></i>{props.t('Info')} <div className="arrow-down"></div>
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown2  })}>
