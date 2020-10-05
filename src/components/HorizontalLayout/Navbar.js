@@ -9,6 +9,8 @@ import { withNamespaces } from 'react-i18next';
 const Navbar = (props) => {
 
     const [isDashboard,setIsDashboard] = useState('false')
+    const [isDropdown1,setIsDropdown1] = useState('false')
+    const [isDropdown2,setIsDropdown2] = useState('false')
 
     useEffect(() => {
         var matchingMenuItem = null;
@@ -60,10 +62,10 @@ const Navbar = (props) => {
                         <Collapse isOpen={props.menuOpen} className="navbar-collapse" id="topnav-menu-content">
                             <ul className="navbar-nav">
                                 <li className="nav-item dropdown">
-                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); setIsDashboard(!isDashboard); }} to="#">
+                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); setIsDropdown1(!isDropdown1); setIsDropdown2('false'); }} to="#">
                                         <i className="bx bx-customize mr-2"></i>{props.t('Apps')} <div className="arrow-down"></div>
                                     </Link>
-                                    <div className={classname("dropdown-menu", { show: !isDashboard })}>
+                                    <div className={classname("dropdown-menu", { show: !isDropdown1 })}>
                                         <Link to="overview" className="dropdown-item">{props.t('Overview')}</Link>
                                         <Link to="pool" className="dropdown-item">{props.t('Pools')}</Link>
                                         <Link to="dao" className="dropdown-item">{props.t('Dao')}</Link>
@@ -72,10 +74,10 @@ const Navbar = (props) => {
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown">
-                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); setIsDashboard(!isDashboard); }} to="#">
+                                    <Link className="nav-link dropdown-toggle arrow-none" onClick={e => { e.preventDefault(); setIsDropdown2(!isDropdown2); setIsDropdown1('false'); }} to="#">
                                         <i className="bx bx-info-circle mr-2"></i>{props.t('Info')} <div className="arrow-down"></div>
                                     </Link>
-                                    <div className={classname("dropdown-menu", { show: !isDashboard })}>
+                                    <div className={classname("dropdown-menu", { show: !isDropdown2  })}>
                                         <Link to="start" className="dropdown-item">{props.t('How to start?')}</Link>
                                         <Link to="faq" className="dropdown-item">{props.t('FAQ')}</Link>
                                     </div>
