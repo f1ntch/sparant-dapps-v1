@@ -4,10 +4,10 @@ import { Context } from '../../context'
 import Web3 from 'web3'
 import axios from 'axios'
 
-import { message } from 'antd';
+import Notification from './notification'
 
 // import logo from '../../assets/spartan-logo-white.png';
-
+import { manageBodyClass } from '../common';
 
 import { getAddressShort, } from '../../utils'
 import {
@@ -17,10 +17,12 @@ import {
 
 const AddressConn = (props) => {
 
-    const context = useContext(Context)
-    const [connecting, setConnecting] = useState(false)
-    const [connected, setConnected] = useState(false)
+    const context = useContext(Context);
+    const [connecting, setConnecting] = useState(false);
+    const [connected, setConnected] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [notifyMessage,setNotifyMessage] = useState("");
+    const [notifyType,setNotifyType] = useState("dark");
 
     useEffect(() => {
         connectWallet()
@@ -35,7 +37,8 @@ const AddressConn = (props) => {
             await connectingWallet(account)
             setConnecting(false)
             setConnected(true)
-            message.success('Loaded!', 2);
+            setNotifyMessage('Loaded!');
+            setNotifyType('success')
         } else {
             await enableMetaMask()
             setConnected(false)
@@ -55,35 +58,36 @@ const AddressConn = (props) => {
     }
 
     const connectingWallet = async (account) => {
-        message.loading('Loading tokens', 3);
-            // let assetArray = context.assetArray ? context.assetArray : await getAssets()
-            // context.setContext({ 'assetArray': assetArray })
-            // let assetDetailsArray = context.assetDetailsArray ? context.assetDetailsArray : await getTokenDetails(account, assetArray)
-            // context.setContext({ 'assetDetailsArray': assetDetailsArray })
+        setNotifyMessage('Loading tokens');
+        setNotifyType('dark')
+        // let assetArray = context.assetArray ? context.assetArray : await getAssets()
+        // context.setContext({ 'assetArray': assetArray })
+        // let assetDetailsArray = context.assetDetailsArray ? context.assetDetailsArray : await getTokenDetails(account, assetArray)
+        // context.setContext({ 'assetDetailsArray': assetDetailsArray })
 
-            let tokenArray = context.tokenArray ? context.tokenArray : await getListedTokens()
-            context.setContext({ 'tokenArray': tokenArray })
-            // context.setContext({ 'poolsData': await getPoolsData(tokenArray) })
+        let tokenArray = context.tokenArray ? context.tokenArray : await getListedTokens()
+        context.setContext({ 'tokenArray': tokenArray })
+        // context.setContext({ 'poolsData': await getPoolsData(tokenArray) })
 
-            // let allTokens = assetArray.concat(tokenArray)
-            // var sortedTokens = [...new Set(allTokens)].sort()
+        // let allTokens = assetArray.concat(tokenArray)
+        // var sortedTokens = [...new Set(allTokens)].sort()
 
-            let tokenDetailsArray = context.tokenDetailsArray ? context.tokenDetailsArray : await getTokenDetails(account, tokenArray)
-            context.setContext({ 'tokenDetailsArray': tokenDetailsArray })
+        let tokenDetailsArray = context.tokenDetailsArray ? context.tokenDetailsArray : await getTokenDetails(account, tokenArray)
+        context.setContext({ 'tokenDetailsArray': tokenDetailsArray })
 
-            message.loading('Loading wallet data', 3);
-            let walletData = await getWalletData(account, tokenDetailsArray)
-            context.setContext({ 'walletData': walletData })
+        setNotifyMessage('Loading wallet data');
+        setNotifyType('dark')
+        let walletData = await getWalletData(account, tokenDetailsArray)
+        context.setContext({ 'walletData': walletData })
 
-            let poolArray = context.poolArray ? context.poolArray : await getListedPools()
-            context.setContext({ 'poolArray': poolArray })
+        let poolArray = context.poolArray ? context.poolArray : await getListedPools()
+        context.setContext({ 'poolArray': poolArray })
 
-            let stakesData = context.stakesData ? context.stakesData : await getPoolSharesData(account, tokenArray)
-            context.setContext({ 'stakesData': stakesData })
+        let stakesData = context.stakesData ? context.stakesData : await getPoolSharesData(account, tokenArray)
+        context.setContext({ 'stakesData': stakesData })
 
-            context.setContext({ 'connected': true })
-            await getSpartaPrice()
-
+        context.setContext({ 'connected': true })
+        await getSpartaPrice()
     }
 
     const getSpartaPrice = async () => {
@@ -101,34 +105,36 @@ const AddressConn = (props) => {
     const showDrawer = () => {
         setVisible(true);
     };
+
     const onClose = () => {
         setVisible(false);
     };
 
+    /**
+   * Toggles the sidebar
+   */
+    const toggleRightbar = (cssClass) => {
+        manageBodyClass("right-bar-enabled");
+     }
+
     return (
-      <div>
-        {!connected && !connecting &&
-            <div onClick={connectWallet}><i className="bx bx-wallet" /> CONNECT</div>
-        }
-        {connecting &&
-            <div><i className="bx bx-wallet" /> Connecting <i className="bx bx-loader-alt bx-spin" /></div>
-        }
-          {connected &&
-          <div onClick={showDrawer}><i className="bx bx-wallet" /> {addr()}</div>
-          }
-
-          {/*<Drawer
-              title={context.walletData?.address}
-              placement="right"
-              closable={false}
-              onClose={onClose}
-              visible={visible}
-              width={'90%'}
-          >
-              <WalletDrawer />
-          </Drawer>*/}
-      </div>
-
+        <>
+            <Notification
+                type={notifyType}
+                message={notifyMessage}
+            />
+            <div >
+                {!connected && !connecting &&
+                    <div onClick={connectWallet}><i className="bx bx-wallet" /> CONNECT</div>
+                }
+                {connecting &&
+                    <div onClick={toggleRightbar}><i className="bx bx-wallet" /> Connecting <i className="bx bx-loader-alt bx-spin" /></div>
+                }
+                {connected &&
+                    <div onClick={toggleRightbar}><i className="bx bx-wallet" /> {addr()}</div>
+                }
+            </div>
+        </>
     )
 }
 

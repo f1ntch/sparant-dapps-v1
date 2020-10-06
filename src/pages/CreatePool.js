@@ -4,8 +4,7 @@ import { Context } from '../context'
 import { withRouter } from 'react-router-dom'
 import { Row, Col, Input } from 'antd'
 
-import { message } from 'antd';
-
+import Notification from '../components/CommonForBoth/notification'
 
 import { LeftOutlined } from '@ant-design/icons';
 import { QuestionCircleOutlined, UnlockOutlined } from '@ant-design/icons';
@@ -29,6 +28,8 @@ const CreatePool = (props) => {
     const context = useContext(Context)
 
     const [addressSelected, setAddressSelected] = useState(SPARTA_ADDR)
+    const [notifyMessage,setNotifyMessage] = useState("");
+    const [notifyType,setNotifyType] = useState("dark");
 
     // const [tokenList, setTokenList] = useState([SPARTA_ADDR])
     // const [tokenShortList, setTokenShortList] = useState([SPARTA_ADDR])
@@ -99,7 +100,8 @@ const CreatePool = (props) => {
             setApproval2(false)
 
             if(!context.walletData?.address){
-                message.error('Wait for wallet to load first', 2);
+                setNotifyMessage('Wait for wallet to load first')
+                setNotifyType('danger')
             } else {
                 try {
                     var tokenData = await getNewTokenData(addressSelected, context.walletData.address)
@@ -109,13 +111,15 @@ const CreatePool = (props) => {
                         setCheckFlag(true)
                         setAddLiquidity2Data(await getPoolSharesInputData(tokenData.balance, tokenData))
                     } else {
-                        message.error('You do not have that token on your address', 2);
+                        setNotifyMessage('You do not have that token on your address')
+                        setNotifyType('danger')
                     }
         
                     await checkApproval1(SPARTA_ADDR)
                     await checkApproval2(addressSelected)
                 } catch(err){
-                    message.error('Not a valid token', 2);
+                    setNotifyMessage('Not a valid token')
+                    setNotifyType('danger')
                 }
             }
 
