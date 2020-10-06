@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Context } from '../context'
-import { Tabs, Row, Col, message } from 'antd';
+import { Tabs, Row, Col } from 'antd';
 import { LoadingOutlined, LeftOutlined, UnlockOutlined, PlusOutlined } from '@ant-design/icons';
+
+import Notification from '../components/CommonForBoth/notification'
 
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
@@ -20,6 +22,9 @@ import {
 const { TabPane } = Tabs;
 
 const AddLiquidity = (props) => {
+
+    const [notifyMessage,setNotifyMessage] = useState("");
+    const [notifyType,setNotifyType] = useState("dark");
 
     const context = useContext(Context)
     const [pool, setPool] = useState({
@@ -262,7 +267,8 @@ const AddLiquidity = (props) => {
             gasPrice: '',
             gas: ''
         })
-        message.success(`Approved!`, 2);
+        setNotifyMessage('Approved!')
+        setNotifyType('success')
     }
 
     const addLiquidity = async () => {
@@ -275,7 +281,8 @@ const AddLiquidity = (props) => {
             gas: '',
             value: pool.address === BNB_ADDR ? liquidityData.tokenAmount : 0
         })
-        message.success(`Transaction Sent!`, 2);
+        setNotifyMessage('Transaction Sent!')
+        setNotifyType('success')
         setStartTx(false)
         setEndTx(true)
         updatePool()
@@ -290,7 +297,8 @@ const AddLiquidity = (props) => {
             gas: ''
         })
         console.log(tx.transactionHash)
-        message.success(`Transaction Sent!`, 2);
+        setNotifyMessage('Transaction Sent!')
+        setNotifyType('success')
         setStartTx(false)
         setEndTx(true)
         updatePool()

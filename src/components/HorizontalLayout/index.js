@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import {
   changeLayout,
   changeTopbarTheme,
-  toggleRightSidebar,
   changeLayoutWidth,
 } from "../../store/actions";
 
@@ -18,13 +17,6 @@ import Rightbar from "../CommonForBoth/Rightbar";
 const Layout = (props) => {
 
   const [isMenuOpened,SetIsMenuOpened] = useState('false')
-
-  /**
-  * Open/close right sidebar
-  */
-  const toggleRightSidebar = () => {
-    props.toggleRightSidebar();
-  }
 
   /**
   * Opens the menu - mobile
@@ -86,7 +78,6 @@ const Layout = (props) => {
       <div id="layout-wrapper">
         <Header theme={props.topbarTheme}
           isMenuOpened={isMenuOpened}
-          toggleRightSidebar={toggleRightSidebar}
           openLeftMenuCallBack={openMenu} />
         <Navbar menuOpen={isMenuOpened} />
         <div className="main-content">
@@ -107,5 +98,5 @@ const mapStatetoProps = () => {
 };
 
 export default connect(mapStatetoProps, {
-  changeTopbarTheme, toggleRightSidebar, changeLayout, changeLayoutWidth
+  changeTopbarTheme, changeLayout, changeLayoutWidth
 })(withRouter(Layout));

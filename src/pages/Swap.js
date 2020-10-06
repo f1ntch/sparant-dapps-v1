@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useContext, Component} from 'react'
 import {Context} from '../context'
-import {message} from 'antd';
 
 import {LoadingOutlined, LeftOutlined, DoubleRightOutlined, UnlockOutlined} from '@ant-design/icons';
 
@@ -43,6 +42,8 @@ import {
     TabContent
 } from "reactstrap";
 
+import Notification from '../components/CommonForBoth/notification'
+
 import classnames from 'classnames';
 import Breadcrumbs from "../components/Common/Breadcrumb";
 
@@ -50,6 +51,8 @@ import Breadcrumbs from "../components/Common/Breadcrumb";
 const NewSwap = (props) => {
 
         const [activeTab, setActiveTab] = useState('1');
+        const [notifyMessage,setNotifyMessage] = useState("");
+        const [notifyType,setNotifyType] = useState("dark");
 
         const toggle = tab => {
             if (activeTab !== tab) setActiveTab(tab);
@@ -223,7 +226,8 @@ const NewSwap = (props) => {
                 gasPrice: '',
                 gas: ''
             })
-            message.success(`Approved!`, 2);
+            setNotifyMessage('Approved!')
+            setNotifyType('success')
             await checkApproval(SPARTA_ADDR) ? setApprovalS(true) : setApprovalS(false)
             await checkApproval(pool.address) ? setApproval(true) : setApproval(false)
         };
@@ -237,7 +241,8 @@ const NewSwap = (props) => {
                 gasPrice: '',
                 gas: ''
             })
-            message.success(`Transaction Sent!`, 2);
+            setNotifyMessage('Transaction Sent!')
+            setNotifyType('success')
             setStartTx(false)
             setEndTx(true)
             updatePool()
@@ -254,7 +259,8 @@ const NewSwap = (props) => {
                 gas: '',
                 value: pool.address === BNB_ADDR ? sellData.input : 0
             })
-            message.success(`Transaction Sent!`, 2);
+            setNotifyMessage('Transaction Sent!')
+            setNotifyType('success')
             setStartTx(false)
             setEndTx(true)
             updatePool()

@@ -15,7 +15,7 @@ import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 import megamenuImg from "../../assets/images/megamenu-img.png";
 import logo from "../../assets/images/logo-sm-light.png";
 import logoLight from "../../assets/images/logo-light.png";
-import logoLightSvg from "../../assets/images/logo-light.svg";
+import logoLightSvg from "../../assets/images/icon-light.png";
 import logoDark from "../../assets/images/logo-dark.png";
 
 // import images
@@ -36,12 +36,6 @@ import { manageBodyClass } from '../common';
 const Header = (props) => {
 
   const [isSearch, setIsSearch] = useState(false);
-  {/*const [isOpen, setIsOpen] = useState(false);
-
-  const toggleNavbar = () => {
-    setIsOpen(!isOpen);
-    console.log ("IS NAVBAR");
-  }*/}
 
   const toggleSearch = () => {
     setIsSearch(!isSearch);
@@ -51,13 +45,6 @@ const Header = (props) => {
    */
   const toggleMenu = () => {
     props.openLeftMenuCallBack();
-  }
-
-  /**
-   * Toggles the sidebar
-   */
-  const toggleRightbar = (cssClass) => {
-    manageBodyClass("right-bar-enabled");
   }
 
   const toggleFullscreen = () => {
@@ -222,7 +209,7 @@ const Header = (props) => {
             <NotificationDropdown />
             <ProfileMenu />
 
-            <div onClick={toggleRightbar} className="dropdown d-inline-block">
+            <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect">
                 <AddressConn />
               </button>
