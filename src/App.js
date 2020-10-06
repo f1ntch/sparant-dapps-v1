@@ -17,6 +17,7 @@ import "./App.css";
 
 
 import Pools from './pages/Pools.js'
+import Shares from './pages/Shares'
 
 
 import SpartanPools from '../src/pages/Crypto/crypto-exchange'
@@ -55,6 +56,7 @@ const App = () => {
 
                                     {/*Apps*/}
                                     <Route path="/pool" exact component={Pools}/>
+                                    <Route path="/share" exact component={Shares}/>
                                     <Route path="/test" exact component={SpartanPools}/>
                                     <Route path="/pool/stake" exact component={AddLiquidity}/>
                                     <Route path="/pool/swap" exact component={Swap}/>
