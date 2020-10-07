@@ -32,11 +32,11 @@ const Pools = (props) => {
     });
 
     useEffect(() => {
-        if (context.connected) {
+        if (context.poolsData) {
             getData()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context.connected])
+    }, [context.poolsData])
 
     const getData = async () => {
         setGlobalData(await getGlobalData())
@@ -144,10 +144,10 @@ const PoolTable = (props) => {
 
     const getData = async () => {
         let tokenArray = await getListedTokens();
+        context.setContext({'poolsData': await getPoolsData(tokenArray)})
         context.setContext({'tokenArray': tokenArray});
         let poolArray = await getListedPools();
         context.setContext({'poolArray': poolArray});
-        context.setContext({'poolsData': await getPoolsData(tokenArray)})
     };
 
 
@@ -261,10 +261,10 @@ const PoolTable = (props) => {
             <Row>
                 <Col sm={12} md={12}>
                     <Card>
-                        {!context.connected &&
+                        {!context.poolsData && 
                           <div style={{textAlign:"center"}}><LoadingOutlined/></div>
                         }
-                        {context.connected &&
+                        {context.poolsData &&
 
                         <Table
                             dataSource={context.poolsData}

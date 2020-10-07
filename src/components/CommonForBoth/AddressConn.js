@@ -58,6 +58,7 @@ const AddressConn = (props) => {
     }
 
     const connectingWallet = async (account) => {
+        await getSpartaPrice()
         setNotifyMessage('Loading tokens');
         setNotifyType('dark')
         // let assetArray = context.assetArray ? context.assetArray : await getAssets()
@@ -72,6 +73,9 @@ const AddressConn = (props) => {
         // let allTokens = assetArray.concat(tokenArray)
         // var sortedTokens = [...new Set(allTokens)].sort()
 
+        let poolArray = context.poolArray ? context.poolArray : await getListedPools()
+        context.setContext({ 'poolArray': poolArray })
+
         let tokenDetailsArray = context.tokenDetailsArray ? context.tokenDetailsArray : await getTokenDetails(account, tokenArray)
         context.setContext({ 'tokenDetailsArray': tokenDetailsArray })
 
@@ -80,21 +84,16 @@ const AddressConn = (props) => {
         let walletData = await getWalletData(account, tokenDetailsArray)
         context.setContext({ 'walletData': walletData })
 
-        let poolArray = context.poolArray ? context.poolArray : await getListedPools()
-        context.setContext({ 'poolArray': poolArray })
-
         let stakesData = context.stakesData ? context.stakesData : await getPoolSharesData(account, tokenArray)
         context.setContext({ 'stakesData': stakesData })
 
         context.setContext({ 'connected': true })
-        await getSpartaPrice()
     }
 
     const getSpartaPrice = async () => {
         let resp = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=spartan-protocol-token&vs_currencies=usd')
         console.log(resp.data["spartan-protocol-token"].usd)
         context.setContext({ 'spartanPrice': resp.data["spartan-protocol-token"].usd })
-        // context.setContext({ 'spartanPrice': 0.3 })
         return
     }
 
