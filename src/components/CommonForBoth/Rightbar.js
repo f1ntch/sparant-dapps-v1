@@ -150,10 +150,10 @@ export const AssetTable = () => {
     return (
       <div>
         <br/>
-          {!context.connected &&
+          {!context.walletData &&
             <div style={{textAlign:"center"}}><LoadingOutlined/></div>
           }
-          {context.connected &&
+          {context.walletData &&
 
           <Table
               dataSource={context.walletData.tokens}
@@ -205,10 +205,10 @@ export const PoolShareTable = () => {
     return (
         <div>
             <br/>
-            {!context.connected &&
+            {!context.stakesData &&
               <div style={{textAlign:"center"}}><LoadingOutlined/></div>
             }
-            {context.connected &&
+            {context.stakesData &&
               <Table dataSource={context.stakesData}
                   columns={columns}
                   pagination={false}
