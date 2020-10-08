@@ -8,10 +8,11 @@ import Notification from '../components/CommonForBoth/notification'
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
-import { BreadcrumbCombo, InputPane, PoolPaneSide, OutputPane } from '../components/common'
+import { InputPane, PoolPaneSide, OutputPane } from '../components/common'
 import { HR, LabelGroup, Center } from '../components/elements';
 import { bn, formatBN, convertFromWei, convertToWei } from '../utils'
 import { getLiquidityUnits } from '../math'
+import Breadcrumbs from "../components/Common/Breadcrumb";
 
 import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getRouterContract, getTokenContract, getListedTokens,
@@ -322,7 +323,7 @@ const AddLiquidity = (props) => {
     return (
         <>
             <div>
-                <BreadcrumbCombo title={'ADD LIQUIDITY'} parent={'POOLS'} link={'/pools'} child={'ADD LIQUIDITY'}></BreadcrumbCombo>
+                <Breadcrumbs title="App" breadcrumbItem="Add Liquidity"/>
                 <HR></HR>
                 <br />
 
