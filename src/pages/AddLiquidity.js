@@ -1,31 +1,58 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { Context } from '../context'
-import { Tabs, Row, Col } from 'antd';
-import { LoadingOutlined, LeftOutlined, UnlockOutlined, PlusOutlined } from '@ant-design/icons';
+import React, {useEffect, useState, useContext} from 'react'
+import {Context} from '../context'
+import {Tabs, message} from 'antd';
+import {LoadingOutlined, LeftOutlined, UnlockOutlined, PlusOutlined} from '@ant-design/icons';
 
-import Notification from '../components/CommonForBoth/notification'
-
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
-import { InputPane, PoolPaneSide, OutputPane } from '../components/common'
-import { HR, LabelGroup, Center } from '../components/elements';
-import { bn, formatBN, convertFromWei, convertToWei } from '../utils'
-import { getLiquidityUnits } from '../math'
+import {InputPane, PoolPaneSide, OutputPane} from '../components/common'
+import {HR, LabelGroup, Center} from '../components/elements';
+import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
+import {getLiquidityUnits} from '../math'
 import Breadcrumbs from "../components/Common/Breadcrumb";
 
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+    CardBody,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+    Button,
+    Nav,
+    NavItem,
+    NavLink,
+    TabPane,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    InputGroup,
+    InputGroupAddon,
+    TabContent
+} from "reactstrap";
+
+import classnames from 'classnames';
 import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getRouterContract, getTokenContract, getListedTokens,
     getPoolData, getTokenData, getTokenDetails,
     getListedPools, getPoolsData, getPool, getPoolShares, WBNB_ADDR
 } from '../client/web3'
 
-const { TabPane } = Tabs;
 
 const AddLiquidity = (props) => {
 
-    const [notifyMessage,setNotifyMessage] = useState("");
-    const [notifyType,setNotifyType] = useState("dark");
+    const [activeTab, setActiveTab] = useState('1');
+    const [notifyMessage, setNotifyMessage] = useState("");
+    const [notifyType, setNotifyType] = useState("dark");
+
+    const toggle = tab => {
+        if (activeTab !== tab) setActiveTab(tab);
+    };
 
     const context = useContext(Context)
     const [pool, setPool] = useState({
@@ -79,10 +106,10 @@ const AddLiquidity = (props) => {
 
     const getPools = async () => {
         let tokenArray = await getListedTokens()
-        context.setContext({ 'tokenArray': tokenArray })
+        context.setContext({'tokenArray': tokenArray})
         let poolArray = await getListedPools()
-        context.setContext({ 'poolArray': poolArray })
-        context.setContext({ 'poolsData': await getPoolsData(tokenArray) })
+        context.setContext({'poolArray': poolArray})
+        context.setContext({'poolsData': await getPoolsData(tokenArray)})
     }
 
     useEffect(() => {
@@ -124,7 +151,7 @@ const AddLiquidity = (props) => {
     }
 
     const checkApproval = async (address) => {
-        console.log({ address })
+        console.log({address})
         if (address === BNB_ADDR || address === WBNB_ADDR) {
             console.log("BNB")
             return true
@@ -222,7 +249,7 @@ const AddLiquidity = (props) => {
         }
 
         if (baseAmount > baseBalance) {
-            console.log({ baseBalance })
+            console.log({baseBalance})
             liquidityData.tokenAmount = (baseBalance / price)  // 5 / 10 -> 0.5
             liquidityData.baseAmount = formatBN(bn(baseBalance), 0) // 5
         } else {
@@ -268,8 +295,7 @@ const AddLiquidity = (props) => {
             gasPrice: '',
             gas: ''
         })
-        setNotifyMessage('Approved!')
-        setNotifyType('success')
+        message.success(`Approved!`, 2);
     }
 
     const addLiquidity = async () => {
@@ -282,12 +308,11 @@ const AddLiquidity = (props) => {
             gas: '',
             value: pool.address === BNB_ADDR ? liquidityData.tokenAmount : 0
         })
-        setNotifyMessage('Transaction Sent!')
-        setNotifyType('success')
+        message.success(`Transaction Sent!`, 2);
         setStartTx(false)
         setEndTx(true)
         updatePool()
-        context.setContext({ 'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray) })
+        context.setContext({'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray)})
     }
 
     const removeLiquidity = async () => {
@@ -298,12 +323,11 @@ const AddLiquidity = (props) => {
             gas: ''
         })
         console.log(tx.transactionHash)
-        setNotifyMessage('Transaction Sent!')
-        setNotifyType('success')
+        message.success(`Transaction Sent!`, 2);
         setStartTx(false)
         setEndTx(true)
         updatePool()
-        context.setContext({ 'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray) })
+        context.setContext({'tokenDetailsArray': await getTokenDetails(context.walletData.address, context.tokenArray)})
 
     }
 
@@ -323,87 +347,115 @@ const AddLiquidity = (props) => {
     return (
         <>
             <div>
-                <Breadcrumbs title="App" breadcrumbItem="Add Liquidity"/>
-                <HR></HR>
-                <br />
-
-                <Row type="flex" align="middle" justify="center">
-
-                    <Col xs={8} sm={6} md={6} onClick={back} className="btn primary" style={{ textAlign: 'left', maxWidth: '100px' }}>
-                        {<LeftOutlined />} BACK
-                </Col>
-                    <Col xs={16} sm={18} md={18}>
-                    </Col>
-
-                    <Col xs={24}>
-                        <PoolPaneSide pool={pool} price={context.spartanPrice} />
-
-                    </Col>
-
-                    <Col xs={24}>
-                        <div className="minimal-card ant-card-bordered">
+                <React.Fragment>
+                    <div className="page-content">
+                        <Container fluid>
+                            {/* Render Breadcrumb */}
+                            <Breadcrumbs title="Pools" breadcrumbItem="Join"/>
                             <Row>
-                                <Col xs={24} >
-                                    <Tabs defaultActiveKey="1" onChange={changeTabs}>
-                                        <TabPane tab={`ADD ${pool.symbol} + SPARTA`} key="1">
-                                            <AddSymmPane
-                                                pool={pool}
-                                                userData={userData}
-                                                liquidityData={liquidityData}
-                                                onAddChange={onAddSymmChange}
-                                                changeAmount={changeSymmAmount}
-                                                estLiquidityUnits={estLiquidityUnits}
-                                                getEstShare={getEstShare}
-                                                approvalBase={approvalBase}
-                                                approvalToken={approvalToken}
-                                                unlockSparta={unlockSparta}
-                                                unlockToken={unlockToken}
-                                                addLiquidity={addLiquidity}
-                                                startTx={startTx}
-                                                endTx={endTx}
-                                            />
-                                        </TabPane>
-                                        <TabPane tab={`ADD ${pool.symbol}`} key="2">
-                                            <AddAsymmPane
-                                                pool={pool}
-                                                userData={userData}
-                                                liquidityData={liquidityData}
-                                                onAddChange={onAddTokenChange}
-                                                changeAmount={changeTokenAmount}
-                                                estLiquidityUnits={estLiquidityUnits}
-                                                getEstShare={getEstShare}
-                                                approvalBase={approvalBase}
-                                                approvalToken={approvalToken}
-                                                unlockSparta={unlockSparta}
-                                                unlockToken={unlockToken}
-                                                addLiquidity={addLiquidity}
-                                                startTx={startTx}
-                                                endTx={endTx}
-                                            />
-                                        </TabPane>
-                                        <TabPane tab={`REMOVE ${pool.symbol} + SPARTA`} key="3">
-                                            <RemoveLiquidityPane
-                                                pool={pool}
-                                                changeWithdrawAmount={changeWithdrawAmount}
-                                                approvalToken={approvalToken}
-                                                unlock={unlockToken}
-                                                removeLiquidity={removeLiquidity}
-                                                withdrawData={withdrawData}
-                                                startTx={startTx}
-                                                endTx={endTx}
-                                            />
-                                        </TabPane>
-                                    </Tabs>
+                                <Col lg="4">
+                                    <PoolPaneSide pool={pool} price={context.spartanPrice}/>
                                 </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
+                                <Col lg="6">
+                                    <Card>
+                                        <CardBody>
+                                            <h4 className="card-title mb-4">Add Liquidity</h4>
+                                            <Nav pills className="bg-light rounded" role="tablist">
+                                                <NavItem>
+                                                    <NavLink
+                                                        className={classnames({active: activeTab === '1'})}
+                                                        onClick={() => {
+                                                            toggle('1');
+                                                        }}
+                                                    >
+                                                        {`Add ${pool.symbol} + SPARTA`}
+                                                    </NavLink>
+                                                </NavItem>
+                                                <NavItem>
+                                                    <NavLink
+                                                        className={classnames({active: activeTab === '2'})}
+                                                        onClick={() => {
+                                                            toggle('2');
+                                                        }}
+                                                    >
+                                                        {`ADD ${pool.symbol}`}
+                                                    </NavLink>
+                                                </NavItem>
+                                                <NavItem>
+                                                    <NavLink
+                                                        className={classnames({active: activeTab === '3'})}
+                                                        onClick={() => {
+                                                            toggle('3');
+                                                        }}
+                                                    >
+                                                        {`REMOVE ${pool.symbol} + SPARTA`}
+                                                    </NavLink>
+                                                </NavItem>
+                                            </Nav>
+                                            <TabContent activeTab={activeTab} className="mt-4">
+                                                <TabPane tabId="1" id="buy-tab">
+                                                    <AddSymmPane
+                                                        pool={pool}
+                                                        userData={userData}
+                                                        liquidityData={liquidityData}
+                                                        onAddChange={onAddSymmChange}
+                                                        changeAmount={changeSymmAmount}
+                                                        estLiquidityUnits={estLiquidityUnits}
+                                                        getEstShare={getEstShare}
+                                                        approvalBase={approvalBase}
+                                                        approvalToken={approvalToken}
+                                                        unlockSparta={unlockSparta}
+                                                        unlockToken={unlockToken}
+                                                        addLiquidity={addLiquidity}
+                                                        startTx={startTx}
+                                                        endTx={endTx}
+                                                    />
 
+
+                                                </TabPane>
+                                                <TabPane tabId="2" id="sell-tab">
+                                                    <AddAsymmPane
+                                                        pool={pool}
+                                                        userData={userData}
+                                                        liquidityData={liquidityData}
+                                                        onAddChange={onAddTokenChange}
+                                                        changeAmount={changeTokenAmount}
+                                                        estLiquidityUnits={estLiquidityUnits}
+                                                        getEstShare={getEstShare}
+                                                        approvalBase={approvalBase}
+                                                        approvalToken={approvalToken}
+                                                        unlockSparta={unlockSparta}
+                                                        unlockToken={unlockToken}
+                                                        addLiquidity={addLiquidity}
+                                                        startTx={startTx}
+                                                        endTx={endTx}
+                                                    />
+                                                </TabPane>
+                                                <TabPane tabId="3" id="sell-tab">
+                                                    <RemoveLiquidityPane
+                                                        pool={pool}
+                                                        changeWithdrawAmount={changeWithdrawAmount}
+                                                        approvalToken={approvalToken}
+                                                        unlock={unlockToken}
+                                                        removeLiquidity={removeLiquidity}
+                                                        withdrawData={withdrawData}
+                                                        startTx={startTx}
+                                                        endTx={endTx}
+                                                    />
+                                                </TabPane>
+                                            </TabContent>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+
+                            </Row>
+                        </Container>
+                    </div>
+                </React.Fragment>
+            </div>
         </>
     )
-}
+};
 
 export default withRouter(AddLiquidity)
 
@@ -411,63 +463,102 @@ const AddSymmPane = (props) => {
 
     return (
         <>
-            <Row>
-                <Col xs={24}>
-                    <Row className="cntr" align="middle" justify="center">
-                        <Col xs={10}>
                             <InputPane
                                 paneData={props.userData}
                                 onInputChange={props.onAddChange}
                                 changeAmount={props.changeAmount}
                             />
 
-                        </Col>
-                        <Col xs={4} style={{ display: 'flex', alignItems: 'center', justifyContent: "center" }}>
-                            <PlusOutlined style={{ fontSize: 24 }} />
-                        </Col>
+            <br/>
+
+            <div className="table-responsive mt-6">
+                <table className="table table-centered table-nowrap mb-0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Estimated Units</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">XXX</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Estimated Share</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">XXX</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{width: "100%"}}>
+                            <p className="mb-0">Paired Amount (SPARTA)</p>
+                        </td>
+                        <td style={{width: "10%"}}>
+                            <h2 className="mb-0"> XXX</h2>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <PlusOutlined style={{fontSize: 24}}/>
+
+
+
                         <Col xs={10}>
 
                             <LabelGroup size={30}
-                                element={`${convertFromWei(props.liquidityData.baseAmount)}`}
-                                label={`PAIRED AMOUNT (SPARTA)`} />
+                                        element={`${convertFromWei(props.liquidityData.baseAmount)}`}
+                                        label={`PAIRED AMOUNT (SPARTA)`}/>
 
                         </Col>
 
-                        <Col xs={1}>
-                        </Col>
-                    </Row>
+
+
                     <Row className="cntr">
                         <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${convertFromWei(props.estLiquidityUnits.toFixed(0))}`} label={'ESTIMATED UNITS'} /></Center>
+                            <Center><LabelGroup size={18}
+                                                element={`${convertFromWei(props.estLiquidityUnits.toFixed(0))}`}
+                                                label={'ESTIMATED UNITS'}/></Center>
                         </Col>
                         <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${props.getEstShare()}%`} label={'ESTIMATED SHARE'} /></Center>
+                            <Center><LabelGroup size={18} element={`${props.getEstShare()}%`}
+                                                label={'ESTIMATED SHARE'}/></Center>
                         </Col>
 
                     </Row>
                     <Row>
                         <Col xs={8}>
                             {!props.approvalToken &&
-                                <div className="btn primary" onClick={props.unlockToken} icon={<UnlockOutlined />}>UNLOCK {props.pool.symbol}</div>
+                            <div className="btn primary" onClick={props.unlockToken}
+                                 icon={<UnlockOutlined/>}>UNLOCK {props.pool.symbol}</div>
                             }
                         </Col>
 
                         <Col xs={8}>
                             {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
-                                <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined />}>ADD TO POOL</div>
+                            <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
+                                POOL</div>
                             }
                             {props.approvalBase && props.approvalToken && !props.startTx &&
-                                <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
+                            <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
                             }
                         </Col>
                         <Col xs={8}>
                             {!props.approvalBase &&
-                                <div className="btn primary" onClick={props.unlockSparta} icon={<UnlockOutlined />}>UNLOCK SPARTA</div>
+                            <div className="btn primary" onClick={props.unlockSparta} icon={<UnlockOutlined/>}>UNLOCK
+                                SPARTA</div>
                             }
                         </Col>
                     </Row>
-                </Col>
-            </Row>
+
+
         </>
     )
 }
@@ -479,9 +570,9 @@ const AddAsymmPane = (props) => {
             <Row>
                 <Col xs={24}>
                     <Row className="cntr" align="middle" justify="center">
-                        <Col xs={22} style={{ marginRight: 30 }}>
-                          <p>PLEASE ENSURE YOU UNDERSTAND THE RISKS RELATED TO ASYMMETRIC STAKING OF ASSETS!</p>
-                          <p>IF IN DOUBT, REASEARCH 'IMPERMANENT LOSS' OR ASK ADMIN FOR ADVICE</p>
+                        <Col xs={22} style={{marginRight: 30}}>
+                            <p>PLEASE ENSURE YOU UNDERSTAND THE RISKS RELATED TO ASYMMETRIC STAKING OF ASSETS!</p>
+                            <p>IF IN DOUBT, REASEARCH 'IMPERMANENT LOSS' OR ASK ADMIN FOR ADVICE</p>
                         </Col>
                         <Col xs={1}>
                         </Col>
@@ -497,25 +588,30 @@ const AddAsymmPane = (props) => {
                     </Row>
                     <Row className="cntr" align="middle" justify="center">
                         <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${convertFromWei(props.estLiquidityUnits.toFixed(0))}`} label={'ESTIMATED UNITS'} /></Center>
+                            <Center><LabelGroup size={18}
+                                                element={`${convertFromWei(props.estLiquidityUnits.toFixed(0))}`}
+                                                label={'ESTIMATED UNITS'}/></Center>
                         </Col>
                         <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${props.getEstShare()}%`} label={'ESTIMATED SHARE'} /></Center>
+                            <Center><LabelGroup size={18} element={`${props.getEstShare()}%`}
+                                                label={'ESTIMATED SHARE'}/></Center>
                         </Col>
 
                     </Row>
                     <Row>
                         <Col xs={12}>
                             {!props.approvalToken &&
-                                <div className="btn primary" onClick={props.unlockToken} icon={<UnlockOutlined />}>UNLOCK {props.pool.symbol}</div>
+                            <div className="btn primary" onClick={props.unlockToken}
+                                 icon={<UnlockOutlined/>}>UNLOCK {props.pool.symbol}</div>
                             }
                         </Col>
                         <Col xs={12}>
                             {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
-                                <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined />}>ADD TO POOL</div>
+                            <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
+                                POOL</div>
                             }
                             {props.approvalBase && props.approvalToken && !props.startTx &&
-                                <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
+                            <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
                             }
                         </Col>
 
@@ -537,17 +633,19 @@ const RemoveLiquidityPane = (props) => {
                         </Col>
                         <Col xs={12}>
                             <OutputPane
-                                changeAmount={props.changeWithdrawAmount} />
+                                changeAmount={props.changeWithdrawAmount}/>
                         </Col>
                         <Col xs={6}>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${convertFromWei(props.withdrawData.tokenAmount)}`} label={`ESTIMATED ${props.pool.symbol}`} /></Center>
+                            <Center><LabelGroup size={18} element={`${convertFromWei(props.withdrawData.tokenAmount)}`}
+                                                label={`ESTIMATED ${props.pool.symbol}`}/></Center>
                         </Col>
                         <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${convertFromWei(props.withdrawData.baseAmount)}`} label={'ESTIMATED SPARTA'} /></Center>
+                            <Center><LabelGroup size={18} element={`${convertFromWei(props.withdrawData.baseAmount)}`}
+                                                label={'ESTIMATED SPARTA'}/></Center>
                         </Col>
                     </Row>
                     <br></br>

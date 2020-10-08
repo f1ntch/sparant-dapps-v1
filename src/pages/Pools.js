@@ -14,7 +14,7 @@ import {
     Row,
     Col,
     Card,
-    CardBody, Media,Modal, ModalHeader, ModalBody, ModalFooter,Button
+    CardBody, Media, Modal, ModalHeader, ModalBody, ModalFooter, Button
 } from "reactstrap";
 import CardWelcome from "./Dashboard-crypto/card-welcome";
 
@@ -151,7 +151,6 @@ const PoolTable = (props) => {
     };
 
 
-
     const columns = [
         {
             title: 'POOL',
@@ -236,21 +235,23 @@ const PoolTable = (props) => {
             //     </Col>
             // </a>,
 
-
             render: (record) => (
+                        <div
+                            className="btn-group"
+                            role="group"
+                        >
 
-                <Row type="flex" justify="center" align="middle">
-                    <Col className="btn primary">
-                        <Link to={`/pool/stake?pool=${record.address}`}>
-                            <LoginOutlined/> JOIN
-                        </Link>
-                    </Col>
-                    <Col className="btn primary">
-                        <Link to={`/pool/swap?pool=${record.address}`}>
-                            <SwapOutlined/> TRADE
-                        </Link>
-                    </Col>
-                </Row>
+                            <Link to={`/pool/stake?pool=${record.address}`}>
+                                <button type="button" className="btn btn-primary waves-effect waves-light">
+                                    <i className="bx bx-log-in-circle font-size-16 align-middle mr-2"></i> Join
+                            </button></Link>
+
+                            <Link to={`/pool/trade?pool=${record.address}`}>
+                                <button type="button" className="btn btn-primary waves-effect waves-light">
+                                    <i className="bx bx-transfer-alt font-size-16 align-middle mr-2"></i> Trade
+                                </button></Link>
+                        </div>
+
 
             )
         }
@@ -261,8 +262,8 @@ const PoolTable = (props) => {
             <Row>
                 <Col sm={12} md={12}>
                     <Card>
-                        {!context.poolsData && 
-                          <div style={{textAlign:"center"}}><LoadingOutlined/></div>
+                        {!context.poolsData &&
+                        <div style={{textAlign: "center"}}><LoadingOutlined/></div>
                         }
                         {context.poolsData &&
 

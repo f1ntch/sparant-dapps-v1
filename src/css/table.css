@@ -16,9 +16,7 @@ h3, .h3 {
     clear: both;
     border-radius: 2px;
 }
-.ant-row {
-    margin: 100px auto;
-}
+
 
 .ant-table table {
     font-size: 1.0rem;

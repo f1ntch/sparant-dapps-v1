@@ -295,16 +295,10 @@ const NewSwap = (props) => {
                                     <Col lg="4">
                                         <PoolPaneSide pool={pool} price={context.spartanPrice}/>
                                     </Col>
-                                    <Col lg="4">
+                                    <Col lg="6">
                                         <Card>
                                             <CardBody>
                                                 <h4 className="card-title mb-4">Buy/Sell</h4>
-                                                <br/>
-                                                <p className="text-muted mb-2"><i
-
-                                                    className="mdi mdi-wallet mr-1"></i> Wallet Balance</p>
-                                                <h5>$ 9148.23</h5>
-                                                <br/>
                                                 <Nav pills className="bg-light rounded" role="tablist">
                                                     <NavItem>
                                                         <NavLink
@@ -343,8 +337,6 @@ const NewSwap = (props) => {
                                                                 type={"Buy"}
                                                             />
                                                         </TabPane>
-
-
                                                     </TabPane>
                                                     <TabPane tabId="2" id="sell-tab">
                                                         <TabPane tab={`SELL ${pool.symbol}`} key="2">
@@ -360,16 +352,12 @@ const NewSwap = (props) => {
                                                                 endTx={endTx}
                                                                 type={"Sell"}
                                                             />
-
                                                         </TabPane>
                                                     </TabPane>
-
                                                 </TabContent>
                                             </CardBody>
-
                                         </Card>
                                     </Col>
-
                                 </Row>
                             </Container>
                         </div>
@@ -378,8 +366,8 @@ const NewSwap = (props) => {
 
             </>
         )
-    }
-;
+    };
+
 export default NewSwap;
 
 
@@ -399,7 +387,7 @@ const TradePane = (props) => {
         <>
 
 
-            <Label>Add Amount :</Label>
+
             <InputPane
                 pool={props.pool}
                 paneData={props.tradeData}
@@ -436,11 +424,7 @@ const TradePane = (props) => {
                     </tbody>
                 </table>
             </div>
-
-
             <br/><br/>
-
-
             {!props.approval &&
             <Button size="lg" color="success" onClick={props.unlock}><UnlockOutlined/> Unlock</Button>
             }
