@@ -105,7 +105,7 @@ export const InputPane = (props) => {
 
 
             </div>
-            <h7>Balancee {convertFromWei(props.paneData?.balance)} ({props.paneData?.symbol})
+            <h7>Balance {convertFromWei(props.paneData?.balance)} ({props.paneData?.symbol})
             </h7>
             <br/>
             <PercentButtonRow changeAmount={props.changeAmount}/>
