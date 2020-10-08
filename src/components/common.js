@@ -12,30 +12,21 @@ import {getTokenSymbol} from '../client/web3'
 import {H1, HR, Text, Center, Sublabel, LabelGrey} from './elements'
 
 import {
-    Container,
     Row,
     Col,
     Card,
     CardBody,
-    Form,
-    FormGroup,
     Input,
     Label,
     Button,
-    NavItem,
-    NavLink,
-    TabContent,
-    TabPane,
     Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     InputGroup,
-    InputGroupAddon, CardTitle, Progress, Breadcrumb, Media
+    InputGroupAddon,
+    Breadcrumb,
 } from "reactstrap";
 
 import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
-import MiniWidget from "../pages/Dashboard-crypto/mini-widget";
+
 
 // Check If Responsive
 export const useWindowSize = () => {

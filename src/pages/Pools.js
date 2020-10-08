@@ -16,7 +16,7 @@ import {
     Card,
     CardBody, Media, Modal, ModalHeader, ModalBody, ModalFooter, Button
 } from "reactstrap";
-import CardWelcome from "./Dashboard-crypto/card-welcome";
+import CardWelcome from "./Utility/card-welcome";
 
 
 const Pools = (props) => {

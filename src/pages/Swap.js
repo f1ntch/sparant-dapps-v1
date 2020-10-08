@@ -1,13 +1,12 @@
-import React, {useEffect, useState, useContext, Component} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {Context} from '../context'
 
-import {LoadingOutlined, LeftOutlined, DoubleRightOutlined, UnlockOutlined} from '@ant-design/icons';
+import {LoadingOutlined,UnlockOutlined} from '@ant-design/icons';
 
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
-import {BreadcrumbCombo, InputPane, PoolPaneSide,} from '../components/common'
-import {HR, Sublabel, LabelGroup} from '../components/elements';
+import {InputPane, PoolPaneSide,} from '../components/common'
 import {bn, formatBN, convertFromWei, convertToWei, formatUSDStatBoxes, formatUnits} from '../utils'
 import {getSwapOutput, getSwapSlip} from '../math'
 
@@ -17,36 +16,25 @@ import {
     getListedPools, getPoolsData, getPool
 } from '../client/web3'
 
-
 import {
     Container,
     Row,
     Col,
     Card,
     CardBody,
-    Form,
-    FormGroup,
-    Input,
-    Label,
     Button,
     Nav,
     NavItem,
     NavLink,
     TabPane,
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    InputGroup,
-    InputGroupAddon,
     TabContent
 } from "reactstrap";
 
-import Notification from '../components/CommonForBoth/notification'
+
 
 import classnames from 'classnames';
 import Breadcrumbs from "../components/Common/Breadcrumb";
-import MiniWidget from "./Dashboard-crypto/mini-widget";
+
 
 
 const NewSwap = (props) => {
