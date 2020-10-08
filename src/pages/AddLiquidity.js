@@ -33,7 +33,7 @@ import {
     DropdownItem,
     InputGroup,
     InputGroupAddon,
-    TabContent
+    TabContent, Alert
 } from "reactstrap";
 
 import classnames from 'classnames';
@@ -463,12 +463,14 @@ const AddSymmPane = (props) => {
 
     return (
         <>
-                            <InputPane
-                                paneData={props.userData}
-                                onInputChange={props.onAddChange}
-                                changeAmount={props.changeAmount}
-                            />
-
+            <InputPane
+                paneData={props.userData}
+                onInputChange={props.onAddChange}
+                changeAmount={props.changeAmount}
+            />
+            <br/>
+            <PlusOutlined style={{fontSize: 24}}/>
+            <br/>
             <br/>
 
             <div className="table-responsive mt-6">
@@ -479,7 +481,7 @@ const AddSymmPane = (props) => {
                             <p className="mb-0">Estimated Units</p>
                         </td>
                         <td>
-                            <h5 className="mb-0">XXX</h5>
+                            <h5 className="mb-0">{convertFromWei(props.estLiquidityUnits.toFixed(0))}</h5>
                         </td>
                         <td>
                         </td>
@@ -489,7 +491,7 @@ const AddSymmPane = (props) => {
                             <p className="mb-0">Estimated Share</p>
                         </td>
                         <td>
-                            <h5 className="mb-0">XXX</h5>
+                            <h5 className="mb-0">{`${props.getEstShare()}%`}</h5>
                         </td>
                         <td>
                         </td>
@@ -499,7 +501,7 @@ const AddSymmPane = (props) => {
                             <p className="mb-0">Paired Amount (SPARTA)</p>
                         </td>
                         <td style={{width: "10%"}}>
-                            <h2 className="mb-0"> XXX</h2>
+                            <h2 className="mb-0">{convertFromWei(props.liquidityData.baseAmount)}</h2>
                         </td>
                         <td>
                         </td>
@@ -507,56 +509,36 @@ const AddSymmPane = (props) => {
                     </tbody>
                 </table>
             </div>
-            <PlusOutlined style={{fontSize: 24}}/>
+            <br/>
+            <Col xs={12}>
+                {!props.approvalToken &&
+                <button color="success" type="button"
+                        className="btn btn-success btn-lg btn-block waves-effect waves-light"
+                        onClick={props.unlockToken}>
+                    <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Unlock {props.pool.symbol}
+                </button>
+                }
+            </Col>
+            <Col xs={12}>
+                <br/>
+                {!props.approvalBase &&
+                <button color="success" type="button"
+                        className="btn btn-success btn-lg btn-block waves-effect waves-light"
+                        onClick={props.unlockSparta}>
+                    <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Unlock SPARTA</button>
+                }
+            </Col>
 
 
-
-                        <Col xs={10}>
-
-                            <LabelGroup size={30}
-                                        element={`${convertFromWei(props.liquidityData.baseAmount)}`}
-                                        label={`PAIRED AMOUNT (SPARTA)`}/>
-
-                        </Col>
-
-
-
-                    <Row className="cntr">
-                        <Col xs={12}>
-                            <Center><LabelGroup size={18}
-                                                element={`${convertFromWei(props.estLiquidityUnits.toFixed(0))}`}
-                                                label={'ESTIMATED UNITS'}/></Center>
-                        </Col>
-                        <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${props.getEstShare()}%`}
-                                                label={'ESTIMATED SHARE'}/></Center>
-                        </Col>
-
-                    </Row>
-                    <Row>
-                        <Col xs={8}>
-                            {!props.approvalToken &&
-                            <div className="btn primary" onClick={props.unlockToken}
-                                 icon={<UnlockOutlined/>}>UNLOCK {props.pool.symbol}</div>
-                            }
-                        </Col>
-
-                        <Col xs={8}>
-                            {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
-                            <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
-                                POOL</div>
-                            }
-                            {props.approvalBase && props.approvalToken && !props.startTx &&
-                            <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
-                            }
-                        </Col>
-                        <Col xs={8}>
-                            {!props.approvalBase &&
-                            <div className="btn primary" onClick={props.unlockSparta} icon={<UnlockOutlined/>}>UNLOCK
-                                SPARTA</div>
-                            }
-                        </Col>
-                    </Row>
+            <Col xs={8}>
+                {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
+                <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
+                    POOL</div>
+                }
+                {props.approvalBase && props.approvalToken && !props.startTx &&
+                <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
+                }
+            </Col>
 
 
         </>
@@ -567,57 +549,67 @@ const AddAsymmPane = (props) => {
 
     return (
         <>
+            <Alert color="danger">
+                Please ensure you understand the risks related to asymmetric staking of assets! If in doubt, research
+                “impermanent loss”
+            </Alert>
+            <br/>
+            <InputPane
+                paneData={props.userData}
+                onInputChange={props.onAddChange}
+                changeAmount={props.changeAmount}
+            />
+            <br/>
+            <div className="table-responsive mt-6">
+                <table className="table table-centered table-nowrap mb-0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Estimated Units</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">{convertFromWei(props.estLiquidityUnits.toFixed(0))}</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Estimated Share</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">{`${props.getEstShare()}%`}</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <Row>
-                <Col xs={24}>
-                    <Row className="cntr" align="middle" justify="center">
-                        <Col xs={22} style={{marginRight: 30}}>
-                            <p>PLEASE ENSURE YOU UNDERSTAND THE RISKS RELATED TO ASYMMETRIC STAKING OF ASSETS!</p>
-                            <p>IF IN DOUBT, REASEARCH 'IMPERMANENT LOSS' OR ASK ADMIN FOR ADVICE</p>
-                        </Col>
-                        <Col xs={1}>
-                        </Col>
-                        <Col xs={22} className="cntr">
-                            <InputPane
-                                paneData={props.userData}
-                                onInputChange={props.onAddChange}
-                                changeAmount={props.changeAmount}
-                            />
-                        </Col>
-                        <Col xs={1}>
-                        </Col>
-                    </Row>
-                    <Row className="cntr" align="middle" justify="center">
-                        <Col xs={12}>
-                            <Center><LabelGroup size={18}
-                                                element={`${convertFromWei(props.estLiquidityUnits.toFixed(0))}`}
-                                                label={'ESTIMATED UNITS'}/></Center>
-                        </Col>
-                        <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${props.getEstShare()}%`}
-                                                label={'ESTIMATED SHARE'}/></Center>
-                        </Col>
-
-                    </Row>
-                    <Row>
-                        <Col xs={12}>
-                            {!props.approvalToken &&
-                            <div className="btn primary" onClick={props.unlockToken}
-                                 icon={<UnlockOutlined/>}>UNLOCK {props.pool.symbol}</div>
-                            }
-                        </Col>
-                        <Col xs={12}>
-                            {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
-                            <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
-                                POOL</div>
-                            }
-                            {props.approvalBase && props.approvalToken && !props.startTx &&
-                            <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
-                            }
-                        </Col>
-
-                    </Row>
+                <Col xs={12}>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    {!props.approvalToken &&
+                    <button color="success" type="button" className="btn btn-success btn-lg btn-block waves-effect waves-light" onClick={props.unlockToken}>
+                        <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Unlock {props.pool.symbol}</button>
+                    }
                 </Col>
+                <Col xs={12}>
+                    {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
+                    <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
+                        POOL</div>
+                    }
+                    {props.approvalBase && props.approvalToken && !props.startTx &&
+                    <div className="btn primary" onClick={props.addLiquidity}>ADD TO POOL</div>
+                    }
+                </Col>
+
             </Row>
+
         </>
     )
 }
@@ -626,32 +618,41 @@ const RemoveLiquidityPane = (props) => {
 
     return (
         <>
-            <Row>
-                <Col xs={24}>
-                    <Row>
-                        <Col xs={6}>
-                        </Col>
-                        <Col xs={12}>
-                            <OutputPane
-                                changeAmount={props.changeWithdrawAmount}/>
-                        </Col>
-                        <Col xs={6}>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${convertFromWei(props.withdrawData.tokenAmount)}`}
-                                                label={`ESTIMATED ${props.pool.symbol}`}/></Center>
-                        </Col>
-                        <Col xs={12}>
-                            <Center><LabelGroup size={18} element={`${convertFromWei(props.withdrawData.baseAmount)}`}
-                                                label={'ESTIMATED SPARTA'}/></Center>
-                        </Col>
-                    </Row>
-                    <br></br>
-                    <div className="btn primary" onClick={props.removeLiquidity}>WITHDRAW FROM POOL</div>
-                </Col>
-            </Row>
+
+        <OutputPane changeAmount={props.changeWithdrawAmount}/>
+
+        <div className="table-responsive mt-6">
+            <table className="table table-centered table-nowrap mb-0">
+                <tbody>
+                <tr>
+                    <td>
+                        <p className="mb-0">Estimated</p>
+                    </td>
+                    <td>
+                        <h5 className="mb-0">{convertFromWei(props.withdrawData.tokenAmount)}</h5>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p className="mb-0">Estimated SPARTA</p>
+                    </td>
+                    <td>
+                        <h5 className="mb-0">{convertFromWei(props.withdrawData.baseAmount)}</h5>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <br/>
+            <br/>
+            {!props.approvalToken &&
+            <button color="success" type="button" className="btn btn-success btn-lg btn-block waves-effect waves-light" onClick={props.removeLiquidity}>
+                <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Withdraw From Pool {props.pool.symbol}</button>
+            }
         </>
     )
 }

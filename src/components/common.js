@@ -152,13 +152,11 @@ export const OutputPane = (props) => {
 
     return (
         <div style={{margin: 0}}>
-            <Center>
-                <Row>
-                    <Col xs={24}>
-                        <PercentButtonRow changeAmount={props.changeAmount}/>
-                    </Col>
-                </Row>
-            </Center>
+
+
+            <PercentButtonRow changeAmount={props.changeAmount}/>
+
+
             {/* <Center>
         {!secondToken &&
           <div>

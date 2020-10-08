@@ -246,7 +246,7 @@ const PoolTable = (props) => {
                                     <i className="bx bx-log-in-circle font-size-16 align-middle mr-2"></i> Join
                             </button></Link>
 
-                            <Link to={`/pool/trade?pool=${record.address}`}>
+                            <Link to={`/pool/swap?pool=${record.address}`}>
                                 <button type="button" className="btn btn-primary waves-effect waves-light">
                                     <i className="bx bx-transfer-alt font-size-16 align-middle mr-2"></i> Trade
                                 </button></Link>
