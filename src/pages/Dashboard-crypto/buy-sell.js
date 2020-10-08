@@ -57,7 +57,7 @@ class BuySell extends Component {
                                                         </select>
                                                     </FormGroup>
 
-                                                    <div>
+                                                    <div>//////////////////////
                                                         <Label>Add Amount :</Label>
                                                         <InputGroup className="mb-3">
                                                             <InputGroupAddon addonType="prepend">

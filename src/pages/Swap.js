@@ -8,7 +8,7 @@ import queryString from 'query-string';
 
 import {BreadcrumbCombo, InputPane, PoolPaneSide,} from '../components/common'
 import {HR, Sublabel, LabelGroup} from '../components/elements';
-import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
+import {bn, formatBN, convertFromWei, convertToWei, formatUSDStatBoxes, formatUnits} from '../utils'
 import {getSwapOutput, getSwapSlip} from '../math'
 
 import {
@@ -46,13 +46,15 @@ import Notification from '../components/CommonForBoth/notification'
 
 import classnames from 'classnames';
 import Breadcrumbs from "../components/Common/Breadcrumb";
+import MiniWidget from "./Dashboard-crypto/mini-widget";
 
 
 const NewSwap = (props) => {
 
+
         const [activeTab, setActiveTab] = useState('1');
-        const [notifyMessage,setNotifyMessage] = useState("");
-        const [notifyType,setNotifyType] = useState("dark");
+        const [notifyMessage, setNotifyMessage] = useState("");
+        const [notifyType, setNotifyType] = useState("dark");
 
         const toggle = tab => {
             if (activeTab !== tab) setActiveTab(tab);
@@ -293,81 +295,79 @@ const NewSwap = (props) => {
                                     <Col lg="4">
                                         <PoolPaneSide pool={pool} price={context.spartanPrice}/>
                                     </Col>
-                                    <Col lg="8">
+                                    <Col lg="4">
+                                        <Card>
+                                            <CardBody>
+                                                <h4 className="card-title mb-4">Buy/Sell</h4>
+                                                <br/>
+                                                <p className="text-muted mb-2"><i
+
+                                                    className="mdi mdi-wallet mr-1"></i> Wallet Balance</p>
+                                                <h5>$ 9148.23</h5>
+                                                <br/>
+                                                <Nav pills className="bg-light rounded" role="tablist">
+                                                    <NavItem>
+                                                        <NavLink
+                                                            className={classnames({active: activeTab === '1'})}
+                                                            onClick={() => {
+                                                                toggle('1');
+                                                            }}
+                                                        >
+                                                            Buy {pool.symbol}
+                                                        </NavLink>
+                                                    </NavItem>
+                                                    <NavItem>
+                                                        <NavLink
+                                                            className={classnames({active: activeTab === '2'})}
+                                                            onClick={() => {
+                                                                toggle('2');
+                                                            }}
+                                                        >
+                                                            Sell {pool.symbol}
+                                                        </NavLink>
+                                                    </NavItem>
+                                                </Nav>
+                                                <TabContent activeTab={activeTab} className="mt-4">
+                                                    <TabPane tabId="1" id="buy-tab">
+                                                        <TabPane tab={`BUY ${pool.symbol}`} key="1">
+                                                            <TradePane
+                                                                pool={pool}
+                                                                tradeData={buyData}
+                                                                onTradeChange={onBuyChange}
+                                                                changeTradeAmount={changeBuyAmount}
+                                                                approval={approvalS}
+                                                                unlock={unlockSparta}
+                                                                trade={buy}
+                                                                startTx={startTx}
+                                                                endTx={endTx}
+                                                                type={"Buy"}
+                                                            />
+                                                        </TabPane>
 
 
-                                        <div className="crypto-buy-sell-nav">
-                                        <Nav tabs className="nav-tabs-custom" role="tablist">
-                                            <NavItem>
-                                                <NavLink
-                                                    className={classnames({active: activeTab === '1'})}
-                                                    onClick={() => {
-                                                        toggle('1');
-                                                    }}
-                                                >
-                                                    Join
-                                                </NavLink>
-                                            </NavItem>
-                                            <NavItem>
-                                                <NavLink
-                                                    className={classnames({active: activeTab === '2'})}
-                                                    onClick={() => {
-                                                        toggle('2');
-                                                    }}
-                                                >
-                                                    Trade
-                                                </NavLink>
-                                            </NavItem>
-                                        </Nav>
-                                        <TabContent activeTab={activeTab}
-                                            className="crypto-buy-sell-nav-content p-4">
-                                            <TabPane tabId="1" id="buy">
-                                                <Row>
-                                                    <Col sm="12">
-                                                        <TabContent defaultActiveKey="1" onChange={changeTabs}>
-                                                            <TabPane tab={`BUY ${pool.symbol}`} key="1">
-                                                                <TradePane
-                                                                    pool={pool}
-                                                                    tradeData={buyData}
-                                                                    onTradeChange={onBuyChange}
-                                                                    changeTradeAmount={changeBuyAmount}
-                                                                    approval={approvalS}
-                                                                    unlock={unlockSparta}
-                                                                    trade={buy}
-                                                                    startTx={startTx}
-                                                                    endTx={endTx}
-                                                                    type={"BUY"}
-                                                                />
-                                                            </TabPane>
-                                                            <TabPane tab={`SELL ${pool.symbol}`} key="2">
-                                                                <TradePane
-                                                                    pool={pool}
-                                                                    tradeData={sellData}
-                                                                    onTradeChange={onSellChange}
-                                                                    changeTradeAmount={changeSellAmount}
-                                                                    approval={approval}
-                                                                    unlock={unlockToken}
-                                                                    trade={sell}
-                                                                    startTx={startTx}
-                                                                    endTx={endTx}
-                                                                    type={"SELL"}
-                                                                />
+                                                    </TabPane>
+                                                    <TabPane tabId="2" id="sell-tab">
+                                                        <TabPane tab={`SELL ${pool.symbol}`} key="2">
+                                                            <TradePane
+                                                                pool={pool}
+                                                                tradeData={sellData}
+                                                                onTradeChange={onSellChange}
+                                                                changeTradeAmount={changeSellAmount}
+                                                                approval={approval}
+                                                                unlock={unlockToken}
+                                                                trade={sell}
+                                                                startTx={startTx}
+                                                                endTx={endTx}
+                                                                type={"Sell"}
+                                                            />
 
-                                                            </TabPane>
-                                                        </TabContent>
-                                                    </Col>
-                                                </Row>
-                                            </TabPane>
-                                            <TabPane tabId="2">
-                                                <Row>
-                                                    <Col sm="6">
+                                                        </TabPane>
+                                                    </TabPane>
 
-                                                    </Col>
-                                                </Row>
-                                            </TabPane>
-                                        </TabContent>
-                                        </div>
+                                                </TabContent>
+                                            </CardBody>
 
+                                        </Card>
                                     </Col>
 
                                 </Row>
@@ -385,207 +385,76 @@ export default NewSwap;
 
 const TradePane = (props) => {
 
+
+    const [activeTab, setActiveTab] = useState('1');
+    const [notifyMessage, setNotifyMessage] = useState("");
+    const [notifyType, setNotifyType] = useState("dark");
+
+    const toggle = tab => {
+        if (activeTab !== tab) setActiveTab(tab);
+    };
+
+
     return (
         <>
 
-                    <Col xs={10}>
-                        <Label xs={10} size={20}>{'INPUT'}</Label><br/>
-                        <InputPane
-                            pool={props.pool}
-                            paneData={props.tradeData}
-                            onInputChange={props.onTradeChange}
-                            changeAmount={props.changeTradeAmount}
-                        />
-                    </Col>
-                    <Col xs={4} style={{display: 'flex', alignItems: 'center', justifyContent: "center"}}>
-                        <DoubleRightOutlined style={{fontSize: 24}}/>
-                    </Col>
-                    <Col xs={10}>
-                        <LabelGroup size={30} element={`${convertFromWei(props.tradeData.output)}`}
-                                    label={`OUTPUT (${props.tradeData.outputSymbol})`}/>
 
-                        <Row>
-                            <Col xs={12}>
-                                <LabelGroup size={20} element={`${((props.tradeData.slip) * 100).toFixed(0)}%`}
-                                            label={'SLIP'}/>
-                            </Col>
-                            {/* <Col xs={12}>
-                                    <LabelGroup size={20} element={((props.tradeData.slip) * 100).toFixed(2)} label={'FEE'} />
-                                </Col> */}
-                        </Row>
+            <Label>Add Amount :</Label>
+            <InputPane
+                pool={props.pool}
+                paneData={props.tradeData}
+                onInputChange={props.onTradeChange}
+                changeAmount={props.changeTradeAmount}
+            />
+            <br/>
 
-                    </Col>
+            <div className="table-responsive mt-6">
+                <table className="table table-centered table-nowrap mb-0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Slip</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">{`${((props.tradeData.slip) * 100).toFixed(0)}%`}</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{width: "100%"}}>
+                            <p className="mb-0">Output</p>
+                        </td>
+                        <td style={{width: "10%"}}>
+                            <h2 className="mb-0"> {convertFromWei(props.tradeData.output)} {props.tradeData.outputSymbol}</h2>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
 
-                <br/><br/>
 
-                <Row>
-                    <Col xs={24}>
-                        {!props.approval &&
-                        <div className="btn primary" onClick={props.unlock}><UnlockOutlined/> UNLOCK</div>
-                        }
-                        {props.approval && props.startTx && !props.endTx &&
-                        <div className="btn primary" onClick={props.trade}>
-                            <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</div>
-                        }
-                        {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
-                        <div className="btn primary"
-                             onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</div>
-                        }
+                    </tbody>
+                </table>
+            </div>
 
-                    </Col>
-                </Row>
 
+            <br/><br/>
+
+
+            {!props.approval &&
+            <Button size="lg" color="success" onClick={props.unlock}><UnlockOutlined/> Unlock</Button>
+            }
+            {props.approval && props.startTx && !props.endTx &&
+            <Button size="lg" color="success" onClick={props.trade}>
+                <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</Button>
+            }
+            {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
+            <Button
+                size="lg" color="success" onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</Button>
+            }
 
 
         </>
     )
 };
 
-
-// class SwapTrade extends Component {
-//     constructor(props) {
-//         super(props);
-
-//         this.state = {
-//             activeTab: '1',
-//             isMenu: false,
-//         }
-//         this.toggleTab = this.toggleTab.bind(this);
-//         this.toggleMenu = this.toggleMenu.bind(this);
-//     }
-//
-//     toggleTab(tab) {
-//         if (this.state.activeTab !== tab) {
-//             this.setState({
-//                 activeTab: tab
-//             });
-//         }
-//     }
-//
-//     toggleMenu() {
-//         this.setState(prevState => ({
-//             isMenu: !prevState.isMenu
-//         }));
-//     }
-//
-//
-//
-//     render() {
-//         return (
-//             <React.Fragment>
-//                 <div className="page-content">
-//                     <Container fluid>
-//
-//                         {/* Render Breadcrumb */}
-//                         <Breadcrumbs title="Pools" breadcrumbItem="Swap"/>
-//                         <Row>
-//                             <Col lg="12">
-//                                 <Card>
-//                                     <CardBody>
-//                                         <h4 className="card-title mb-4">Swap</h4>  <Col lg="12">
-//                                             <Card>
-//                                                 <CardBody>
-//                                                     <Row>
-//                                                         <Col lg="6">
-//                                                             <div className="border p-3 rounded mt-4">
-//                                                                 <div className="d-flex align-items-center mb-3">
-//                                                                     <div className="avatar-xs mr-3">
-//                                                             <span
-//                                                                 className="avatar-title rounded-circle bg-soft-info text-info font-size-18">
-//                                                                 <i className="mdi mdi-bank-transfer"></i>
-//                                                             </span>
-//                                                                     </div>
-//                                                                     <h5 className="font-size-14 mb-0">Txn Count</h5>
-//                                                                 </div>
-//
-//                                                                 <Row>
-//                                                                     <div className="col-lg-6">
-//                                                                         <div className="text-muted mt-3">
-//                                                                             <p>Annual Yield</p>
-//                                                                             <h4>4.12 %</h4>
-//                                                                             <p className="mb-0">0.00245 LTC</p>
-//
-//                                                                         </div>
-//                                                                     </div>
-//                                                                 </Row>
-//                                                             </div>
-//                                                         </Col>
-//                                                         <Col lg="6">
-//                                                             <div className="border p-3 rounded mt-4">
-//                                                                 <div className="d-flex align-items-center mb-3">
-//                                                                     <div className="avatar-xs mr-3">
-//                                                             <span
-//                                                                 className="avatar-title rounded-circle bg-soft-info text-info font-size-18">
-//                                                                 <i className="mdi mdi-bank-transfer"></i>
-//                                                             </span>
-//                                                                     </div>
-//                                                                     <h5 className="font-size-14 mb-0">Total Earnings</h5>
-//                                                                 </div>
-//
-//                                                                 <Row>
-//                                                                     <div className="col-lg-6">
-//                                                                         <div className="text-muted mt-3">
-//                                                                             <p>Annual Yield</p>
-//                                                                             <h4>4.12 %</h4>
-//                                                                             <p className="mb-0">0.00245 LTC</p>
-//
-//                                                                         </div>
-//                                                                     </div>
-//                                                                 </Row>
-//                                                             </div>
-//                                                         </Col>
-//                                                     </Row>
-//
-//                                                 </CardBody>
-//                                             </Card>
-//                                     </Col>
-//
-//                                         <div className="crypto-buy-sell-nav">
-//                                             <Nav tabs className="nav-tabs-custom" role="tablist">
-//                                                 <NavItem>
-//                                                     <NavLink
-//                                                         className={classnames({active: this.state.activeTab === '1'})}
-//                                                         onClick={() => {
-//                                                             this.toggleTab('1');
-//                                                         }}>
-//                                                         Join
-//                                                     </NavLink>
-//                                                 </NavItem>
-//                                                 <NavItem>
-//                                                     <NavLink
-//                                                         className={classnames({active: this.state.activeTab === '2'})}
-//                                                         onClick={() => {
-//                                                             this.toggleTab('2');
-//                                                         }}>
-//                                                         Trade
-//                                                     </NavLink>
-//                                                 </NavItem>
-//                                             </Nav>
-//
-//                                             <TabContent activeTab={this.state.activeTab}
-//                                                         className="crypto-buy-sell-nav-content p-4">
-//                                                 <TabPane tabId="1" id="buy">
-//                                                     <h1>T1</h1>
-//                                                 </TabPane>
-//
-//                                                 <TabPane tabId="2">
-//                                                     <h1>T2</h1>
-//                                                 </TabPane>
-//
-//                                             </TabContent>
-//                                         </div>
-//
-//                                     </CardBody>
-//
-//                                 </Card>
-//                             </Col>
-//                         </Row>
-//
-//                     </Container>
-//                 </div>
-//             </React.Fragment>
-//         );
-//     }
-// }
-
-//export default SwapTrade;

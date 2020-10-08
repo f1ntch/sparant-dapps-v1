@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import { Menu, Divider,Image} from 'antd'
+import {Menu, Divider, Image} from 'antd'
 import {DownOutlined,} from '@ant-design/icons';
 // PlusCircleOutlined, MinusCircleOutlined, Tooltip
 import {
@@ -9,7 +9,7 @@ import {
     // formatAPY,
 } from '../utils'
 import {getTokenSymbol} from '../client/web3'
-import {H1, HR, Text, Center, Sublabel} from './elements'
+import {H1, HR, Text, Center, Sublabel, LabelGrey} from './elements'
 
 import {
     Container,
@@ -22,7 +22,6 @@ import {
     Input,
     Label,
     Button,
-    CarNa,
     NavItem,
     NavLink,
     TabContent,
@@ -32,10 +31,11 @@ import {
     DropdownMenu,
     DropdownItem,
     InputGroup,
-    InputGroupAddon, CardTitle, Progress, Breadcrumb,Media
+    InputGroupAddon, CardTitle, Progress, Breadcrumb, Media
 } from "reactstrap";
 
 import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
+import MiniWidget from "../pages/Dashboard-crypto/mini-widget";
 
 // Check If Responsive
 export const useWindowSize = () => {
@@ -85,9 +85,13 @@ export const InputPane = (props) => {
 
     return (
         <div>
-            <Row>
-                <Col xs={24}>
-                    <Input onChange={props.onInputChange}
+            <div>
+
+                <InputGroup className="mb-3">
+                    <InputGroupAddon addonType="prepend">
+                        <Label className="input-group-text">Total</Label>
+                    </InputGroupAddon>
+                    <Input type="text" className="form-control" onChange={props.onInputChange}
                            placeholder={convertFromWei(props.paneData?.input)}
                            size={'large'}
                         // defaultValue={convertFromWei(props.paneData?.input)}
@@ -96,14 +100,20 @@ export const InputPane = (props) => {
                         //   changeToken={props.changeToken}
                         //   tokenList={props.tokenList} />}
                     ></Input>
-                    <Sublabel>Balance:
-                        {convertFromWei(props.paneData?.balance)} ({props.paneData?.symbol})</Sublabel>
-                </Col>
-            </Row>
+
+                </InputGroup>
+
+
+            </div>
+            <h7>Balance {convertFromWei(props.paneData?.balance)} ({props.paneData?.symbol})
+            </h7>
+            <br/>
             <PercentButtonRow changeAmount={props.changeAmount}/>
+            <br/>
         </div>
     )
-}
+};
+
 
 export const InputPaneStatic = (props) => {
     //tokenList
@@ -206,14 +216,15 @@ export const PercentButtonRow = (props) => {
     }
     return (
         <>
-            <Row style={{marginBottom: 10}}>
-                <Col xs={24}>
-                    <Button type="dashed" style={btnStyle} onClick={change25}>25%</Button>
-                    <Button type="dashed" style={btnStyle} onClick={change50}>50%</Button>
-                    <Button type="dashed" style={btnStyle} onClick={change75}>75%</Button>
-                    <Button style={btnStyle} onClick={change100}>ALL</Button>
-                </Col>
-            </Row>
+
+            <Col xs={24}>
+
+                <Button color="primary" type="button" style={btnStyle} onClick={change25}>25%</Button>
+                <Button color="primary" type="button" style={btnStyle} onClick={change50}>50%</Button>
+                <Button color="primary" type="button" style={btnStyle} onClick={change75}>75%</Button>
+                <Button color="primary" style={btnStyle} onClick={change100}>All</Button>
+            </Col>
+
         </>
     )
 }
@@ -318,19 +329,53 @@ export const TokenSymbol = (props) => {
 
 export const PoolPaneSide = (props) => {
 
+    //BNB Chart
+    const series1 = [{name: "BTC", data: [12, 14, 2, 47, 42, 15, 47, 75, 65, 19, 14]}];
+    const options1 = {
+        chart: {sparkline: {enabled: !0}},
+        stroke: {curve: "smooth", width: 2},
+        colors: ["#f1b44c"],
+        fill: {
+            type: "gradient",
+            gradient: {
+                shadeIntensity: 1,
+                inverseColors: !1,
+                opacityFrom: .45,
+                opacityTo: .05,
+                stops: [25, 100, 100, 100]
+            }
+        },
+        tooltip: {fixed: {enabled: !1}, x: {show: !1}, marker: {show: !1}}
+    };
+
+
+    const reports = [
+        {
+            title: "Bitcoin",
+            icon: "mdi mdi-bitcoin",
+            color: "warning",
+            value: "$ 9134.39",
+            desc: "+ 0.0012 ( 0.2 % )",
+            series: series1,
+            options: options1
+        },
+
+    ];
+
     return (
         <Col lg="12">
             <Card>
                 <CardBody>
-                    <CardTitle className="mb-4">
-                        Overview
-                    </CardTitle>
+                    <h4 className="card-title mb-4">Overview</h4>
                     <div className="text-center">
                         <div className="mb-4">
-                            { props.pool.address === BNB_ADDR &&
-                            <img src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"} style={{ height:50 }} alt='BNB' />
+                            {/*<MiniWidget reports={reports}/>*/}
+                            {props.pool.address === BNB_ADDR &&
+                            <img
+                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
+                                style={{height: 50}} alt='BNB'/>
                             }
-                            { props.pool.address !== BNB_ADDR &&
+                            {props.pool.address !== BNB_ADDR &&
                             <img
                                 src-data="holder.js/171x180"
                                 width={50}
@@ -395,14 +440,15 @@ export const PoolPaneSide = (props) => {
                     <div className="text-center">
                         <div className="mb-4">
                             <i className="text-primary display-4">
-                            <img
-                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"}
-                                style={{height: 50}} alt='SPARTA'/></i>
+                                <img
+                                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"}
+                                    style={{height: 50}} alt='SPARTA'/></i>
                         </div>
                         <h2>SPARTA</h2>
                         <p>Price</p>
                         <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
                     </div>
+
                 </CardBody>
             </Card>
         </Col>

@@ -18,21 +18,21 @@ const ProfileMenu = (props) => {
         setMenu(!menu);
     }
 
-    useEffect(() => {
-          if(localStorage.getItem("authUser"))
-           {
-             if(process.env.REACT_APP_DEFAULTAUTH === 'firebase')
-             {
-                const obj = JSON.parse(localStorage.getItem("authUser"));
-                this.setState({name : obj.displayName});
-             }
-              else if((process.env.REACT_APP_DEFAULTAUTH === 'fake') || (process.env.REACT_APP_DEFAULTAUTH === 'jwt'))
-             {
-                const obj = JSON.parse(localStorage.getItem("authUser"));
-                this.setState({name : obj.username});
-             }
-          }
-    },[])
+    // useEffect(() => {
+    //       if(localStorage.getItem("authUser"))
+    //        {
+    //          if(process.env.REACT_APP_DEFAULTAUTH === 'firebase')
+    //          {
+    //             const obj = JSON.parse(localStorage.getItem("authUser"));
+    //             this.setState({name : obj.displayName});
+    //          }
+    //           else if((process.env.REACT_APP_DEFAULTAUTH === 'fake') || (process.env.REACT_APP_DEFAULTAUTH === 'jwt'))
+    //          {
+    //             const obj = JSON.parse(localStorage.getItem("authUser"));
+    //             this.setState({name : obj.username});
+    //          }
+    //       }
+    // },[])
     
     return (
         <React.Fragment>

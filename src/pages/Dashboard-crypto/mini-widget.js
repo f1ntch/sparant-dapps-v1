@@ -15,7 +15,7 @@ class MiniWidget extends Component {
             <React.Fragment>
                 {
                     this.props.reports.map((report , key) =>
-                        <Col sm="4" key={key}>
+                        <Col sm="11" key={key}>
                             <Card>
                                 <CardBody>
                                     <p className="text-muted mb-4"><i className={ report.icon + " h2 text-" + report.color + " align-middle mb-0 mr-3"}></i> {report.title} </p>
