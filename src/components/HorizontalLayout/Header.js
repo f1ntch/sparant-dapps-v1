@@ -32,6 +32,9 @@ import { withNamespaces } from 'react-i18next';
 //import components
 import AddressConn from '../CommonForBoth/AddressConn';
 import { manageBodyClass } from '../common';
+import FormGroup from "reactstrap/es/FormGroup";
+import CustomInput from "reactstrap/es/CustomInput";
+import ThemeSwitch from "../CommonForBoth/TopbarDropdown/ThemeSwitch";
 
 const Header = (props) => {
 
@@ -99,6 +102,8 @@ const Header = (props) => {
               </Link>
             </div>
 
+           <ThemeSwitch/>
+
             <button
               type="button"
               className="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
@@ -135,6 +140,9 @@ const Header = (props) => {
             </div>
 
             <LanguageDropdown />
+            <div clacustom-control custom-switch mb-3>
+
+            </div>
 
             <UncontrolledDropdown className="d-none d-lg-inline-block ml-1">
               <DropdownToggle className="btn header-item noti-icon waves-effect" caret tag="button">

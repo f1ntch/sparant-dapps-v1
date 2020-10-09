@@ -67,7 +67,7 @@ const LanguageDropdown = (props) => {
         >
           <img
             src={flag}
-            alt="Skote"
+            alt="Spartan"
             height="16"
             className="mr-1"
           />
@@ -75,19 +75,19 @@ const LanguageDropdown = (props) => {
         </DropdownToggle>
         <DropdownMenu className="language-switch" right>
           <DropdownItem tag="a" href="#" onClick={() => changeLanguageAction('eng')} className={`notify-item ${lng === 'English' ? 'active' : 'none'}`}>
-            <img src={usFlag} alt="Skote" className="mr-1" height="12" />
+            <img src={usFlag} alt="Spartan" className="mr-1" height="12" />
             <span className="align-middle">English</span>
           </DropdownItem>
           <DropdownItem tag="a" href="#" onClick={() => changeLanguageAction('sp')} className={`notify-item ${lng === 'Chinese' ? 'active' : 'none'}`}>
-            <img src={spain} alt="Skote" className="mr-1" height="12" />
+            <img src={spain} alt="Spartan" className="mr-1" height="12" />
             <span className="align-middle">Chinese</span>
           </DropdownItem>
           <DropdownItem tag="a" href="#" onClick={() => changeLanguageAction('gr')} className={`notify-item ${lng === 'German' ? 'active' : 'none'}`}>
-            <img src={germany} alt="Skote" className="mr-1" height="12" />
+            <img src={germany} alt="Spartan" className="mr-1" height="12" />
             <span className="align-middle">Russian</span>
           </DropdownItem>
           <DropdownItem tag="a" href="#" onClick={() => changeLanguageAction('it')} className={`notify-item ${lng === 'Italian' ? 'active' : 'none'}`}>
-            <img src={italy} alt="Skote" className="mr-1" height="12" />
+            <img src={italy} alt="Spartan" className="mr-1" height="12" />
             <span className="align-middle">Turkish</span>
           </DropdownItem>
         </DropdownMenu>
