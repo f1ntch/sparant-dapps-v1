@@ -12,7 +12,7 @@ class PagesStarter extends Component {
                     <Container fluid>
 
                         {/* Render Breadcrumbs */}
-                        <Breadcrumbs title="Utility" breadcrumbItem="Starter Page" />
+                        <Breadcrumbs title="Info" breadcrumbItem="Starter Page" />
 
                     </Container>
                 </div>

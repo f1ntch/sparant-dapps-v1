@@ -81,7 +81,6 @@ const Navbar = (props) => {
                                         <i className="bx bx-customize mr-2"></i>{props.t('Apps')} <div className="arrow-down"></div>
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown1 })}>
-                                        <Link to="/overview" className="dropdown-item" onClick={closeDropdowns}>{props.t('Overview')}</Link>
                                         <Link to="/pool" className="dropdown-item" onClick={closeDropdowns}>{props.t('Pools')}</Link>
                                         <Link to="/share" className="dropdown-item" onClick={closeDropdowns}>{props.t('Shares')}</Link>
                                         <Link to="/dao" className="dropdown-item" onClick={closeDropdowns}>{props.t('Dao')}</Link>

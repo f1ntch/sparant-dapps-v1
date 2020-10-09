@@ -549,7 +549,7 @@ const AddAsymmPane = (props) => {
 
     return (
         <>
-            <Alert color="danger">
+            <Alert color="info">
                 Please ensure you understand the risks related to asymmetric staking of assets! If in doubt, research
                 “impermanent loss”
             </Alert>

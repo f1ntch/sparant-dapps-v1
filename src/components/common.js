@@ -318,39 +318,6 @@ export const TokenSymbol = (props) => {
 
 export const PoolPaneSide = (props) => {
 
-    //BNB Chart
-    const series1 = [{name: "BTC", data: [12, 14, 2, 47, 42, 15, 47, 75, 65, 19, 14]}];
-    const options1 = {
-        chart: {sparkline: {enabled: !0}},
-        stroke: {curve: "smooth", width: 2},
-        colors: ["#f1b44c"],
-        fill: {
-            type: "gradient",
-            gradient: {
-                shadeIntensity: 1,
-                inverseColors: !1,
-                opacityFrom: .45,
-                opacityTo: .05,
-                stops: [25, 100, 100, 100]
-            }
-        },
-        tooltip: {fixed: {enabled: !1}, x: {show: !1}, marker: {show: !1}}
-    };
-
-
-    const reports = [
-        {
-            title: "Bitcoin",
-            icon: "mdi mdi-bitcoin",
-            color: "warning",
-            value: "$ 9134.39",
-            desc: "+ 0.0012 ( 0.2 % )",
-            series: series1,
-            options: options1
-        },
-
-    ];
-
     return (
         <Col lg="12">
             <Card>

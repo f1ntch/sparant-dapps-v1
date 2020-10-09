@@ -82,7 +82,7 @@ const Header = (props) => {
             <div className="navbar-brand-box">
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src={logo} alt="" height="22" />
+                  <img src={logo} alt="" height="30" />
                 </span>
                 <span className="logo-lg">
                   <img src={logoDark} alt="" height="17" />
@@ -91,7 +91,7 @@ const Header = (props) => {
 
               <Link to="/" className="logo logo-light">
                 <span className="logo-sm">
-                  <img src={logoLightSvg} alt="" height="22" />
+                  <img src={logoLightSvg} alt="" height="40" />
                 </span>
                 <span className="logo-lg">
                   <img src={logoLight} alt="" height="55" />
@@ -110,14 +110,6 @@ const Header = (props) => {
 
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ml-2">
-
-              <button
-                type="button"
-                className="btn header-item noti-icon waves-effect"
-                id="page-header-search-dropdown"
-                onClick={toggleSearch}>
-                <i className="mdi mdi-magnify"></i>
-              </button>
               <div
                 className={isSearch ? "dropdown-menu dropdown-menu-lg dropdown-menu-right p-0 show" : "dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"}
                 aria-labelledby="page-header-search-dropdown"
