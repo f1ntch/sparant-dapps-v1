@@ -1,7 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Context} from '../context'
-import {Link} from 'react-router-dom'
 import {Image, Table} from 'antd'
+import { Link, withRouter } from "react-router-dom";
+
+
 
 import {BNB_ADDR, getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../client/web3'
 import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../utils'
@@ -17,7 +19,7 @@ import {
     CardBody, Media, Modal, ModalHeader, ModalBody, ModalFooter, Button
 } from "reactstrap";
 import CardWelcome from "./Utility/card-welcome";
-
+import { withNamespaces } from 'react-i18next';
 
 const Pools = (props) => {
 
@@ -47,9 +49,10 @@ const Pools = (props) => {
             <div className="page-content">
                 <Container fluid>
                     {/* Render Breadcrumb */}
-                    <Breadcrumbs title="App" breadcrumbItem="Liquidity Pools"/>
+                    <Breadcrumbs title={props.t("App")} breadcrumbItem={props.t("Liquidity Pools")}/>
                     <Row>
                         <Col xs="12">
+                            <h1>{props.t('Pools')}</h1>
                             <PoolsPaneSide globalData={globalData}/>
                         </Col>
                         <Col xs="12">
@@ -62,7 +65,8 @@ const Pools = (props) => {
     )
 };
 
-export default Pools;
+export default withRouter(withNamespaces()(Pools));
+
 
 export const PoolsPaneSide = (props) => {
 

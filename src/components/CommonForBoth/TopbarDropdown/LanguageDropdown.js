@@ -30,11 +30,11 @@ const LanguageDropdown = (props) => {
 
     if(lng === "sp") {
         setFlag(spain);
-        setLng("Spanish");
+        setLng("Chinese");
     }
     else if(lng === "gr") {
         setFlag(germany);
-        setLng("German");
+        setLng("Russian");
     }
     else if(lng === "rs") {
         setFlag(russia);
@@ -42,7 +42,7 @@ const LanguageDropdown = (props) => {
     }
     else if(lng === "it") {
         setFlag(italy);
-        setLng("Italian");
+        setLng("Turkish");
     }
     else if(lng === "eng") {
         setFlag(usFlag);
@@ -78,7 +78,7 @@ const LanguageDropdown = (props) => {
             <img src={usFlag} alt="Skote" className="mr-1" height="12" />
             <span className="align-middle">English</span>
           </DropdownItem>
-          <DropdownItem tag="a" href="#" onClick={() => changeLanguageAction('sp')} className={`notify-item ${lng === 'Spanish' ? 'active' : 'none'}`}>
+          <DropdownItem tag="a" href="#" onClick={() => changeLanguageAction('sp')} className={`notify-item ${lng === 'Chinese' ? 'active' : 'none'}`}>
             <img src={spain} alt="Skote" className="mr-1" height="12" />
             <span className="align-middle">Chinese</span>
           </DropdownItem>

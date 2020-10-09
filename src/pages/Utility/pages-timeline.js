@@ -12,18 +12,18 @@ import LiVerticalTimeline from "./li-vertical-timeline";
 class PagesTimeline extends Component {
     state = {
         events : [
-            { id : 1, date : "December, 2019", title : "First event", desc : "It will be as simple as occidental in fact it will be Cambridge" },
-            { id : 2, date : "January, 2020", title : "Second event", desc : "To an English person, it will seem like simplified English existence." },
+            { id : 1, date : "December, 2019", title : "First event", desc : "It will be as simple as occidental in fact tu will be Cambridge" },
+            { id : 2, date : "January, 2020", title : "Second event", desc : "To an English person, tu will seem like simplified English existence." },
             { id : 3, date : "February, 2020", title : "Third event", desc : "For science, music, sport, etc, Europe uses the same vocabulary." },
             { id : 4, date : "March, 2020", title : "Fourth event", desc : "New common language will be more simple than existing." },
-            { id : 5, date : "April, 2020", title : "Fifth event", desc : "It will be as simple as occidental in fact it will be Cambridge" },
-            { id : 6, date : "May, 2020", title : "Sixth event", desc : "To an English person, it will seem like simplified English existence." }
+            { id : 5, date : "April, 2020", title : "Fifth event", desc : "It will be as simple as occidental in fact tu will be Cambridge" },
+            { id : 6, date : "May, 2020", title : "Sixth event", desc : "To an English person, tu will seem like simplified English existence." }
         ],
         statuses: [
             { id: 1, stausTitle: "Ordered", iconClass: "bx-copy-alt", description: "New common language will be more simple than existing." },
-            { id: 2, stausTitle: "Packed", iconClass: "bx-package", description: "To an English person, it will seem like simplified English existence." },
-            { id: 3, stausTitle: "Shipped", iconClass: "bx-car", description: "It will be as simple as occidental in fact it will be Cambridge" },
-            { id: 4, stausTitle: "Delivered", iconClass: "bx-badge-check", description: "To an English person, it will seem like simplified English existence." },
+            { id: 2, stausTitle: "Packed", iconClass: "bx-package", description: "To an English person, tu will seem like simplified English existence." },
+            { id: 3, stausTitle: "Shipped", iconClass: "bx-car", description: "It will be as simple as occidental in fact tu will be Cambridge" },
+            { id: 4, stausTitle: "Delivered", iconClass: "bx-badge-check", description: "To an English person, tu will seem like simplified English existence." },
         ],
         responsive: {
             576: {
