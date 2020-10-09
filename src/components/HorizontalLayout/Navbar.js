@@ -81,7 +81,7 @@ const Navbar = (props) => {
                                         <i className="bx bx-customize mr-2"></i>{props.t('Apps')} <div className="arrow-down"></div>
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown1 })}>
-                                        <Link to="/pool" className="dropdown-item" onClick={closeDropdowns}>{props.t('Pools')}</Link>
+                                        <Link to="/pools" className="dropdown-item" onClick={closeDropdowns}>{props.t('Pools')}</Link>
                                         <Link to="/share" className="dropdown-item" onClick={closeDropdowns}>{props.t('Shares')}</Link>
                                         <Link to="/dao" className="dropdown-item" onClick={closeDropdowns}>{props.t('Dao')}</Link>
                                         <Link to="/earn" className="dropdown-item" onClick={closeDropdowns}>{props.t('Earn')}</Link>
@@ -93,7 +93,7 @@ const Navbar = (props) => {
                                         <i className="bx bx-info-circle mr-2"></i>{props.t('Info')} <div className="arrow-down"></div>
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown2  })}>
-                                        <Link to="start" className="dropdown-item">{props.t('How to start?')}</Link>
+                                        {/*<Link to="start" className="dropdown-item">{props.t('How to start?')}</Link>*/}
                                         <Link to="faq" className="dropdown-item">{props.t('FAQ')}</Link>
                                     </div>
                                 </li>

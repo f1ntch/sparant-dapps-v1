@@ -25,7 +25,7 @@ const App = () => {
                             <div className="wrapper">
                                 <Switch>
                                     <Route path="/" exact component={Pools}/>
-                                    <Route path="/pool" exact component={Pools}/>
+                                    <Route path="/pools" exact component={Pools}/>
                                     <Route path="/share" exact component={Shares}/>
                                     <Route path="/pool/stake" exact component={AddLiquidity}/>
                                     <Route path="/pool/swap" exact component={Swap}/>

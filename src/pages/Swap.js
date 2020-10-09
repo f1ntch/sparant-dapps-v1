@@ -278,10 +278,20 @@ const NewSwap = (props) => {
                             {/* Render Breadcrumb */}
                             <Breadcrumbs title="Pools" breadcrumbItem="Swap"/>
                             <Row>
+                                <Col>
+                                    <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
+                                        <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> Back
+                                    </button>
+                                    <br/>
+                                    <br/>
+                                </Col>
+                            </Row>
+                            <Row>
                                 <Col lg="4">
                                     <PoolPaneSide pool={pool} price={context.spartanPrice}/>
                                 </Col>
                                 <Col lg="6">
+
                                     <Card>
                                         <CardBody>
                                             <h4 className="card-title mb-4">Buy/Sell</h4>
@@ -309,6 +319,7 @@ const NewSwap = (props) => {
                                             </Nav>
                                             <TabContent activeTab={activeTab} className="mt-4">
                                                 <TabPane tabId="1" id="buy-tab">
+                                                    <TabPane tab={`BUY ${pool.symbol}`} key="1">
                                                         <TradePane
                                                             pool={pool}
                                                             tradeData={buyData}
@@ -322,7 +333,9 @@ const NewSwap = (props) => {
                                                             type={"Buy"}
                                                         />
                                                     </TabPane>
+                                                </TabPane>
                                                 <TabPane tabId="2" id="sell-tab">
+                                                    <TabPane tab={`SELL ${pool.symbol}`} key="2">
                                                         <TradePane
                                                             pool={pool}
                                                             tradeData={sellData}
@@ -336,6 +349,7 @@ const NewSwap = (props) => {
                                                             type={"Sell"}
                                                         />
                                                     </TabPane>
+                                                </TabPane>
                                             </TabContent>
                                         </CardBody>
                                     </Card>
@@ -367,55 +381,54 @@ const TradePane = (props) => {
 
     return (
         <>
-                <InputPane
-                    pool={props.pool}
-                    paneData={props.tradeData}
-                    onInputChange={props.onTradeChange}
-                    changeAmount={props.changeTradeAmount}
-                />
-                <br/>
+            <InputPane
+                pool={props.pool}
+                paneData={props.tradeData}
+                onInputChange={props.onTradeChange}
+                changeAmount={props.changeTradeAmount}
+            />
+            <br/>
 
-                <div className="table-responsive mt-6">
-                    <table className="table table-centered table-nowrap mb-0">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <p className="mb-0">Slip</p>
-                            </td>
-                            <td>
-                                <h5 className="mb-0">{`${((props.tradeData.slip) * 100).toFixed(0)}%`}</h5>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style={{width: "100%"}}>
-                                <p className="mb-0">Output</p>
-                            </td>
-                            <td style={{width: "10%"}}>
-                                <h3 className="mb-0"> {convertFromWei(props.tradeData.output)} {props.tradeData.outputSymbol}</h3>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
+            <div className="table-responsive mt-6">
+                <table className="table table-centered table-nowrap mb-0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Slip</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">{`${((props.tradeData.slip) * 100).toFixed(0)}%`}</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{width: "100%"}}>
+                            <p className="mb-0">Output</p>
+                        </td>
+                        <td style={{width: "10%"}}>
+                            <h3 className="mb-0"> {convertFromWei(props.tradeData.output)} {props.tradeData.outputSymbol}</h3>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
 
 
-                        </tbody>
-                    </table>
-                </div>
-                <br/><br/>
-                {!props.approval &&
-                <Button size="lg" color="success" onClick={props.unlock}><UnlockOutlined/> Unlock</Button>
-                }
-                {props.approval && props.startTx && !props.endTx &&
-                <Button size="lg" color="success" onClick={props.trade}>
-                    <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</Button>
-                }
-                {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
-                <Button
-                    size="lg" color="success" onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</Button>
-                }
-
+                    </tbody>
+                </table>
+            </div>
+            <br/><br/>
+            {!props.approval &&
+            <Button size="lg" color="success" onClick={props.unlock}><UnlockOutlined/> Unlock</Button>
+            }
+            {props.approval && props.startTx && !props.endTx &&
+            <Button size="lg" color="success" onClick={props.trade}>
+                <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</Button>
+            }
+            {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
+            <Button
+                size="lg" color="success" onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</Button>
+            }
         </>
     )
 };

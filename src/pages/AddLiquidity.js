@@ -353,6 +353,15 @@ const AddLiquidity = (props) => {
                             {/* Render Breadcrumb */}
                             <Breadcrumbs title="Pools" breadcrumbItem="Join"/>
                             <Row>
+                            <Col>
+                                <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
+                                    <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> Back
+                                </button>
+                                <br/>
+                                <br/>
+                            </Col>
+                        </Row>
+                            <Row>
                                 <Col lg="4">
                                     <PoolPaneSide pool={pool} price={context.spartanPrice}/>
                                 </Col>

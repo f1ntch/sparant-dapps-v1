@@ -318,8 +318,8 @@ export const TokenSymbol = (props) => {
 
 export const PoolPaneSide = (props) => {
 
+
     return (
-        <Col lg="12">
             <Card>
                 <CardBody>
                     <h4 className="card-title mb-4">Overview</h4>
@@ -407,7 +407,6 @@ export const PoolPaneSide = (props) => {
 
                 </CardBody>
             </Card>
-        </Col>
         //           {/* <h4>APY</h4>
         //           <h3 className="strong">{formatAPY(props.pool.apy)}</h3> */}
     )
