@@ -4,8 +4,9 @@ import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
+import InputPane from "./TradePane";
 
-import {InputPane, PoolPaneSide, OutputPane} from '../components/common'
+import {PoolPaneSide, OutputPane} from '../components/common'
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getLiquidityUnits} from '../math'
 import Breadcrumbs from "../components/Common/Breadcrumb";

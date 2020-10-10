@@ -6,7 +6,11 @@ import {withNamespaces} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
-import {InputPane, PoolPaneSide,} from '../components/common'
+import TradePane from "./TradePane";
+
+
+
+
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getSwapOutput, getSwapSlip} from '../math'
 
@@ -35,6 +39,7 @@ import {
 
 import classnames from 'classnames';
 import Breadcrumbs from "../components/Common/Breadcrumb";
+import {PoolPaneSide} from "../components/common";
 
 
 const NewSwap = (props) => {
@@ -276,11 +281,11 @@ const NewSwap = (props) => {
                     <div className="page-content">
                         <Container fluid>
                             {/* Render Breadcrumb */}
-                            <Breadcrumbs title={props.t("Pools")} breadcrumbItem={props.t("Swap")}/>
+                            <Breadcrumbs title="Pools" breadcrumbItem="Swap"/>
                             <Row>
                                 <Col>
                                     <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
-                                        <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> {props.t("Back")}
+                                        <i className="bx bx-arrow-back font-size-16 align-middle mr-2Input"></i> {props.t("Back")}
                                     </button>
                                     <br/>
                                     <br/>
@@ -364,63 +369,5 @@ const NewSwap = (props) => {
     )
 };
 
-
-
-
-const TradePane = (props) => {
-
-    return (
-        <>
-            <InputPane
-                pool={props.pool}
-                paneData={props.tradeData}
-                onInputChange={props.onTradeChange}
-                changeAmount={props.changeTradeAmount}
-            />
-            <br/>
-
-            <div className="table-responsive mt-6">
-                <table className="table table-centered table-nowrap mb-0">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <p className="mb-0">Back</p>
-                        </td>
-                        <td>
-                            <h5 className="mb-0">{`${((props.tradeData.slip) * 100).toFixed(0)}%`}</h5>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style={{width: "100%"}}>
-                            <p className="mb-0">Output</p>
-                        </td>
-                        <td style={{width: "10%"}}>
-                            <h3 className="mb-0"> {convertFromWei(props.tradeData.output)} {props.tradeData.outputSymbol}</h3>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-
-
-                    </tbody>
-                </table>
-            </div>
-            <br/><br/>
-            {!props.approval &&
-            <Button size="lg" color="success" onClick={props.unlock}><UnlockOutlined/> Unlock</Button>
-            }
-            {props.approval && props.startTx && !props.endTx &&
-            <Button size="lg" color="success" onClick={props.trade}>
-                <LoadingOutlined/>{`${props.type} ${props.pool.symbol}`}</Button>
-            }
-            {props.approval && !props.startTx && (props.tradeData.balance > 0) &&
-            <Button
-                size="lg" color="success" onClick={props.trade}>{`${props.type} ${props.pool.symbol}`}</Button>
-            }
-        </>
-    )
-};
 
 export default withRouter(withNamespaces()(NewSwap));

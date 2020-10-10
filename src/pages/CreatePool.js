@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Context } from '../context'
+import React, {useState, useEffect, useContext} from 'react'
+import {Context} from '../context'
 
-import { withRouter } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 import {
     Input,
@@ -11,11 +11,11 @@ import {
 
 import Notification from '../components/CommonForBoth/notification'
 
-import { LeftOutlined } from '@ant-design/icons';
-import { QuestionCircleOutlined, UnlockOutlined } from '@ant-design/icons';
-
-import { BreadcrumbCombo, InputPane, CoinRow } from '../components/common'
-import { Sublabel } from '../components/elements'
+import {LeftOutlined} from '@ant-design/icons';
+import {QuestionCircleOutlined, UnlockOutlined} from '@ant-design/icons';
+import InputPane from "./TradePane";
+import {BreadcrumbCombo, CoinRow} from '../components/common'
+import {Sublabel} from '../components/elements'
 
 
 // import { getLiquidityUnits } from '../../math'
@@ -25,7 +25,7 @@ import {
     getTokenDetails, getWalletData
 } from '../client/web3'
 
-import { convertToWei, formatBN } from '../utils'
+import {convertToWei, formatBN} from '../utils'
 // var utils = require('ethers').utils;
 
 const CreatePool = (props) => {
@@ -33,8 +33,8 @@ const CreatePool = (props) => {
     const context = useContext(Context)
 
     const [addressSelected, setAddressSelected] = useState(SPARTA_ADDR)
-    const [notifyMessage,setNotifyMessage] = useState("");
-    const [notifyType,setNotifyType] = useState("dark");
+    const [notifyMessage, setNotifyMessage] = useState("");
+    const [notifyType, setNotifyType] = useState("dark");
 
     // const [tokenList, setTokenList] = useState([SPARTA_ADDR])
     // const [tokenShortList, setTokenShortList] = useState([SPARTA_ADDR])
@@ -100,11 +100,11 @@ const CreatePool = (props) => {
     }
 
     const checkToken = async () => {
-        if(addressSelected !== SPARTA_ADDR){
+        if (addressSelected !== SPARTA_ADDR) {
             setApproval1(false)
             setApproval2(false)
 
-            if(!context.walletData?.address){
+            if (!context.walletData?.address) {
                 setNotifyMessage('Wait for wallet to load first')
                 setNotifyType('danger')
             } else {
@@ -119,10 +119,10 @@ const CreatePool = (props) => {
                         setNotifyMessage('You do not have that token on your address')
                         setNotifyType('danger')
                     }
-        
+
                     await checkApproval1(SPARTA_ADDR)
                     await checkApproval2(addressSelected)
-                } catch(err){
+                } catch (err) {
                     setNotifyMessage('Not a valid token')
                     setNotifyType('danger')
                 }
@@ -293,12 +293,12 @@ const CreatePool = (props) => {
         // let stakesData = await getPoolSharesData(context.walletData.address, poolArray)
         let tokenDetailsArray = await getTokenDetails(context.walletData.address, sortedTokens)
         let walletData = await getWalletData(context.walletData.address, tokenDetailsArray)
-        context.setContext({ 'tokenArray': tokenArray })
-        context.setContext({ 'poolArray': poolArray })
-        context.setContext({ 'poolsData': poolsData })
+        context.setContext({'tokenArray': tokenArray})
+        context.setContext({'poolArray': poolArray})
+        context.setContext({'poolsData': poolsData})
         // context.setContext({ 'stakesData': stakesData })
-        context.setContext({ 'tokenDetailsArray': tokenDetailsArray })
-        context.setContext({ 'walletData': walletData })
+        context.setContext({'tokenDetailsArray': tokenDetailsArray})
+        context.setContext({'walletData': walletData})
     }
 
     return (
@@ -308,14 +308,15 @@ const CreatePool = (props) => {
                 message={notifyMessage}
             />
             <BreadcrumbCombo title={'CREATE POOL'} parent={'POOLS'} link={'/pools'} child={'CREATE'}></BreadcrumbCombo>
-            <br />
+            <br/>
             <Row type="flex" align="middle" justify="center">
 
-              <Col xs={8} sm={6} md={6} onClick={back} className="btn primary" style={{ textAlign: 'left', maxWidth:'90px'}}>
-                  {<LeftOutlined />} BACK
-              </Col>
-              <Col xs={16} sm={18} md={18}>
-              </Col>
+                <Col xs={8} sm={6} md={6} onClick={back} className="btn primary"
+                     style={{textAlign: 'left', maxWidth: '90px'}}>
+                    {<LeftOutlined/>} BACK
+                </Col>
+                <Col xs={16} sm={18} md={18}>
+                </Col>
 
                 <Col xs={16} md={12}>
 
@@ -332,81 +333,83 @@ const CreatePool = (props) => {
                     ></Input> */}
                 </Col>
                 <Col xs={8} md={4}>
-                    <div className="btn primary" onClick={checkToken}>{<QuestionCircleOutlined />} CHECK</div>
+                    <div className="btn primary" onClick={checkToken}>{<QuestionCircleOutlined/>} CHECK</div>
                 </Col>
                 <Col xs={0} md={6}>
                 </Col>
                 {checkFlag &&
-                  <div className="minimal-card ant-card-bordered cntr">
+                <div className="minimal-card ant-card-bordered cntr">
                     <Col xs={24}>
                         <CoinRow
                             symbol={tokenData.symbol}
                             name={tokenData.name}
                             balance={tokenData.balance}
-                            size={30} />
+                            size={30}/>
                     </Col>
-                  </div>
+                </div>
                 }
             </Row>
             {checkFlag &&
-                <div className="minimal-card ant-card-bordered cntr">
-                    <Row type="flex" align="middle" justify="center">
-                        <Col xs={24}>
-                            <Row type="flex" align="middle" justify="center">
-                                <Col xs={12}>
-                                <Sublabel size={20}>{'INPUT SPARTA'}</Sublabel><br />
-                                    <InputPane
-                                        // mainPool={mainPool}
-                                        // tokenList={tokenShortList}
-                                        paneData={stake1Data}
-                                        onInputChange={onAddLiquidity1Change}
-                                        // changeToken={changeAddLiquidity1Token}
-                                        changeAmount={changeAddLiquidity1Amount}
-                                    />
-                                </Col>
-                                <Col xs={12}>
-                                <Sublabel size={20}>{'INPUT TOKEN'}</Sublabel><br />
-                                    <InputPane
-                                        // tokenList={[tokenData.address]}
-                                        paneData={stake2Data}
-                                        onInputChange={onAddLiquidity2Change}
-                                        // changeToken={changeAddLiquidity2Token}
-                                        changeAmount={changeAddLiquidity2Amount} />
-                                </Col>
+            <div className="minimal-card ant-card-bordered cntr">
+                <Row type="flex" align="middle" justify="center">
+                    <Col xs={24}>
+                        <Row type="flex" align="middle" justify="center">
+                            <Col xs={12}>
+                                <Sublabel size={20}>{'INPUT SPARTA'}</Sublabel><br/>
+                                <InputPane
+                                    // mainPool={mainPool}
+                                    // tokenList={tokenShortList}
+                                    paneData={stake1Data}
+                                    onInputChange={onAddLiquidity1Change}
+                                    // changeToken={changeAddLiquidity1Token}
+                                    changeAmount={changeAddLiquidity1Amount}
+                                />
+                            </Col>
+                            <Col xs={12}>
+                                <Sublabel size={20}>{'INPUT TOKEN'}</Sublabel><br/>
+                                <InputPane
+                                    // tokenList={[tokenData.address]}
+                                    paneData={stake2Data}
+                                    onInputChange={onAddLiquidity2Change}
+                                    // changeToken={changeAddLiquidity2Token}
+                                    changeAmount={changeAddLiquidity2Amount}/>
+                            </Col>
 
-                            </Row>
-                            <Row type="flex" align="middle" justify="center">
-                                {/* <Col xs={12}>
+                        </Row>
+                        <Row type="flex" align="middle" justify="center">
+                            {/* <Col xs={12}>
                                     <Center><LabelGroup size={18} element={`${convertFromWei(liquidityUnits.toFixed(0))}`} label={'ESTIMATED UNITS'} /></Center>
                                 </Col>
                                 <Col xs={12}>
                                     <Center><LabelGroup size={18} element={`100%`} label={'SHARE'} /></Center>
                                 </Col> */}
-                                {/* <Col xs={8}>
+                            {/* <Col xs={8}>
                                 <Center><LabelGroup size={18} element={`${getValueOfShare()}`} label={'STAKED VALUE'} /></Center>
                                 </Col> */}
-                            </Row>
-                            <br></br>
-                            <Row type="flex" align="middle" justify="center">
-                              <Col xs={8}>
-                                  {!approval1 &&
-                                      <div className="btn primary" onClick={unlockSparta}><UnlockOutlined /> UNLOCK {stake1Data.symbol}</div>
-                                  }
-                              </Col>
-                              <Col xs={8}>
-                                  {(approval1 && approval2) &&
-                                      <div className="btn primary" onClick={createPool}>CREATE POOL</div>
-                                  }
-                              </Col>
-                              <Col xs={8}>
-                                  {!approval2 &&
-                                      <div className="btn primary" onClick={unlockAsset}><UnlockOutlined /> UNLOCK {stake2Data.symbol}</div>
-                                  }
-                              </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                </div>
+                        </Row>
+                        <br></br>
+                        <Row type="flex" align="middle" justify="center">
+                            <Col xs={8}>
+                                {!approval1 &&
+                                <div className="btn primary" onClick={unlockSparta}>
+                                    <UnlockOutlined/> UNLOCK {stake1Data.symbol}</div>
+                                }
+                            </Col>
+                            <Col xs={8}>
+                                {(approval1 && approval2) &&
+                                <div className="btn primary" onClick={createPool}>CREATE POOL</div>
+                                }
+                            </Col>
+                            <Col xs={8}>
+                                {!approval2 &&
+                                <div className="btn primary" onClick={unlockAsset}>
+                                    <UnlockOutlined/> UNLOCK {stake2Data.symbol}</div>
+                                }
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </div>
             }
         </div>
     )

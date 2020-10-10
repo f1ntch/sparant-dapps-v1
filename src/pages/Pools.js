@@ -71,7 +71,7 @@ const Pools = (props) => {
     )
 };
 
-export default withRouter(withNamespaces()(Pools));
+
 
 
 export const PoolsPaneSide = (props) => {
@@ -204,7 +204,7 @@ export const PoolsPaneSide = (props) => {
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
-                                    className={"bx bx-coin-stack h1 text-primary align-middle mb-0 mr-3"}/>Total Volume
+                                    className={"bx bx-coin-stack h1 text-primary align-middle mb-0 mr-3"}/>{("Total Volume")}
                                 </h5>
                                 <Row>
                                     <Col xs="6">
@@ -338,6 +338,9 @@ export const PoolsPaneSide = (props) => {
     }
 
 ;
+
+
+export default withRouter(withNamespaces()(Pools));
 
 
 const PoolTable = (props) => {
