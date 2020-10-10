@@ -13,8 +13,7 @@ import Notification from '../components/CommonForBoth/notification'
 
 import {LeftOutlined} from '@ant-design/icons';
 import {QuestionCircleOutlined, UnlockOutlined} from '@ant-design/icons';
-import InputPane from "./TradePane";
-import {BreadcrumbCombo, CoinRow} from '../components/common'
+import {BreadcrumbCombo, CoinRow, InputPane} from '../components/common'
 import {Sublabel} from '../components/elements'
 
 

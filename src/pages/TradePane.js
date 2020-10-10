@@ -1,26 +1,20 @@
+import React from "react";
+
 import {InputPane} from "../components/common";
 import {convertFromWei} from "../utils";
 import {LoadingOutlined, UnlockOutlined} from "@ant-design/icons";
-import React from "react";
-import {withNamespaces} from "react-i18next";
-import {withRouter} from 'react-router-dom';
+
 
 import {
-    Container,
-    Row,
-    Col,
-    Card,
-    CardBody,
     Button,
-    Nav,
-    NavItem,
-    NavLink,
-    TabPane,
-    TabContent
-} from "reactstrap";
+} from "reactstrap"
+
+import {withNamespaces} from "react-i18next";
+import withRouter from "react-router-dom/es/withRouter";
 
 
-const TradePane = (props) => {
+
+export const TradePane = (props) => {
 
     return (
         <>
@@ -75,4 +69,6 @@ const TradePane = (props) => {
         </>
     )
 };
+
+
 export default withRouter(withNamespaces()(TradePane));

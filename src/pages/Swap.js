@@ -5,10 +5,7 @@ import {LoadingOutlined, UnlockOutlined} from '@ant-design/icons';
 import {withNamespaces} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
-
 import TradePane from "./TradePane";
-
-
 
 
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
@@ -28,7 +25,6 @@ import {
     Col,
     Card,
     CardBody,
-    Button,
     Nav,
     NavItem,
     NavLink,
@@ -39,7 +35,8 @@ import {
 
 import classnames from 'classnames';
 import Breadcrumbs from "../components/Common/Breadcrumb";
-import {PoolPaneSide} from "../components/common";
+import {InputPane, PoolPaneSide} from "../components/common";
+
 
 
 const NewSwap = (props) => {
@@ -284,7 +281,8 @@ const NewSwap = (props) => {
                             <Breadcrumbs title="Pools" breadcrumbItem="Swap"/>
                             <Row>
                                 <Col>
-                                    <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
+                                    <button onClick={back} type="button"
+                                            className="btn btn-secondary waves-effect waves-light">
                                         <i className="bx bx-arrow-back font-size-16 align-middle mr-2Input"></i> {props.t("Back")}
                                     </button>
                                     <br/>
@@ -368,6 +366,8 @@ const NewSwap = (props) => {
         </>
     )
 };
+
+
 
 
 export default withRouter(withNamespaces()(NewSwap));

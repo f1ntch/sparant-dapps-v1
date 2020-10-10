@@ -27,6 +27,8 @@ import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
 
 import {withNamespaces} from 'react-i18next';
 import withRouter from "react-router-dom/es/withRouter";
+import {LoadingOutlined, UnlockOutlined} from "@ant-design/icons";
+
 
 
 export const PoolPaneSide = (props) => {

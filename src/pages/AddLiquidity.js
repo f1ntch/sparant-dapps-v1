@@ -4,9 +4,9 @@ import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
-import InputPane from "./TradePane";
 
-import {PoolPaneSide, OutputPane} from '../components/common'
+
+import {PoolPaneSide, OutputPane,InputPane} from '../components/common'
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getLiquidityUnits} from '../math'
 import Breadcrumbs from "../components/Common/Breadcrumb";
@@ -22,7 +22,7 @@ import {
     NavItem,
     NavLink,
     TabPane,
-    TabContent, 
+    TabContent,
     Alert,
 } from "reactstrap";
 
@@ -346,14 +346,14 @@ const AddLiquidity = (props) => {
                             {/* Render Breadcrumb */}
                             <Breadcrumbs title={props.t("Pools")} breadcrumbItem={props.t("Join")}/>
                             <Row>
-                            <Col>
-                                <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
-                                    <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> {props.t("Back")}
-                                </button>
-                                <br/>
-                                <br/>
-                            </Col>
-                        </Row>
+                                <Col>
+                                    <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
+                                        <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> {props.t("Back")}
+                                    </button>
+                                    <br/>
+                                    <br/>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col lg="4">
                                     <PoolPaneSide pool={pool} price={context.spartanPrice}/>
@@ -624,34 +624,34 @@ const RemoveLiquidityPane = (props) => {
     return (
         <>
 
-        <OutputPane changeAmount={props.changeWithdrawAmount}/>
+            <OutputPane changeAmount={props.changeWithdrawAmount}/>
 
-        <div className="table-responsive mt-6">
-            <table className="table table-centered table-nowrap mb-0">
-                <tbody>
-                <tr>
-                    <td>
-                        <p className="mb-0">Estimated</p>
-                    </td>
-                    <td>
-                        <h5 className="mb-0">{convertFromWei(props.withdrawData.tokenAmount)}</h5>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p className="mb-0">Estimated SPARTA</p>
-                    </td>
-                    <td>
-                        <h5 className="mb-0">{convertFromWei(props.withdrawData.baseAmount)}</h5>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+            <div className="table-responsive mt-6">
+                <table className="table table-centered table-nowrap mb-0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Estimated</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">{convertFromWei(props.withdrawData.tokenAmount)}</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p className="mb-0">Estimated SPARTA</p>
+                        </td>
+                        <td>
+                            <h5 className="mb-0">{convertFromWei(props.withdrawData.baseAmount)}</h5>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <br/>
             <br/>
             {!props.approvalToken &&
