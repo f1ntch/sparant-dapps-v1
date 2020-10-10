@@ -279,141 +279,16 @@ export const PoolsPaneSide = (props) => {
                         </Card>
                     </Col>
                 </Row>
-                {/*<Row>*/}
-                {/*    <Col sm="3">*/}
-
-                {/*        <Card className="mini-stats-wid">*/}
-                {/*            <CardBody>*/}
-                {/*                <Media>*/}
-                {/*                    <Media body>*/}
-
-                {/*                        <p className="text-muted font-weight-medium">TOTAL POOLED</p>*/}
-                {/*                        <h4 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.globalData.totalPooled * 2), context.spartanPrice)}</h4>*/}
-
-                {/*                    </Media>*/}
-                {/*                </Media>*/}
-                {/*            </CardBody>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*    <Col sm="3">*/}
-                {/*        <Card className="mini-stats-wid">*/}
-                {/*            <CardBody>*/}
-                {/*                <Media>*/}
-                {/*                    <Media body>*/}
-                {/*                        <p className="text-muted font-weight-medium">TOTAL VOLUME</p>*/}
-                {/*                        <h4 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h4>*/}
-                {/*                    </Media>*/}
-                {/*                </Media>*/}
-                {/*                </Media>*/}
-                {/*            </CardBody>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*    <Col sm="3">*/}
-                {/*        <Card className="mini-stats-wid">*/}
-                {/*            <CardBody>*/}
-                {/*                <Media>*/}
-                {/*                    <Media body>*/}
-                {/*                        <p className="text-muted font-weight-medium">TXN COUNT</p>*/}
-                {/*                        <h4 className="mb-0">{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx}</h4>*/}
-                {/*                    </Media>*/}
-                {/*                </Media>*/}
-                {/*            </CardBody>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*    <Col sm="3">*/}
-                {/*        <Card className="mini-stats-wid">*/}
-                {/*            <CardBody>*/}
-                {/*                <Media>*/}
-                {/*                    <Media body>*/}
-                {/*                        <p className="text-muted font-weight-medium">TOTAL EARNINGS</p>*/}
-                {/*                        <h4 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice)}</h4>*/}
-                {/*                    </Media>*/}
-                {/*                </Media>*/}
-                {/*            </CardBody>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
             </React.Fragment>
         )
     }
 
 ;
 
-
 export default withRouter(withNamespaces()(Pools));
 
 
-const PoolTable = (props) => {
 
-    const context = useContext(Context);
-
-    useEffect(() => {
-        getData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const getData = async () => {
-        let tokenArray = await getListedTokens();
-        context.setContext({'poolsData': await getPoolsData(tokenArray)})
-        context.setContext({'tokenArray': tokenArray});
-        let poolArray = await getListedPools();
-        context.setContext({'poolArray': poolArray});
-    };
-
-    return (
-        <>
-            <Row>
-                <Col sm={12} className="mr-20">
-                    <Card>
-                        <CardBody>
-
-                            {!context.poolsData &&
-                            <div style={{textAlign: "center"}}><LoadingOutlined/></div>
-                            }
-                            {context.poolsData &&
-                            <div className="table-responsive">
-                                <CardTitle>Pools</CardTitle>
-                                <CardSubtitle className="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </CardSubtitle>
-                                <Table className="table-centered mb-0">
-
-                                    <thead className="center">
-                                    <tr>
-                                        <th scope="col">Icon</th>
-                                        <th scope="col">Symbol</th>
-                                        <th className="d-none d-lg-table-cell" scope="col">Price</th>
-                                        <th className="d-none d-lg-table-cell" scope="col">Depth</th>
-                                        <th className="d-none d-lg-table-cell" scope="col">Volume</th>
-                                        <th className="d-none d-lg-table-cell" scope="col">Txns</th>
-                                        <th className="d-none d-lg-table-cell" scope="col">Revenue</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {context.poolsData.map(c =>
-                                        <PoolTableItem scope="row"
-                                                       address={c.address}
-                                                       symbol={c.symbol}
-                                                       price={c.price}
-                                                       depth={c.depth}
-                                                       volume={c.volume}
-                                                       txCount={c.txCount}
-                                                       fees={c.fees}
-                                        />
-                                    )}
-                                    </tbody>
-                                </Table>
-                            </div>
-                            }
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-        </>
-    )
-};
 
 const PoolTableItem = (props) => {
 
