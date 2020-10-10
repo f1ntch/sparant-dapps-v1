@@ -2,7 +2,7 @@ import i18n from "i18next";
 import detector from "i18next-browser-languagedetector";
 import { reactI18nextModule } from "react-i18next";
 
-import translationGr from './locales/ru/translation.json';
+import translationGr from './locales/rs/translation.json';
 import translationIT from './locales/tu/translation.json';
 import translationRS from './locales/rs/translation.json';
 import translationSP from './locales/ch/translation.json';

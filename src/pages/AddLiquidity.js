@@ -349,7 +349,8 @@ const AddLiquidity = (props) => {
                             <Breadcrumbs title={props.t("Pools")} breadcrumbItem={props.t("Join")}/>
                             <Row>
                                 <Col>
-                                    <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
+                                    <button onClick={back} type="button"
+                                            className="btn btn-secondary waves-effect waves-light">
                                         <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> {props.t("Back")}
                                     </button>
                                     <br/>
@@ -462,7 +463,6 @@ const AddLiquidity = (props) => {
 };
 
 
-
 const AddSymmPane = (props) => {
 
     return (
@@ -532,8 +532,6 @@ const AddSymmPane = (props) => {
                     <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Unlock SPARTA</button>
                 }
             </Col>
-
-
             <Col xs={8}>
                 {props.approvalBase && props.approvalToken && props.startTx && !props.endTx &&
                 <div className="btn primary" onClick={props.addLiquidity} icon={<LoadingOutlined/>}>ADD TO
@@ -601,8 +599,11 @@ const AddAsymmPane = (props) => {
                     <br/>
                     <br/>
                     {!props.approvalToken &&
-                    <button color="success" type="button" className="btn btn-success btn-lg btn-block waves-effect waves-light" onClick={props.unlockToken}>
-                        <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Unlock {props.pool.symbol}</button>
+                    <button color="success" type="button"
+                            className="btn btn-success btn-lg btn-block waves-effect waves-light"
+                            onClick={props.unlockToken}>
+                        <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Unlock {props.pool.symbol}
+                    </button>
                     }
                 </Col>
                 <Col xs={12}>
@@ -657,8 +658,10 @@ const RemoveLiquidityPane = (props) => {
             <br/>
             <br/>
             {!props.approvalToken &&
-            <button color="success" type="button" className="btn btn-success btn-lg btn-block waves-effect waves-light" onClick={props.removeLiquidity}>
-                <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Withdraw From Pool {props.pool.symbol}</button>
+            <button color="success" type="button" className="btn btn-success btn-lg btn-block waves-effect waves-light"
+                    onClick={props.removeLiquidity}>
+                <i className="bx bx-log-in-circle font-size-20 align-middle mr-2"></i> Withdraw From
+                Pool {props.pool.symbol}</button>
             }
         </>
     )
