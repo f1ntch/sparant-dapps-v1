@@ -9,6 +9,7 @@
   "Total Volume": "Tổng sô ́",
   "Txn Count": "Tổng sô ́ Txn",
   "Tx Count": "Tổng sô ́ Tx",
+  "TXN Count": "Tổng sô ́ TXN",
   "Total Earnings": "Tổng thu nhập",
   "Icon": "Biểu tượng",
   "Symbol": "Ký hiệu",
@@ -42,5 +43,6 @@
   "Swap": "Swap",
   "Buy": "Buy",
   "Sell": "Bán",
-  "Unlock" :"Mở khóa"
+  "Unlock" :"Mở khóa",
+  "Action": "Hoạt động"
 }

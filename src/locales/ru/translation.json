@@ -8,6 +8,7 @@
   "Total Pooled":"Всего пула",
   "Total Volume":"Общий объем",
   "Txn Count":"Txn Считать",
+  "TXN Count":"TXN Считать",
   "Tx Count":"Tx nСчитать",
   "Total Earnings":"Общая прибыль",
   "Icon":"Значок",
@@ -43,5 +44,6 @@
   "Swap": "Поменять местами\n",
   "Buy": "Buy",
   "Sell": "продавать",
-  "Unlock" :"Разблокировать"
+  "Unlock" :"Разблокировать",
+  "Action": "Действие"
 }

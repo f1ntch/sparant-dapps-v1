@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import {Context} from '../context'
 
 import {withRouter} from 'react-router-dom'
+import InputPane from "./InputPane";
 
 import {
     Input,
@@ -13,7 +14,7 @@ import Notification from '../components/CommonForBoth/notification'
 
 import {LeftOutlined} from '@ant-design/icons';
 import {QuestionCircleOutlined, UnlockOutlined} from '@ant-design/icons';
-import {BreadcrumbCombo, CoinRow, InputPane} from '../components/common'
+import {BreadcrumbCombo, CoinRow} from '../components/common'
 import {Sublabel} from '../components/elements'
 
 

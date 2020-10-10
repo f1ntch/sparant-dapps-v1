@@ -8,6 +8,7 @@
   "Total Pooled":"总合用",
   "Total Volume":"总卷",
   "Txn Count":"Txn 計數",
+  "TXN Count":"TXN 計數",
   "Tx Count":"Tx 計數",
   "Total Earnings":"总收入",
   "Icon":"图标",
@@ -38,6 +39,7 @@
   "Assets":"资产",
   "LP Shares":"流动资金池份额",
   "Balance":"平衡",
+  "Action": "行動",
 
   "Back" :"背部",
   "Swap" :"交換",

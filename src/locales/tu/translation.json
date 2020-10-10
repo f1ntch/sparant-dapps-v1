@@ -8,6 +8,7 @@
   "Total Pooled": "Toplam Havuza Alınmış",
   "Total Volume": "Toplam Birim",
   "Txn Count": "Txn Sayısı",
+  "TXN Count": "TXN Sayısı",
   "Tx Count": "Txn Sayısı",
   "Total Earnings": "Toplam Kazançlar",
   "Icon": "Simge",
@@ -42,6 +43,7 @@
   "Swap": "Takas",
   "Buy": "Satın Al",
   "Sell": "Satmak",
-  "Unlock" :"Kilidini aç"
+  "Unlock" :"Kilidini aç",
+  "Action": "Aksiyon"
 
 }

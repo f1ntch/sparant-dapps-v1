@@ -5,9 +5,9 @@ import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
+import InputPane from "./InputPane";
 
-
-import {OutputPane,InputPane} from '../components/common'
+import {OutputPane} from '../components/common'
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getLiquidityUnits} from '../math'
 import Breadcrumbs from "../components/Common/Breadcrumb";
@@ -547,7 +547,7 @@ const AddSymmPane = (props) => {
 
         </>
     )
-}
+};
 
 
 export default withRouter(withNamespaces()(AddLiquidity));

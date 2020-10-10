@@ -1,6 +1,7 @@
 import React from "react";
 
-import {InputPane} from "../components/common";
+import InputPane from "./InputPane";
+
 import {convertFromWei} from "../utils";
 import {LoadingOutlined, UnlockOutlined} from "@ant-design/icons";
 
