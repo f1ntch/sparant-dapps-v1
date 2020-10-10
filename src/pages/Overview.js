@@ -1,7 +1,12 @@
 import React, { useEffect, useState, useContext} from 'react'
 import { Context } from '../context'
 import {Link} from 'react-router-dom'
-import { Row, Col } from 'antd'
+
+import {
+    Row,
+    Col,
+} from "reactstrap";
+
 import { HR, H1, H2, Text, LabelGroup, Button, Gap } from '../components/elements';
 
 import {getRouterContract} from '../client/web3'

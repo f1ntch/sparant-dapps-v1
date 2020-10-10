@@ -36,7 +36,8 @@ File: Main Css File
 @import "custom/components/widgets";
 @import "custom/components/demos";
 @import "custom/components/print";
-
+@import "custom/components/notification";
+@import "temp-table.scss";
 
 // Plugins
 @import "custom/plugins/custom-scrollbar";

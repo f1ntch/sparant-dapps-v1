@@ -1,22 +1,23 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Context} from '../context'
-import {Image, Table} from 'antd'
+import {Table} from 'antd'
 import { Link, withRouter } from "react-router-dom";
 
-
-
-import {BNB_ADDR, getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../client/web3'
+import {getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../client/web3'
 import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../utils'
 
-import {LoadingOutlined, LoginOutlined, SwapOutlined} from '@ant-design/icons';
+import {LoadingOutlined} from '@ant-design/icons';
 import Breadcrumbs from "../components/Common/Breadcrumb";
+
+import { TokenIcon } from '../components/common';
 
 import {
     Container,
     Row,
     Col,
     Card,
-    CardBody, Media, Modal, ModalHeader, ModalBody, ModalFooter, Button
+    CardBody, 
+    Media,
 } from "reactstrap";
 import CardWelcome from "./Utility/card-welcome";
 import { withNamespaces } from 'react-i18next';
@@ -160,20 +161,7 @@ const PoolTable = (props) => {
             title: 'POOL',
             render: (record) => (
                 <div>
-                    {record.address === BNB_ADDR &&
-                    <img
-                        src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
-                        style={{height: 40}} alt='BNB'/>
-                    }
-
-                    {record.address !== BNB_ADDR &&
-                    <Image
-                        width={40}
-                        height={40}
-                        src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + record.address + "/logo.png"}
-                        fallback="../fallback.png"
-                    />
-                    }
+                    <TokenIcon address={record.address}/>
                 </div>
             )
         },

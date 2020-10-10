@@ -2,7 +2,12 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '../context'
 
 import { withRouter } from 'react-router-dom'
-import { Row, Col, Input } from 'antd'
+
+import {
+    Input,
+    Row,
+    Col,
+} from "reactstrap";
 
 import Notification from '../components/CommonForBoth/notification'
 
@@ -298,6 +303,10 @@ const CreatePool = (props) => {
 
     return (
         <div>
+            <Notification
+                type={notifyType}
+                message={notifyMessage}
+            />
             <BreadcrumbCombo title={'CREATE POOL'} parent={'POOLS'} link={'/pools'} child={'CREATE'}></BreadcrumbCombo>
             <br />
             <Row type="flex" align="middle" justify="center">

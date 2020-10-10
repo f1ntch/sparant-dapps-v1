@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Collapse } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
 import classname from "classnames";
@@ -8,24 +8,8 @@ import { withNamespaces } from 'react-i18next';
 
 const Navbar = (props) => {
 
-    const [isDashboard,setIsDashboard] = useState('false')
     const [isDropdown1,setIsDropdown1] = useState('false')
     const [isDropdown2,setIsDropdown2] = useState('false')
-
-    useEffect(() => {
-        var matchingMenuItem = null;
-        var ul = document.getElementById("navigation");
-        var items = ul.getElementsByTagName("a");
-        for (var i = 0; i < items.length; ++i) {
-            if (props.location.pathname === items[i].pathname) {
-                matchingMenuItem = items[i];
-                break;
-            }
-        }
-        if (matchingMenuItem) {
-            activateParentDropdown(matchingMenuItem);
-        }
-    },[])
 
     const toggleDropdown1 = () => {
         setIsDropdown1(!isDropdown1);
@@ -41,33 +25,6 @@ const Navbar = (props) => {
         setIsDropdown2('false');
         setIsDropdown1('false');
     }
-
-    const activateParentDropdown = (item) => {
-        item.classList.add("active");
-        const parent = item.parentElement;
-        if (parent) {
-            parent.classList.add("active"); // li
-            const parent2 = parent.parentElement;
-            parent2.classList.add("active"); // li
-            const parent3 = parent2.parentElement;
-            if (parent3) {
-                parent3.classList.add("active"); // li
-                const parent4 = parent3.parentElement;
-                if (parent4) {
-                    parent4.classList.add("active"); // li
-                    const parent5 = parent4.parentElement;
-                    if (parent5) {
-                        parent5.classList.add("active"); // li
-                        const parent6 = parent5.parentElement;
-                        if (parent6) {
-                            parent6.classList.add("active"); // li
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    };
 
     return (
         <React.Fragment>
@@ -94,7 +51,7 @@ const Navbar = (props) => {
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown2  })}>
                                         {/*<Link to="start" className="dropdown-item">{props.t('How to start?')}</Link>*/}
-                                        <Link to="faq" className="dropdown-item">{props.t('FAQ')}</Link>
+                                        <Link to="faq" className="dropdown-item" onClick={closeDropdowns}>{props.t('FAQ')}</Link>
                                     </div>
                                 </li>
                             </ul>

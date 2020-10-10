@@ -1,19 +1,19 @@
-import React, {useContext, useEffect} from 'react'
-import { Context } from '../context'
-
-import {Image, Table} from 'antd' //REWRITE USING REACTSTRAP TABLES
-import {LoadingOutlined} from '@ant-design/icons'; //REWRITE USING BOX ICONS
+import React from 'react'
+//import { Context } from '../context'
 
 import Breadcrumbs from "../components/Common/Breadcrumb";
 
-import {formatUnits, convertFromWei} from '../utils'
+import { TokenIcon } from '../components/common';
+
+import {convertFromWei} from '../utils'
 
 import {
     Container,
     Row,
     Col,
     Card,
-    CardBody, Media,Modal, ModalHeader, ModalBody, ModalFooter,Button
+    CardBody, 
+    Media,
 } from "reactstrap";
 
 import features from "../assets/images/crypto/features-img/img-1.png" //REPLACE WITH IMAGE
@@ -21,7 +21,7 @@ import features from "../assets/images/crypto/features-img/img-1.png" //REPLACE 
 
 const Shares = (props) => {
 
-    const context = useContext(Context)
+    //const context = useContext(Context)
 
     const shares = [ //Use {context.stakesData} when finished testing
         { 
@@ -216,7 +216,7 @@ export const PoolShareItem = (props) => {
                         <CardBody>
                             <Row>
                                 <Col xs={4}>
-                                    <img height="50" src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C/logo.png"}/>
+                                    <img height="50" alt="SPARTA Token Icon" src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C/logo.png"}/>
                                     <h3>$SPARTA</h3>
                                 </Col>
                                 <Col xs={4}>
@@ -240,7 +240,7 @@ export const PoolShareItem = (props) => {
                         <CardBody>
                             <Row>
                                 <Col xs={4}>
-                                    <img height="50" src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.address + "/logo.png"}/>
+                                    <TokenIcon address={props.address}/>
                                     <h3>PAIRED TOKEN NAME</h3>
                                 </Col>
                                 <Col xs={4}>

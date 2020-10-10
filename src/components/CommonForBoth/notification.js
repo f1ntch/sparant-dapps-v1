@@ -10,10 +10,10 @@ const Notification = (props) => {
   
     const { type, message } = props;
 
-    useEffect(() => {
+    useEffect((visible) => {
         if (!visible) {
             setVisible(true);
-            const timerFade = setTimeout(onDismiss, 6000);
+            setTimeout(onDismiss, 6000);
             console.log("settimeout");
         }
     }, [message])
