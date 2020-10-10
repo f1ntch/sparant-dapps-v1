@@ -4,7 +4,11 @@ import { Context } from '../context'
 
 import { getSpartaContract, getDaoContract } from '../client/web3'
 
-import { Row, Col, Input } from 'antd';
+import {
+    Input,
+    Row,
+    Col,
+} from "reactstrap";
 
 import { H1, Button } from '../components/elements';
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-import { Dropdown, DropdownToggle, DropdownMenu, Row, Col } from "reactstrap";
+import { Dropdown, DropdownMenu, Row, Col } from "reactstrap";
 import SimpleBar from "simplebar-react";
 
 //Import images

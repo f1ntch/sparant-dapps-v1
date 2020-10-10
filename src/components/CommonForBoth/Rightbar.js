@@ -3,16 +3,15 @@ import { Context } from '../../context'
 import { Row, Col, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from 'classnames';
 
-import {Image, Table} from 'antd'
+import {Table} from 'antd'
 import {LoadingOutlined} from '@ant-design/icons';
 
 import { connect } from "react-redux";
 import { hideRightSidebar } from "../../store/actions";
 
-import {BNB_ADDR} from '../../client/web3'
 import {formatUnits, convertFromWei} from '../../utils'
 
-import { manageBodyClass } from '../common';
+import { manageBodyClass, TokenIcon } from '../common';
 
 //SimpleBar
 import SimpleBar from "simplebar-react";
@@ -117,20 +116,7 @@ export const AssetTable = () => {
           title: 'Symbol',
           render: (record) => (
             <div>
-                {record.address === BNB_ADDR &&
-                <img
-                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
-                    style={{height: 40}} alt='BNB'/>
-                }
-
-                {record.address !== BNB_ADDR &&
-                <Image
-                    width={40}
-                    height={40}
-                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + record.address + "/logo.png"}
-                    fallback="../fallback.png"
-                />
-                }
+              <TokenIcon address={record.address}/>
             </div>
           )
         },
@@ -180,12 +166,7 @@ export const PoolShareTable = () => {
           title: 'Symbol',
           render: (record) => (
             <div>
-                <Image
-                    width={40}
-                    height={40}
-                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + record.address + "/logo.png"}
-                    fallback="../fallback.png"
-                />
+              <TokenIcon address={record.address}/>
             </div>
           )
         },

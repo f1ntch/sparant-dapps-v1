@@ -1,18 +1,14 @@
-import React, { useState } from "react";
-
-import { connect } from "react-redux";
+import React from "react";
 
 import { Link } from "react-router-dom";
 
 // reactstrap
-import { Row, Col, Dropdown, DropdownToggle, DropdownMenu, UncontrolledDropdown } from "reactstrap";
+import { Row, Col, DropdownToggle, DropdownMenu, UncontrolledDropdown } from "reactstrap";
 
 // Import menuDropdown
 import LanguageDropdown from "../CommonForBoth/TopbarDropdown/LanguageDropdown";
 import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDropdown";
-import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 
-import megamenuImg from "../../assets/images/megamenu-img.png";
 import logo from "../../assets/images/logo-sm-light.png";
 import logoLight from "../../assets/images/logo-light.png";
 import logoLightSvg from "../../assets/images/icon-light.png";
@@ -31,18 +27,10 @@ import { withNamespaces } from 'react-i18next';
 
 //import components
 import AddressConn from '../CommonForBoth/AddressConn';
-import { manageBodyClass } from '../common';
-import FormGroup from "reactstrap/es/FormGroup";
-import CustomInput from "reactstrap/es/CustomInput";
-import ThemeSwitch from "../CommonForBoth/TopbarDropdown/ThemeSwitch";
+//import ThemeSwitch from "../CommonForBoth/TopbarDropdown/ThemeSwitch";
 
 const Header = (props) => {
 
-  const [isSearch, setIsSearch] = useState(false);
-
-  const toggleSearch = () => {
-    setIsSearch(!isSearch);
-  }
   /**
    * Toggle navbar
    */
@@ -102,7 +90,9 @@ const Header = (props) => {
               </Link>
             </div>
 
+          {/*
            <ThemeSwitch/>
+          */}
 
             <button
               type="button"
@@ -115,33 +105,11 @@ const Header = (props) => {
 
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ml-2">
-              <div
-                className={isSearch ? "dropdown-menu dropdown-menu-lg dropdown-menu-right p-0 show" : "dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"}
-                aria-labelledby="page-header-search-dropdown"
-              >
-                <form className="p-3">
-                  <div className="form-group m-0">
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder={props.t('Search') + "..."}
-                        aria-label="Recipient's username"
-                      />
-                      <div className="input-group-append">
-                        <button className="btn btn-primary" type="submit">
-                          <i className="mdi mdi-magnify"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
             </div>
 
             <LanguageDropdown />
-            <div clacustom-control custom-switch mb-3>
 
+            <div clacustom-control custom-switch mb-3>
             </div>
 
             <UncontrolledDropdown className="d-none d-lg-inline-block ml-1">
@@ -207,7 +175,6 @@ const Header = (props) => {
             </div>
 
             <NotificationDropdown />
-            <ProfileMenu />
 
             <div className="dropdown d-inline-block">
               <button type="button" className="btn header-item waves-effect">

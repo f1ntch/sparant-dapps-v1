@@ -20,7 +20,6 @@ const AddressConn = (props) => {
     const context = useContext(Context);
     const [connecting, setConnecting] = useState(false);
     const [connected, setConnected] = useState(false);
-    const [visible, setVisible] = useState(false);
     const [notifyMessage,setNotifyMessage] = useState("");
     const [notifyType,setNotifyType] = useState("dark");
 
@@ -100,14 +99,6 @@ const AddressConn = (props) => {
     const addr = () => {
         return getAddressShort(context.walletData?.address)
     }
-
-    const showDrawer = () => {
-        setVisible(true);
-    };
-
-    const onClose = () => {
-        setVisible(false);
-    };
 
     /**
    * Toggles the sidebar

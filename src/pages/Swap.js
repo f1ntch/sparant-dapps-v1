@@ -7,8 +7,10 @@ import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
 import {InputPane, PoolPaneSide,} from '../components/common'
-import {bn, formatBN, convertFromWei, convertToWei, formatUSDStatBoxes, formatUnits} from '../utils'
+import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getSwapOutput, getSwapSlip} from '../math'
+
+import Notification from '../components/CommonForBoth/notification'
 
 import {
     BNB_ADDR, SPARTA_ADDR, ROUTER_ADDR, getRouterContract, getTokenContract, getListedTokens,
@@ -263,16 +265,14 @@ const NewSwap = (props) => {
         props.history.push('/pools')
     };
 
-    const changeTabs = () => {
-        setStartTx(false)
-        setEndTx(false)
-    };
-
-
     return (
         <>
             <div>
                 <React.Fragment>
+                    <Notification
+                        type={notifyType}
+                        message={notifyMessage}
+                    />
                     <div className="page-content">
                         <Container fluid>
                             {/* Render Breadcrumb */}
@@ -364,20 +364,10 @@ const NewSwap = (props) => {
     )
 };
 
-export default NewSwap;
+export default withRouter(NewSwap);
 
 
 const TradePane = (props) => {
-
-
-    const [activeTab, setActiveTab] = useState('1');
-    const [notifyMessage, setNotifyMessage] = useState("");
-    const [notifyType, setNotifyType] = useState("dark");
-
-    const toggle = tab => {
-        if (activeTab !== tab) setActiveTab(tab);
-    };
-
 
     return (
         <>

@@ -5,7 +5,17 @@ import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import { getDaoContract, getRewards, getPoolSharesData, getListedTokens } from '../client/web3'
 
-import { Table, Row, Col, Card, message } from 'antd';
+import { Table } from 'antd';
+
+import Notification from './notification'
+
+import {
+    Row,
+    Col,
+    Card,
+    CardBody, 
+    Media,
+} from "reactstrap";
 
 import { ColourCoin } from '../components/common'
 import { H1, Center } from '../components/elements';
@@ -13,6 +23,9 @@ import { H1, Center } from '../components/elements';
 import { convertFromWei } from '../utils'
 
 const Earn = (props) => {
+
+    const [notifyMessage,setNotifyMessage] = useState("");
+    const [notifyType,setNotifyType] = useState("dark");
 
     // Show Spartan Token Info
     // Show Spartan Balance
@@ -65,7 +78,8 @@ const Earn = (props) => {
     const refreshData = async () => {
         let stakesData = await getPoolSharesData(context.walletData.address, await getListedTokens())
         context.setContext({ 'stakesData': stakesData })
-        message.success('Transaction Sent!', 2);
+        setNotifyMessage('Transaction Sent!');
+        setNotifyType('success')
     }
 
     const columns = [

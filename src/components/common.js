@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import {Menu, Divider, Image} from 'antd'
-import {DownOutlined,} from '@ant-design/icons';
+//import {Menu} from 'antd'
 // PlusCircleOutlined, MinusCircleOutlined, Tooltip
 import {
     rainbowStop, getIntFromName, formatUnits,
     convertFromWei, formatUSD, formatUSDStatBoxes,
     // formatAPY,
 } from '../utils'
-import {getTokenSymbol} from '../client/web3'
-import {H1, HR, Text, Center, Sublabel, LabelGrey} from './elements'
+import {H1, HR, Text, Center, Sublabel} from './elements'
 
 import {
     Row,
@@ -19,7 +17,6 @@ import {
     Input,
     Label,
     Button,
-    Dropdown,
     InputGroup,
     InputGroupAddon,
     Breadcrumb,
@@ -218,7 +215,10 @@ export const PercentButtonRow = (props) => {
     )
 }
 
+{/*
 export const TokenDropDown = (props) => {
+
+    {/*
 
     const [symbol, setSymbol] = useState("SPARTA")
     const [arraySymbols, setArraySymbols] = useState(["SPARTA"])
@@ -253,6 +253,7 @@ export const TokenDropDown = (props) => {
                 <Menu.Item key={index} onClick={handleMenuClick}>
                     <Row>
                         <Col xs={8} style={{paddingLeft: 2}}>
+                        THIS IS THE MENU COMP
                             <ColourCoin symbol={item} size={22}/>
                         </Col>
                         <Col xs={8} style={{paddingLeft: 2}}>
@@ -266,7 +267,7 @@ export const TokenDropDown = (props) => {
     return (
         <div>
             <Dropdown overlay={menu}>
-                {/* <Button style={{ width: 120 }}> */}
+                // <Button style={{ width: 120 }}>
                 <Row style={style}>
                     <Col xs={8} style={{paddingLeft: 2}}>
                         <ColourCoin symbol={symbol} size={22}/>
@@ -278,13 +279,15 @@ export const TokenDropDown = (props) => {
                         <DownOutlined/>
                     </Col>
                 </Row>
-                {/* </Button> */}
+                // </Button>
             </Dropdown>
         </div>
 
     )
 
 }
+*/}
+
 export const TokenSymbol = (props) => {
 
     useEffect(() => {
@@ -316,8 +319,40 @@ export const TokenSymbol = (props) => {
 
 }
 
-export const PoolPaneSide = (props) => {
+export const TokenIcon = ({address}) => {
 
+    const addr = address
+    const [isFallback, setIsFallback] = useState("https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + addr + "/logo.png");
+    
+    // https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/logo.png
+
+    const onFallback = () => {
+        setIsFallback(process.env.PUBLIC_URL + "/fallback.png")
+    }
+
+    return (
+        <>
+            {addr === BNB_ADDR &&
+                <img
+                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
+                    style={{height: 40}}
+                    alt="BNB Token Icon"
+                    />
+            }
+            {addr !== BNB_ADDR &&
+                <img
+                    src={isFallback}
+                    width={40}
+                    height={40}
+                    onError={onFallback}
+                    alt={addr + " Token Icon"}
+                />
+            }
+        </>
+    );
+}
+
+export const PoolPaneSide = (props) => {
 
     return (
             <Card>
@@ -325,20 +360,7 @@ export const PoolPaneSide = (props) => {
                     <h4 className="card-title mb-4">Overview</h4>
                     <div className="text-center">
                         <div className="mb-4">
-                            {/*<MiniWidget reports={reports}/>*/}
-                            {props.pool.address === BNB_ADDR &&
-                            <img
-                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
-                                style={{height: 50}} alt='BNB'/>
-                            }
-                            {props.pool.address !== BNB_ADDR &&
-                            <img
-                                src-data="holder.js/171x180"
-                                width={50}
-                                height={50}
-                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.pool.address + "/logo.png"}
-                            />
-                            }
+                            <TokenIcon address={props.pool.address} />
                         </div>
                         <h2>{props.pool.symbol}</h2>
                         <br/>
@@ -487,19 +509,7 @@ export const CoinRow = (props) => {
         <div>
             <Row align="middle" justify="center" className="cntr">
                 <Col xs={12}>
-                    {props.address === BNB_ADDR &&
-                    <img
-                        src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
-                        style={{height: 40}} alt='BNB'/>
-                    }
-                    {props.address !== BNB_ADDR &&
-                    <Image
-                        width={40}
-                        height={40}
-                        src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + props.address + "/logo.png"}
-                        fallback="../fallback.png"
-                    />
-                    }
+                    <TokenIcon />
                 </Col>
                 <Col xs={12}>
                     <Label size={props.size / 2.2}>{props.name}</Label>
@@ -566,24 +576,6 @@ export const CLTButtonRow = (props) => {
                 </Col>
             </Row>
         </>
-    )
-}
-export const CDPPane = (props) => {
-
-    return (
-        <div>
-            <Col xs={24} sm={24} xl={24}>
-                <Row>
-                    <Col xs={24}>
-                        <Divider><Label size={20}>{props.name}</Label> </Divider>
-                        <ColourCoin symbol={props.symbol} size={40}/>
-                        <Center><Text size={30}
-                                      margin={"-40px 0px 5px 0px"}>{convertFromWei(props?.balance)}</Text></Center>
-                        <Center><Label margin={"0px 0px 0px 0px"}>({formatUSD(convertFromWei(props?.balance))})</Label></Center>
-                    </Col>
-                </Row>
-            </Col>
-        </div>
     )
 }
 

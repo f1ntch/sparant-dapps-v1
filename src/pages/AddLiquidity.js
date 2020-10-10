@@ -1,16 +1,15 @@
 import React, {useEffect, useState, useContext} from 'react'
 import {Context} from '../context'
-import {Tabs, message} from 'antd';
-import {LoadingOutlined, LeftOutlined, UnlockOutlined, PlusOutlined} from '@ant-design/icons';
+import {LoadingOutlined, PlusOutlined} from '@ant-design/icons';
 
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
 import {InputPane, PoolPaneSide, OutputPane} from '../components/common'
-import {HR, LabelGroup, Center} from '../components/elements';
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getLiquidityUnits} from '../math'
 import Breadcrumbs from "../components/Common/Breadcrumb";
+import Notification from '../components/CommonForBoth/notification'
 
 import {
     Container,
@@ -18,22 +17,12 @@ import {
     Col,
     Card,
     CardBody,
-    Form,
-    FormGroup,
-    Input,
-    Label,
-    Button,
     Nav,
     NavItem,
     NavLink,
     TabPane,
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    InputGroup,
-    InputGroupAddon,
-    TabContent, Alert
+    TabContent, 
+    Alert,
 } from "reactstrap";
 
 import classnames from 'classnames';
@@ -295,7 +284,8 @@ const AddLiquidity = (props) => {
             gasPrice: '',
             gas: ''
         })
-        message.success(`Approved!`, 2);
+        setNotifyMessage('Approved')
+        setNotifyType('success')
     }
 
     const addLiquidity = async () => {
@@ -308,7 +298,8 @@ const AddLiquidity = (props) => {
             gas: '',
             value: pool.address === BNB_ADDR ? liquidityData.tokenAmount : 0
         })
-        message.success(`Transaction Sent!`, 2);
+        setNotifyMessage('Transaction Sent!')
+        setNotifyType('success')
         setStartTx(false)
         setEndTx(true)
         updatePool()
@@ -323,7 +314,8 @@ const AddLiquidity = (props) => {
             gas: ''
         })
         console.log(tx.transactionHash)
-        message.success(`Transaction Sent!`, 2);
+        setNotifyMessage('Transaction Sent!')
+        setNotifyType('success')
         setStartTx(false)
         setEndTx(true)
         updatePool()
@@ -339,13 +331,12 @@ const AddLiquidity = (props) => {
         props.history.push('/pools')
     }
 
-    const changeTabs = () => {
-        setStartTx(false)
-        setEndTx(false)
-    }
-
     return (
         <>
+            <Notification
+                type={notifyType}
+                message={notifyMessage}
+            />
             <div>
                 <React.Fragment>
                     <div className="page-content">
