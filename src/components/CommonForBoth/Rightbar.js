@@ -1,15 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Context } from '../../context'
-import { Row, Col, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import { Row, Col, TabContent, TabPane, Nav, NavItem, NavLink, Table } from "reactstrap";
 import classnames from 'classnames';
 
-import {Table} from 'antd'
 import {LoadingOutlined} from '@ant-design/icons';
 
 import { connect } from "react-redux";
 import { hideRightSidebar } from "../../store/actions";
 
-import {formatUnits, convertFromWei} from '../../utils'
+import {convertFromWei} from '../../utils'
 
 import { manageBodyClass, TokenIcon } from '../common';
 
@@ -98,105 +97,131 @@ const mapStatetoProps = state => {
   return { ...state.Layout };
 };
 
-export const AssetTable = () => {
+export const AssetTable = (props) => {
 
-    const context = useContext(Context);
+  const context = useContext(Context);
 
-    useEffect(() => {
-        // updateWallet()
+  useEffect(() => {
+      // updateWallet()
 
-    }, [context.transaction])
+  }, [context.transaction])
 
-    // const updateWallet = async () => {
-    //     context.setContext({ walletData: await getWalletData(context.poolArray) })
-    // }
+  // const updateWallet = async () => {
+  //     context.setContext({ walletData: await getWalletData(context.poolArray) })
+  // }
 
-    const columns = [
-        {
-          title: 'Symbol',
-          render: (record) => (
-            <div>
-              <TokenIcon address={record.address}/>
-            </div>
-          )
-        },
-        {
-          title: 'Balance',
-          sorter: (a, b) => a.units - b.units,
-          sortOrder: 'descend',
-          render: (record) => (
-            <div>
-              <h5>{formatUnits(convertFromWei(record.balance))}</h5>
-              <h6>{record.symbol}</h6>
-            </div>
-          )
-        }
-    ]
-
-    return (
+  return (
+    <>
       <div>
-        <br/>
-          {!context.walletData &&
-            <div style={{textAlign:"center"}}><LoadingOutlined/></div>
-          }
-          {context.walletData &&
-
-          <Table
-              dataSource={context.walletData.tokens}
-              columns={columns}
-              pagination={false}
-              rowKey="symbol"/>
-          }
+        <Row>
+          <Col>
+            {!context.connected &&
+              <div style={{textAlign:"center"}}><LoadingOutlined/></div>
+            }
+            {context.connected &&
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                      {context.walletData.tokens.map(c =>
+                        <AssetItem 
+                          symbol={c.symbol}
+                          address={c.address}
+                          balance={c.balance}
+                        />
+                      )}
+                </tbody>
+              </Table>
+            }
+          </Col>
+        </Row>
       </div>
-    )
+    </>
+  )
 }
 
-export const PoolShareTable = () => {
+export const AssetItem = (props) => {
 
-    const context = useContext(Context)
+  return (
+    <>
+      <tr>
+        <td>
+          <TokenIcon address={props.address}/>
+        </td>
+        <td>
+          <h5>{convertFromWei(props.balance)}</h5>
+          <h6>{props.symbol}</h6>
+        </td>
+      </tr>
+    </>
+  )
 
-    useEffect(() => {
-        // getPoolSharess()
-        // console.log(context.stakes)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+}
 
-    const columns = [
-        {
-          title: 'Symbol',
-          render: (record) => (
-            <div>
-              <TokenIcon address={record.address}/>
-            </div>
-          )
-        },
-        {
-          title: 'Balance',
-          sorter: (a, b) => a.units - b.units,
-          sortOrder: 'descend',
-          render: (record) => (
-            <div>
-              <h5>{formatUnits(convertFromWei(record.units))}</h5>
-              <h6>{record.symbol}</h6>
-            </div>
-          )
-        }
-    ]
+export const PoolShareTable = (props) => {
 
-    return (
-        <div>
-            <br/>
+  const context = useContext(Context)
+
+  useEffect(() => {
+    // getPoolSharess()
+    // console.log(context.stakes)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+
+  return (
+    <>
+      <div>
+        <Row>
+          <Col>
             {!context.stakesData &&
               <div style={{textAlign:"center"}}><LoadingOutlined/></div>
             }
             {context.stakesData &&
-              <Table dataSource={context.stakesData}
-                  columns={columns}
-                  pagination={false}
-                  rowKey="symbol" />
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                      {context.stakesData.map(c =>
+                        <PoolItem 
+                          symbol={c.symbol}
+                          address={c.address}
+                          units={c.units}
+                        />
+                      )}
+                </tbody>
+              </Table>
             }
-        </div>
-    )
+          </Col>
+        </Row>
+      </div>
+    </>
+  )
+}
+
+export const PoolItem = (props) => {
+
+  return (
+    <>
+      <tr>
+        <td>
+          <TokenIcon address={props.address}/>
+        </td>
+        <td>
+          <h5>{convertFromWei(props.units)}</h5>
+          <h6>{props.symbol}</h6>
+        </td>
+      </tr>
+    </>
+  )
+
 }
 
 export default connect(mapStatetoProps, {hideRightSidebar})(RightSidebar);

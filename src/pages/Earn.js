@@ -1,23 +1,21 @@
 
 import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '../context'
-import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 import { getDaoContract, getRewards, getPoolSharesData, getListedTokens } from '../client/web3'
 
-import { Table } from 'antd';
+import Notification from '../components/CommonForBoth/notification'
 
-import Notification from './notification'
+import { TokenIcon } from '../components/common';
 
 import {
     Row,
     Col,
     Card,
-    CardBody, 
-    Media,
+    Table,
 } from "reactstrap";
 
-import { ColourCoin } from '../components/common'
 import { H1, Center } from '../components/elements';
 
 import { convertFromWei } from '../utils'
@@ -54,20 +52,6 @@ const Earn = (props) => {
 
     }
 
-    const lock = async (record) => {
-        let contract = getDaoContract()
-        let tx = await contract.methods.lock(record.poolAddress, record.units).send({ from: context.walletData.address })
-        console.log(tx.transactionHash)
-        await refreshData()
-    }
-
-    const unlock = async (record) => {
-        let contract = getDaoContract()
-        let tx = await contract.methods.unlock(record.poolAddress).send({ from: context.walletData.address })
-        console.log(tx.transactionHash)
-        await refreshData()
-    }
-
     const harvest = async () => {
         let contract = getDaoContract()
         let tx = await contract.methods.harvest().send({ from: context.walletData.address })
@@ -82,70 +66,43 @@ const Earn = (props) => {
         setNotifyType('success')
     }
 
-    const columns = [
-        {
-            render: (record) => (
-                <div className="tokenlogo">
-                    <ColourCoin symbol={record.symbol} size={36} />
-                </div>
-            )
-        },
-        {
-            title: 'NAME',
-            dataIndex: 'name',
-            key: 'name',
-            render: (name) => (
-                <h3>{name}</h3>
-            )
-        },
-        {
-            title: 'BALANCE',
-            dataIndex: 'units',
-            key: 'units',
-            render: (units) => (
-                <h3>{convertFromWei(units)}</h3>
-            )
-        },
-        {
-            title: 'LOCKED',
-            dataIndex: 'locked',
-            key: 'locked',
-            render: (locked) => (
-                <h3>{convertFromWei(locked)}</h3>
-            )
-        },
-        {
-            title: <Col xs={24} className="cntr btn secondary pool" onClick={harvest}>
-              <LogoutOutlined /> HARVEST YIELD
-            </Col>,
-            render: (record) => (
-
-                    <Row type="flex" justify="center" align="middle">
-                      <Col className="btn primary" onClick={() => lock(record)}>
-                            <LoginOutlined /> DEPOSIT
-                      </Col>
-                      <Col className="btn primary" onClick={() => unlock(record)}>
-                            <LogoutOutlined /> WITHDRAW
-                      </Col>
-                    </Row>
-
-            )
-        }
-    ]
-
-
     return (
         <div>
+            <Notification
+                type={notifyType}
+                message={notifyMessage}
+            />
             <Row>
                 <Col xs={24} className="cntr">
                   <h1>Earn</h1>
                   <h2>Earn yield by depositing liquidity in the SPARTAN DAO.</h2>
                 </Col>
                 <Col xs={24} className="cntr">
-                    <Table
-                        dataSource={context.stakesData}
-                        columns={columns} pagination={false}
-                        rowKey="symbol" />
+
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Name</th>
+                                <th>Balance</th>
+                                <th>Locked</th>
+                                <th>Harvest</th>
+                                <th>Deposit</th>
+                                <th>Withdraw</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {context.stakesData.map(c =>
+                                <EarnItem 
+                                    address={c.address}
+                                    name={c.name}
+                                    units={c.units}
+                                    locked={c.locked}
+                                />
+                            )}
+                        </tbody>
+                    </Table>
+
                 </Col>
             </Row>
             <br/>
@@ -171,6 +128,75 @@ const Earn = (props) => {
         </div>
     )
 
+}
+
+const EarnItem = (props) => {
+
+    const [notifyMessage,setNotifyMessage] = useState("");
+    const [notifyType,setNotifyType] = useState("dark");
+
+    const context = useContext(Context)
+
+    const lock = async (record) => {
+        let contract = getDaoContract()
+        let tx = await contract.methods.lock(record.poolAddress, record.units).send({ from: context.walletData.address })
+        console.log(tx.transactionHash)
+        await refreshData()
+    }
+
+    const unlock = async (record) => {
+        let contract = getDaoContract()
+        let tx = await contract.methods.unlock(record.poolAddress).send({ from: context.walletData.address })
+        console.log(tx.transactionHash)
+        await refreshData()
+    }
+
+    const refreshData = async () => {
+        let stakesData = await getPoolSharesData(context.walletData.address, await getListedTokens())
+        context.setContext({ 'stakesData': stakesData })
+        setNotifyMessage('Transaction Sent!');
+        setNotifyType('success')
+    }
+
+    return (
+        <>
+            <Notification
+                type={notifyType}
+                message={notifyMessage}
+            />
+            <tr>
+                <td>
+                    <TokenIcon address={props.address}/>
+                </td>
+                <td>
+                    <h3>{props.name}</h3>
+                </td>
+                <td>
+                    <h3>{convertFromWei(props.units)}</h3>
+                </td>
+                <td>
+                    <h3>{convertFromWei(props.locked)}</h3>
+                </td>
+                <td>
+                    <h3>HARVEST YIELD</h3>
+                </td>
+                <td>
+                    <Link to={`/pool/stake?pool=${props.address}`}>
+                        <button type="button" className="btn btn-primary waves-effect waves-light" onClick={() => lock(props)}>
+                            <i className="bx bx-log-in-circle font-size-16 align-middle mr-2"></i> DEPOSIT
+                        </button>
+                    </Link>
+                </td>
+                <td>
+                    <Link to={`/pool/swap?pool=${props.address}`}>
+                        <button type="button" className="btn btn-primary waves-effect waves-light" onClick={() => unlock(props)}>
+                            <i className="bx bx-transfer-alt font-size-16 align-middle mr-2"></i> WITHDRAW
+                        </button>
+                    </Link>
+                </td>
+            </tr>
+        </>
+    )
 }
 
 export default Earn
