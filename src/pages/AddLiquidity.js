@@ -6,7 +6,8 @@ import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
 
-import {PoolPaneSide, OutputPane,InputPane} from '../components/common'
+
+import {OutputPane,InputPane} from '../components/common'
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getLiquidityUnits} from '../math'
 import Breadcrumbs from "../components/Common/Breadcrumb";
@@ -33,6 +34,7 @@ import {
     getListedPools, getPoolsData, getPool, getPoolShares, WBNB_ADDR
 } from '../client/web3'
 import {withNamespaces} from "react-i18next";
+import PoolPaneSide from "./PoolPaneSide";
 
 
 const AddLiquidity = (props) => {

@@ -7,6 +7,8 @@ import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 import TradePane from "./TradePane";
 
+import PoolPaneSide from './PoolPaneSide';
+
 
 import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
 import {getSwapOutput, getSwapSlip} from '../math'
@@ -32,10 +34,8 @@ import {
     TabContent
 } from "reactstrap";
 
-
 import classnames from 'classnames';
 import Breadcrumbs from "../components/Common/Breadcrumb";
-import {InputPane, PoolPaneSide} from "../components/common";
 
 
 
@@ -278,7 +278,7 @@ const NewSwap = (props) => {
                     <div className="page-content">
                         <Container fluid>
                             {/* Render Breadcrumb */}
-                            <Breadcrumbs title="Pools" breadcrumbItem="Swap"/>
+                            <Breadcrumbs title={props.t("Pools")} breadcrumbItem={props.t("Swap")}/>
                             <Row>
                                 <Col>
                                     <button onClick={back} type="button"
