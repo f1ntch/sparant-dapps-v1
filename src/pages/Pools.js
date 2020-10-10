@@ -66,9 +66,6 @@ const Pools = (props) => {
     )
 };
 
-export default withRouter(withNamespaces()(Pools));
-
-
 export const PoolsPaneSide = (props) => {
 
     const context = useContext(Context);
@@ -247,3 +244,5 @@ const PoolTableItem = (props) => {
         </>
     )
 }
+
+export default withRouter(withNamespaces()(Pools));
