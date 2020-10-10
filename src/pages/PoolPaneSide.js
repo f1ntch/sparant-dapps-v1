@@ -65,6 +65,7 @@ const PoolPaneSide = (props) => {
                                 <p className="mb-0">{props.t("Depth")}</p>
                             </td>
                             <td>
+                                <br/>
                                 <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.tokenAmount))}</h5>
                                 <p>{props.pool.symbol}</p>
                                 <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.baseAmount))}</h5>
