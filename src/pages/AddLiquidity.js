@@ -31,6 +31,7 @@ import {
     getPoolData, getTokenData, getTokenDetails,
     getListedPools, getPoolsData, getPool, getPoolShares, WBNB_ADDR
 } from '../client/web3'
+import {withNamespaces} from "react-i18next";
 
 
 const AddLiquidity = (props) => {
@@ -342,11 +343,11 @@ const AddLiquidity = (props) => {
                     <div className="page-content">
                         <Container fluid>
                             {/* Render Breadcrumb */}
-                            <Breadcrumbs title="Pools" breadcrumbItem="Join"/>
+                            <Breadcrumbs title={props.t("Pools")} breadcrumbItem={props.t("Join")}/>
                             <Row>
                             <Col>
                                 <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
-                                    <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> Back
+                                    <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> {props.t("Back")}
                                 </button>
                                 <br/>
                                 <br/>
@@ -359,7 +360,7 @@ const AddLiquidity = (props) => {
                                 <Col lg="6">
                                     <Card>
                                         <CardBody>
-                                            <h4 className="card-title mb-4">Add Liquidity</h4>
+                                            <h4 className="card-title mb-4">{props.t("Add Liquidity")}</h4>
                                             <Nav pills className="bg-light rounded" role="tablist">
                                                 <NavItem>
                                                     <NavLink
@@ -368,7 +369,7 @@ const AddLiquidity = (props) => {
                                                             toggle('1');
                                                         }}
                                                     >
-                                                        {`Add ${pool.symbol} + SPARTA`}
+                                                        {`${props.t("Add")} ${pool.symbol} + SPARTA`}
                                                     </NavLink>
                                                 </NavItem>
                                                 <NavItem>
@@ -378,7 +379,7 @@ const AddLiquidity = (props) => {
                                                             toggle('2');
                                                         }}
                                                     >
-                                                        {`ADD ${pool.symbol}`}
+                                                        {`${props.t("Add")} ${pool.symbol}`}
                                                     </NavLink>
                                                 </NavItem>
                                                 <NavItem>
@@ -388,7 +389,7 @@ const AddLiquidity = (props) => {
                                                             toggle('3');
                                                         }}
                                                     >
-                                                        {`REMOVE ${pool.symbol} + SPARTA`}
+                                                        {`${props.t("Remove")} ${pool.symbol} + SPARTA`}
                                                     </NavLink>
                                                 </NavItem>
                                             </Nav>
@@ -457,7 +458,7 @@ const AddLiquidity = (props) => {
     )
 };
 
-export default withRouter(AddLiquidity)
+
 
 const AddSymmPane = (props) => {
 
@@ -544,6 +545,9 @@ const AddSymmPane = (props) => {
         </>
     )
 }
+
+
+export default withRouter(withNamespaces()(AddLiquidity));
 
 const AddAsymmPane = (props) => {
 

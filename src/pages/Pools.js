@@ -22,10 +22,9 @@ import {
 import CardWelcome from "./Utility/card-welcome";
 import {withNamespaces} from 'react-i18next';
 import CardTitle from "reactstrap/es/CardTitle";
-import CardSubtitle from "reactstrap/es/CardSubtitle";
 import Button from "antd/es/button";
-import Widget from "./Widget";
 import ReactApexChart from "react-apexcharts";
+import CardSubtitle from "reactstrap/es/CardSubtitle";
 
 
 const Pools = (props) => {
@@ -78,7 +77,6 @@ export default withRouter(withNamespaces()(Pools));
 export const PoolsPaneSide = (props) => {
 
         const context = useContext(Context);
-
 
 
         const series1 = [{
@@ -169,10 +167,7 @@ export const PoolsPaneSide = (props) => {
 
 
         return (
-
-
             <React.Fragment>
-
                 <Row>
                     <Col sm={12} md={12}>
                         <CardWelcome/>
@@ -183,14 +178,14 @@ export const PoolsPaneSide = (props) => {
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
-                                    className={"bx bx-shape-triangle h1 text-warning align-middle mb-0 mr-3"}></i>Total
+                                    className={"bx bx-coin h1 text-warning align-middle mb-0 mr-3"}/>Total
                                     Pooled</h5>
                                 <Row>
                                     <Col xs="6">
                                         <div>
-                                            <h5>{formatUSDStatBoxes(convertFromWei(props.globalData.totalPooled * 2), context.spartanPrice)}</h5>
+                                            <h3>{formatUSDStatBoxes(convertFromWei(props.globalData.totalPooled * 2), context.spartanPrice)}</h3>
                                             <p className="text-muted text-truncate mb-0">0,0%<i
-                                                className="mdi mdi-arrow-up ml-1 text-success"></i></p>
+                                                className="mdi mdi-arrow-up ml-1 text-success"/></p>
                                         </div>
                                     </Col>
                                     <Col xs="6">
@@ -209,14 +204,14 @@ export const PoolsPaneSide = (props) => {
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
-                                    className={"bx bx-coin-stack h1 text-primary align-middle mb-0 mr-3"}></i>Total Volume
+                                    className={"bx bx-coin-stack h1 text-primary align-middle mb-0 mr-3"}/>Total Volume
                                 </h5>
                                 <Row>
                                     <Col xs="6">
                                         <div>
-                                            <h5>{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h5>
+                                            <h3>{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h3>
                                             <p className="text-muted text-truncate mb-0">0,0<i
-                                                className="mdi mdi-arrow-up ml-1 text-success"></i></p>
+                                                className="mdi mdi-arrow-up ml-1 text-success"/></p>
                                         </div>
                                     </Col>
                                     <Col xs="6">
@@ -235,12 +230,12 @@ export const PoolsPaneSide = (props) => {
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
-                                    className={"bx bx-rotate-right h1 text-primary align-middle mb-0 mr-3"}></i>Txn Count
+                                    className={"bx bx-rotate-right h1 text-secondary align-middle mb-0 mr-3"}></i>TXN Count
                                 </h5>
                                 <Row>
                                     <Col xs="6">
                                         <div>
-                                            <h5>{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx} TXN</h5>
+                                            <h3>{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx} TXN</h3>
                                             <p className="text-muted text-truncate mb-0">0,0<i
                                                 className="mdi mdi-arrow-up ml-1 text-success"></i></p>
                                         </div>
@@ -266,7 +261,7 @@ export const PoolsPaneSide = (props) => {
                                 <Row>
                                     <Col xs="6">
                                         <div>
-                                            <h5>{formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice)}</h5>
+                                            <h3>{formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice)}</h3>
                                             <p className="text-muted text-truncate mb-0">0,0<i
                                                 className="mdi mdi-arrow-up ml-1 text-success"></i></p>
                                         </div>
@@ -308,6 +303,7 @@ export const PoolsPaneSide = (props) => {
                 {/*                        <p className="text-muted font-weight-medium">TOTAL VOLUME</p>*/}
                 {/*                        <h4 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h4>*/}
                 {/*                    </Media>*/}
+                {/*                </Media>*/}
                 {/*                </Media>*/}
                 {/*            </CardBody>*/}
                 {/*        </Card>*/}
@@ -367,14 +363,17 @@ const PoolTable = (props) => {
                 <Col sm={12} className="mr-20">
                     <Card>
                         <CardBody>
+
                             {!context.poolsData &&
                             <div style={{textAlign: "center"}}><LoadingOutlined/></div>
                             }
-
                             {context.poolsData &&
-
                             <div className="table-responsive">
-                                <CardTitle><h3>Pool Table</h3></CardTitle>
+                                <CardTitle>Pools</CardTitle>
+                                <CardSubtitle className="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed
+                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </CardSubtitle>
                                 <Table className="table-centered mb-0">
 
                                     <thead className="center">
@@ -428,7 +427,7 @@ const PoolTableItem = (props) => {
                 </td>
 
                 <td>
-                    {props.symbol}
+                    <h6>{props.symbol}</h6>
                 </td>
                 <td className="d-none d-lg-table-cell">
                     {formatUSD(props.price, context.spartanPrice)}

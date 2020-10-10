@@ -3,6 +3,9 @@ import { Row, Col, Card } from "reactstrap";
 
 //Import Image
 import features from "../../assets/images/crypto/features-img/img-1.png"
+import {withNamespaces} from 'react-i18next';
+import withRouter from "react-router-dom/es/withRouter";
+import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 class CardWelcome extends Component {
     render() {
@@ -13,7 +16,7 @@ class CardWelcome extends Component {
                         <Row>
                             <Col lg="9" sm="8">
                                 <div  className="p-4">
-                                    <h5 className="text-primary">Welcome to Spartan Pools !</h5>
+                                    <h5 className="text-primary">Welcome to Spartan Pools!</h5>
                                     <p>Loreipsum....</p>
 
                                     <div className="text-muted">
@@ -35,5 +38,4 @@ class CardWelcome extends Component {
         );
     }
 }
-
-export default CardWelcome;
+export default withRouter(withNamespaces()(CardWelcome));

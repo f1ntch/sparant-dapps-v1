@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import {PropTypes} from 'react'
 //import {Menu} from 'antd'
 // PlusCircleOutlined, MinusCircleOutlined, Tooltip
 import {
@@ -24,6 +25,94 @@ import {
 
 import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
 
+import {withNamespaces} from 'react-i18next';
+import withRouter from "react-router-dom/es/withRouter";
+
+
+export const PoolPaneSide = (props) => {
+
+
+    return (
+        <Card>
+            <CardBody>
+                <h4 className="card-title mb-4">Overview</h4>
+                <div className="text-center">
+                    <div className="mb-4">
+                        <TokenIcon address={props.pool.address}/>
+                    </div>
+                    <h2>{props.pool.symbol}</h2>
+                    <br/>
+                </div>
+                <div className="table-responsive mt-4">
+                    <table className="table table-centered table-nowrap mb-0">
+                        <tbody>
+                        <tr>
+                            <td style={{width: "100%"}}>
+                                <p className="mb-0">Volume</p>
+                            </td>
+                            <td style={{width: "10%"}}>
+                                <h5 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.pool.volume), props.price)}</h5>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p className="mb-0">Tx Count</p>
+                            </td>
+                            <td>
+                                <h5 className="mb-0">{props.pool.txCount}</h5>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p className="mb-0">Fees</p>
+                            </td>
+                            <td>
+                                <h5 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.pool.fees), props.price)}</h5>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p className="mb-0">Depth</p>
+                            </td>
+                            <td>
+                                <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.tokenAmount))}</h5>
+                                <p>{props.pool.symbol}</p>
+                                <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.baseAmount))}</h5>
+                                <p>SPARTA</p>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div className="text-center">
+                    <div className="mb-4">
+                        <i className="text-primary display-4">
+                            <img
+                                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"}
+                                style={{height: 50}} alt='SPARTA'/></i>
+                    </div>
+                    <h2>SPARTA</h2>
+                    <p>Price</p>
+                    <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
+                </div>
+
+            </CardBody>
+        </Card>
+        //           {/* <h4>APY</h4>
+        //           <h3 className="strong">{formatAPY(props.pool.apy)}</h3> */}
+    )
+};
+
+export default withRouter(withNamespaces()(PoolPaneSide));
 
 // Check If Responsive
 export const useWindowSize = () => {
@@ -286,7 +375,8 @@ export const TokenDropDown = (props) => {
     )
 
 }
-*/}
+*/
+}
 
 export const TokenSymbol = (props) => {
 
@@ -323,7 +413,7 @@ export const TokenIcon = ({address}) => {
 
     const addr = address
     const [isFallback, setIsFallback] = useState("https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + addr + "/logo.png");
-    
+
     // https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56/logo.png
 
     const onFallback = () => {
@@ -333,106 +423,25 @@ export const TokenIcon = ({address}) => {
     return (
         <>
             {addr === BNB_ADDR &&
-                <img
-                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
-                    style={{height: 40}}
-                    alt="BNB Token Icon"
-                    />
+            <img
+                src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png"}
+                style={{height: 40}}
+                alt="BNB Token Icon"
+            />
             }
             {addr !== BNB_ADDR &&
-                <img
-                    src={isFallback}
-                    width={40}
-                    height={40}
-                    onError={onFallback}
-                    alt={addr + " Token Icon"}
-                />
+            <img
+                src={isFallback}
+                width={40}
+                height={40}
+                onError={onFallback}
+                alt={addr + " Token Icon"}
+            />
             }
         </>
     );
 }
 
-export const PoolPaneSide = (props) => {
-
-    return (
-            <Card>
-                <CardBody>
-                    <h4 className="card-title mb-4">Overview</h4>
-                    <div className="text-center">
-                        <div className="mb-4">
-                            <TokenIcon address={props.pool.address} />
-                        </div>
-                        <h2>{props.pool.symbol}</h2>
-                        <br/>
-                    </div>
-                    <div className="table-responsive mt-4">
-                        <table className="table table-centered table-nowrap mb-0">
-                            <tbody>
-                            <tr>
-                                <td style={{width: "100%"}}>
-                                    <p className="mb-0">Volume</p>
-                                </td>
-                                <td style={{width: "10%"}}>
-                                    <h5 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.pool.volume), props.price)}</h5>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="mb-0">Tx Count</p>
-                                </td>
-                                <td>
-                                    <h5 className="mb-0">{props.pool.txCount}</h5>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="mb-0">Fees</p>
-                                </td>
-                                <td>
-                                    <h5 className="mb-0">{formatUSDStatBoxes(convertFromWei(props.pool.fees), props.price)}</h5>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="mb-0">Depth</p>
-                                </td>
-                                <td>
-                                    <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.tokenAmount))}</h5>
-                                    <p>{props.pool.symbol}</p>
-                                    <h5 className="mb-0">{formatUnits(convertFromWei(props.pool.baseAmount))}</h5>
-                                    <p>SPARTA</p>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="text-center">
-                        <div className="mb-4">
-                            <i className="text-primary display-4">
-                                <img
-                                    src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/" + SPARTA_ADDR + "/logo.png"}
-                                    style={{height: 50}} alt='SPARTA'/></i>
-                        </div>
-                        <h2>SPARTA</h2>
-                        <p>Price</p>
-                        <h3 className="strong">{formatUSD(props.pool.price, props.price)}</h3>
-                    </div>
-
-                </CardBody>
-            </Card>
-        //           {/* <h4>APY</h4>
-        //           <h3 className="strong">{formatAPY(props.pool.apy)}</h3> */}
-    )
-};
 
 export const PoolPane = (props) => {
 
@@ -509,7 +518,7 @@ export const CoinRow = (props) => {
         <div>
             <Row align="middle" justify="center" className="cntr">
                 <Col xs={12}>
-                    <TokenIcon />
+                    <TokenIcon/>
                 </Col>
                 <Col xs={12}>
                     <Label size={props.size / 2.2}>{props.name}</Label>
@@ -586,4 +595,4 @@ export const CLTButtonRow = (props) => {
 export const manageBodyClass = (cssClass) => {
     document.body.classList.toggle(cssClass)
     return true;
-} 
+}

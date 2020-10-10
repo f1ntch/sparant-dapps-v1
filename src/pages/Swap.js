@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from 'react'
 import {Context} from '../context'
 
 import {LoadingOutlined, UnlockOutlined} from '@ant-design/icons';
-
+import {withNamespaces} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -276,11 +276,11 @@ const NewSwap = (props) => {
                     <div className="page-content">
                         <Container fluid>
                             {/* Render Breadcrumb */}
-                            <Breadcrumbs title="Pools" breadcrumbItem="Swap"/>
+                            <Breadcrumbs title={props.t("Pools")} breadcrumbItem={props.t("Swap")}/>
                             <Row>
                                 <Col>
                                     <button  onClick={back} type="button" className="btn btn-secondary waves-effect waves-light">
-                                        <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> Back
+                                        <i className="bx bx-arrow-back font-size-16 align-middle mr-2"></i> {props.t("Back")}
                                     </button>
                                     <br/>
                                     <br/>
@@ -294,7 +294,7 @@ const NewSwap = (props) => {
 
                                     <Card>
                                         <CardBody>
-                                            <h4 className="card-title mb-4">Buy/Sell</h4>
+                                            <h4 className="card-title mb-4">{props.t("Buy/Sell")}</h4>
                                             <Nav pills className="bg-light rounded" role="tablist">
                                                 <NavItem>
                                                     <NavLink
@@ -303,7 +303,7 @@ const NewSwap = (props) => {
                                                             toggle('1');
                                                         }}
                                                     >
-                                                        Buy {pool.symbol}
+                                                        {props.t("Buy")} {pool.symbol}
                                                     </NavLink>
                                                 </NavItem>
                                                 <NavItem>
@@ -313,7 +313,7 @@ const NewSwap = (props) => {
                                                             toggle('2');
                                                         }}
                                                     >
-                                                        Sell {pool.symbol}
+                                                        {props.t("Sell")} {pool.symbol}
                                                     </NavLink>
                                                 </NavItem>
                                             </Nav>
@@ -364,7 +364,7 @@ const NewSwap = (props) => {
     )
 };
 
-export default withRouter(NewSwap);
+
 
 
 const TradePane = (props) => {
@@ -384,7 +384,7 @@ const TradePane = (props) => {
                     <tbody>
                     <tr>
                         <td>
-                            <p className="mb-0">Slip</p>
+                            <p className="mb-0">Back</p>
                         </td>
                         <td>
                             <h5 className="mb-0">{`${((props.tradeData.slip) * 100).toFixed(0)}%`}</h5>
@@ -423,3 +423,4 @@ const TradePane = (props) => {
     )
 };
 
+export default withRouter(withNamespaces()(NewSwap));
