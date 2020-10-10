@@ -172,7 +172,8 @@ const PoolTable = (props) => {
                             < div className="table-responsive">
                                 <CardTitle>Pool Table</CardTitle>
                                 <Table className="table-centered mb-0">
-                                    <thead>
+
+                                    <thead className="center">
                                     <tr>
                                         <th scope="col">Icon</th>
                                         <th scope="col">Symbol</th>
@@ -225,9 +226,9 @@ const PoolTableItem = (props) => {
                 <td>
                     {props.symbol}
                 </td>
-                    <td className="d-none d-lg-table-cell">
-                        {formatUSD(props.price, context.spartanPrice)}
-                    </td>
+                <td className="d-none d-lg-table-cell">
+                    {formatUSD(props.price, context.spartanPrice)}
+                </td>
                 <td className="d-none d-lg-table-cell">
                     {formatUSDStatBoxes(convertFromWei(props.depth), context.spartanPrice)}
                 </td>
@@ -240,22 +241,20 @@ const PoolTableItem = (props) => {
                 <td className="d-none d-lg-table-cell">
                     {formatUSDStatBoxes(convertFromWei(props.fees), context.spartanPrice)}
                 </td>
-                <td>
-                    <Link to={`/pool/stake?pool=${props.address}`}>
-                        <Button color="primary"
-                                className="btn btn-primary waves-effect waves-light">
-                            <i className="bx bx-log-in-circle"></i> Join
-                        </Button>
-                    </Link>
-
-                    <Link to={`/pool/swap?pool=${props.address}`}>
-                        <button style={{marginLeft: "15px"}} type="button"
-                                className="btn btn-primary waves-effect waves-light">
-                            <i className="bx bx-transfer-alt"></i> Trade
-                        </button>
-                    </Link>
-
-                </td>
+                    <td>
+                        <Link to={`/pool/stake?pool=${props.address}`}>
+                            <Button color="primary"
+                                    className="btn btn-primary waves-effect waves-light mr-4">
+                                <i className="bx bx-log-in-circle"></i> Join
+                            </Button>
+                        </Link>
+                        <Link to={`/pool/swap?pool=${props.address}`}>
+                            <button type="button"
+                                    className="btn btn-primary waves-effect waves-light">
+                                <i className="bx bx-transfer-alt"></i> Trade
+                            </button>
+                        </Link>
+                    </td>
 
             </tr>
         </>
