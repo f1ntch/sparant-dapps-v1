@@ -23,6 +23,7 @@ import CardWelcome from "./Utility/card-welcome";
 import {withNamespaces} from 'react-i18next';
 import CardTitle from "reactstrap/es/CardTitle";
 import CardSubtitle from "reactstrap/es/CardSubtitle";
+import Button from "antd/es/button";
 
 const Pools = (props) => {
 
@@ -159,7 +160,7 @@ const PoolTable = (props) => {
     return (
         <>
             <Row>
-                <Col sm={12} md={12}>
+                <Col sm={12}>
                     <Card>
                         <CardBody>
                             {!context.poolsData &&
@@ -170,87 +171,93 @@ const PoolTable = (props) => {
 
                             < div className="table-responsive">
                                 <CardTitle>Pool Table</CardTitle>
-                                <Table className="table-nowrap table-centered mb-0">
-
-                                <thead className="thead-light">
-                                <tr>
-                                <th scope="col">Icon</th>
-                                <th scope="col">Symbol</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Depth</th>
-                                <th scope="col">Volume</th>
-                                <th scope="col">Txns</th>
-                                <th scope="col">Revenue</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {context.poolsData.map(c =>
-                                <PoolTableItem scope="row"
-                                address={c.address}
-                                symbol={c.symbol}
-                                price={c.price}
-                                depth={c.depth}
-                                volume={c.volume}
-                                txCount={c.txCount}
-                                fees={c.fees}
-                                />
-                                )}
-                                </tbody>
+                                <Table className="table-centered mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Icon</th>
+                                        <th scope="col">Symbol</th>
+                                        <th className="d-none d-lg-table-cell" scope="col">Price</th>
+                                        <th className="d-none d-lg-table-cell" scope="col">Depth</th>
+                                        <th className="d-none d-lg-table-cell" scope="col">Volume</th>
+                                        <th className="d-none d-lg-table-cell" scope="col">Txns</th>
+                                        <th className="d-none d-lg-table-cell" scope="col">Revenue</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {context.poolsData.map(c =>
+                                        <PoolTableItem scope="row"
+                                                       address={c.address}
+                                                       symbol={c.symbol}
+                                                       price={c.price}
+                                                       depth={c.depth}
+                                                       volume={c.volume}
+                                                       txCount={c.txCount}
+                                                       fees={c.fees}
+                                        />
+                                    )}
+                                    </tbody>
                                 </Table>
-                                </div>
-                                }
-                                </CardBody>
-                                </Card>
-                                </Col>
-                                </Row>
-                                </>
-                                )
-                                };
+                            </div>
+                            }
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+        </>
+    )
+};
 
-                                const PoolTableItem = (props) => {
+const PoolTableItem = (props) => {
 
-                                const context = useContext(Context);
+    const context = useContext(Context);
 
-                                return (
-                                <>
-                                <tr>
-                                <td>
-                                <TokenIcon address={props.address}/>
-                                </td>
-                                <td>
-                                {props.symbol}
-                                </td>
-                                <td>
-                                {formatUSD(props.price, context.spartanPrice)}
-                                </td>
-                                <td>
-                                {formatUSDStatBoxes(convertFromWei(props.depth), context.spartanPrice)}
-                                </td>
-                                <td>
-                                {formatUSDStatBoxes(convertFromWei(props.volume), context.spartanPrice)}
-                                </td>
-                                <td>
-                                {props.txCount.toLocaleString()}
-                                </td>
-                                <td>
-                                {formatUSDStatBoxes(convertFromWei(props.fees), context.spartanPrice)}
-                                </td>
-                                <td>
-                                <div className="btn-group" role="group">
-                                <Link to={`/pool/stake?pool=${props.address}`}>
-                                <button type="button" className="btn btn-primary waves-effect waves-light">
-                                <i className="bx bx-log-in-circle font-size-16 align-middle mr-2"></i> Join
-                                </button>
-                                </Link>
+    return (
+        <>
 
-                                <Link to={`/pool/swap?pool=${props.address}`}>
-                                <button type="button" className="btn btn-primary waves-effect waves-light">
-                                <i className="bx bx-transfer-alt font-size-16 align-middle mr-2"></i> Trade
-                                </button>
-                                </Link>
-                                </div>
-                                </td>
-                                </tr>
-                                </>
-                                )
-                                }
+            <tr>
+                <td>
+
+                    <TokenIcon address={props.address}/>
+
+                </td>
+
+                <td>
+                    {props.symbol}
+                </td>
+                    <td className="d-none d-lg-table-cell">
+                        {formatUSD(props.price, context.spartanPrice)}
+                    </td>
+                <td className="d-none d-lg-table-cell">
+                    {formatUSDStatBoxes(convertFromWei(props.depth), context.spartanPrice)}
+                </td>
+                <td className="d-none d-lg-table-cell">
+                    {formatUSDStatBoxes(convertFromWei(props.volume), context.spartanPrice)}
+                </td>
+                <td className="d-none d-lg-table-cell">
+                    {props.txCount.toLocaleString()}
+                </td>
+                <td className="d-none d-lg-table-cell">
+                    {formatUSDStatBoxes(convertFromWei(props.fees), context.spartanPrice)}
+                </td>
+                <td>
+                    <Link to={`/pool/stake?pool=${props.address}`}>
+                        <Button color="primary"
+                                className="btn btn-primary waves-effect waves-light">
+                            <i className="bx bx-log-in-circle"></i> Join
+                        </Button>
+                    </Link>
+
+                    <Link to={`/pool/swap?pool=${props.address}`}>
+                        <button style={{marginLeft: "15px"}} type="button"
+                                className="btn btn-primary waves-effect waves-light">
+                            <i className="bx bx-transfer-alt"></i> Trade
+                        </button>
+                    </Link>
+
+                </td>
+
+            </tr>
+        </>
+    )
+}
