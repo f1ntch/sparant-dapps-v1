@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react'
 import {Context} from '../context'
 
-import {LoadingOutlined, UnlockOutlined} from '@ant-design/icons';
 import {withNamespaces} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
 import queryString from 'query-string';
@@ -10,7 +9,7 @@ import TradePane from "./TradePane";
 import PoolPaneSide from './PoolPaneSide';
 
 
-import {bn, formatBN, convertFromWei, convertToWei} from '../utils'
+import {bn, formatBN, convertToWei} from '../utils'
 import {getSwapOutput, getSwapSlip} from '../math'
 
 import Notification from '../components/CommonForBoth/notification'

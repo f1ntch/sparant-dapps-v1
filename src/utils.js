@@ -47,6 +47,11 @@ export const formatUnits = (input) => {
     return `${units.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
 }
 
+export const formatNoDec = (input) => {
+    const units = (bn(input).toFixed(0).toString())
+    return `${units.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+}
+
 export const formatUSD = (input, price) => {
     const value = input ? (bn(input).times( price )).toNumber() : 0
     return `$${(value.toLocaleString())}`

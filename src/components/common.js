@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import {PropTypes} from 'react'
+
 //import {Menu} from 'antd'
 // PlusCircleOutlined, MinusCircleOutlined, Tooltip
 import {
-    rainbowStop, getIntFromName, formatUnits,
-    convertFromWei, formatUSD, formatUSDStatBoxes,
+    rainbowStop, getIntFromName, convertFromWei, formatUSD,
     // formatAPY,
 } from '../utils'
 import {H1, HR, Text, Center, Sublabel} from './elements'
@@ -13,25 +12,13 @@ import {H1, HR, Text, Center, Sublabel} from './elements'
 import {
     Row,
     Col,
-    Card,
-    CardBody,
     Input,
     Label,
     Button,
-    InputGroup,
-    InputGroupAddon,
     Breadcrumb,
 } from "reactstrap";
 
-import {BNB_ADDR, SPARTA_ADDR} from '../client/web3'
-
-import {withNamespaces} from 'react-i18next';
-import withRouter from "react-router-dom/es/withRouter";
-import {LoadingOutlined, UnlockOutlined} from "@ant-design/icons";
-
-
-
-
+import {BNB_ADDR} from '../client/web3'
 
 // Check If Responsive
 export const useWindowSize = () => {

@@ -5,6 +5,7 @@
 .table {
   th {
       font-weight: $font-weight-bold;
+      color:#FFF;
   }
 }
 
@@ -12,6 +13,8 @@
 .table-centered {
   td,th {
       vertical-align: middle !important;
+      text-align: center;
+      font-size: 1.2em;
   }
 }
 

@@ -12,7 +12,6 @@ import {
     CardBody,
     Table,
 } from "reactstrap";
-import CardWelcome from "./Utility/card-welcome";
 import {withNamespaces} from 'react-i18next';
 
 import PoolTableItem from "./PoolTableItem";
@@ -47,10 +46,9 @@ const PoolTable = (props) => {
                             }
                             {context.poolsData &&
                             <div className="table-responsive">
-                                <CardTitle>Pools</CardTitle>
-                                <CardSubtitle className="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                    sed
-                                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <CardTitle><h4>Pools</h4></CardTitle>
+                                <CardSubtitle className="mb-3">
+                                    The liquidity pools are facilitated by an automated-market-maker (AMM) algorithm with liquidity-sensitive fees.
                                 </CardSubtitle>
                                 <Table className="table-centered mb-0">
 
