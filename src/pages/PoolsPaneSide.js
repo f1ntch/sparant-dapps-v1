@@ -45,7 +45,7 @@ export const PoolsPaneSide = (props) => {
 
         const series2 = [{
             name: "Volume",
-            data: [0, convertFromWei(props.globalData.totalPooled)]
+            data: [0, formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice).slice(1)]
         }];
         const options2 = {
             chart: {sparkline: {enabled: !0}},
@@ -66,7 +66,7 @@ export const PoolsPaneSide = (props) => {
 
         const series3 = [{
             name: "TXN",
-            data: [0, convertFromWei(props.globalData.totalPooled)]
+            data: [0, +props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx]
         }];
         const options3 = {
             chart: {sparkline: {enabled: !0}},
@@ -88,7 +88,7 @@ export const PoolsPaneSide = (props) => {
 
         const series4 = [{
             name: "Earnings",
-            data: [0, convertFromWei(props.globalData.totalPooled)]
+            data: [0, formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice).slice(1)]
         }];
         const options4 = {
             chart: {sparkline: {enabled: !0}},
@@ -120,13 +120,14 @@ export const PoolsPaneSide = (props) => {
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
-                                    className={"bx bx-coin h1 text-warning align-middle mb-0 mr-3"}/>{props.t("Total Pooled")}</h5>
+                                    className={"bx bx-coin h1 text-warning align-middle mb-0 mr-3"}/>{props.t("Total Pooled")}
+                                </h5>
                                 <Row>
                                     <Col xs="6">
                                         <div>
                                             <h3>{formatUSDStatBoxes(convertFromWei(props.globalData.totalPooled * 2), context.spartanPrice)}</h3>
-                                            <p className="text-muted text-truncate mb-0">0,0%<i
-                                                className="mdi mdi-arrow-up ml-1 text-success"/></p>
+                                            {/*<p className="text-muted text-truncate mb-0">0,0%<i*/}
+                                            {/*    className="mdi mdi-arrow-up ml-1 text-success"/></p>*/}
                                         </div>
                                     </Col>
                                     <Col xs="6">
@@ -151,8 +152,8 @@ export const PoolsPaneSide = (props) => {
                                     <Col xs="6">
                                         <div>
                                             <h3>{formatUSDStatBoxes(convertFromWei(props.globalData?.totalVolume), context.spartanPrice)}</h3>
-                                            <p className="text-muted text-truncate mb-0">0,0<i
-                                                className="mdi mdi-arrow-up ml-1 text-success"/></p>
+                                            {/*<p className="text-muted text-truncate mb-0">0,0<i*/}
+                                            {/*    className="mdi mdi-arrow-up ml-1 text-success"/></p>*/}
                                         </div>
                                     </Col>
                                     <Col xs="6">
@@ -177,8 +178,8 @@ export const PoolsPaneSide = (props) => {
                                     <Col xs="6">
                                         <div>
                                             <h3>{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx} TXN</h3>
-                                            <p className="text-muted text-truncate mb-0">0,0<i
-                                                className="mdi mdi-arrow-up ml-1 text-success"></i></p>
+                                            {/*<p className="text-muted text-truncate mb-0">0,0<i*/}
+                                            {/*    className="mdi mdi-arrow-up ml-1 text-success"></i></p>*/}
                                         </div>
                                     </Col>
                                     <Col xs="6">
@@ -198,14 +199,14 @@ export const PoolsPaneSide = (props) => {
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
                                     className={"bx bx-trending-up h1 text-success align-middle mb-0 mr-3"}></i>{props.t("Total Earnings")}
-                                   </h5>
+                                </h5>
                                 <Row>
                                     <Col xs="6">
                                         <div>
                                             <h3>{formatUSDStatBoxes(convertFromWei(props.globalData?.totalFees), context.spartanPrice)}</h3>
-                                            <p className="text-muted text-truncate mb-0">0,0<i
-                                                className="mdi mdi-arrow-up ml-1 text-success"></i></p>
-                                        </div>
+                                            {/*<p className="text-muted text-truncate mb-0">0,0<i*/}
+                                            {/*    className="mdi mdi-arrow-up ml-1 text-success"></i></p>*/}
+                            </div>
                                     </Col>
                                     <Col xs="6">
                                         <div>
