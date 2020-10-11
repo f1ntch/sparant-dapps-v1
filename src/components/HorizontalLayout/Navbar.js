@@ -53,7 +53,7 @@ const Navbar = (props) => {
                                     </Link>
                                     <div className={classname("dropdown-menu", { show: !isDropdown2  })}>
                                         {/*<Link to="start" className="dropdown-item">{props.t('How to start?')}</Link>*/}
-                                        <Link to="faq" className="dropdown-item" onClick={closeDropdowns}>{props.t('FAQ')}</Link>
+                                        <Link to="/faq" className="dropdown-item" onClick={closeDropdowns}>{props.t('FAQ')}</Link>
                                     </div>
                                 </li>
                             </ul>

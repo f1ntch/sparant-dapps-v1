@@ -1,30 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Context} from '../context'
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
-import {getGlobalData, getListedPools, getListedTokens, getPoolsData} from '../client/web3'
-import {convertFromWei, formatUSD, formatUSDStatBoxes} from '../utils'
+import {getGlobalData} from '../client/web3'
 
-import {LoadingOutlined} from '@ant-design/icons';
 import Breadcrumbs from "../components/Common/Breadcrumb";
 
-import {TokenIcon} from '../components/common';
 
 import {
     Container,
     Row,
     Col,
-    Card,
-    CardBody,
-    Media,
-    Table,
 } from "reactstrap";
-import CardWelcome from "./Utility/card-welcome";
 import {withNamespaces} from 'react-i18next';
-import CardTitle from "reactstrap/es/CardTitle";
-import Button from "antd/es/button";
-import ReactApexChart from "react-apexcharts";
-import CardSubtitle from "reactstrap/es/CardSubtitle";
 import PoolTable from "./PoolTable";
 import PoolsPaneSide from "./PoolsPaneSide";
 

@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Context} from "../context";
-import {convertFromWei, formatUSDStatBoxes} from "../utils";
+import {convertFromWei, formatNoDec, formatUSDStatBoxes} from "../utils";
 import CardWelcome from "./Utility/card-welcome";
 import ReactApexChart from "react-apexcharts";
 import {withNamespaces} from "react-i18next";
@@ -116,7 +116,7 @@ export const PoolsPaneSide = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm="3">
+                    <Col sm="12" md="6" lg="3">
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
@@ -142,7 +142,7 @@ export const PoolsPaneSide = (props) => {
                             </CardBody>
                         </Card>
                     </Col>
-                    <Col sm="3">
+                    <Col sm="12" md="6" lg="3">
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
@@ -168,7 +168,7 @@ export const PoolsPaneSide = (props) => {
                             </CardBody>
                         </Card>
                     </Col>
-                    <Col sm="3">
+                    <Col sm="12" md="6" lg="3">
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i
@@ -177,7 +177,7 @@ export const PoolsPaneSide = (props) => {
                                 <Row>
                                     <Col xs="6">
                                         <div>
-                                            <h3>{+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx} TXN</h3>
+                                            <h3>{formatNoDec(+props.globalData?.addLiquidityTx + +props.globalData?.removeLiquidityTx + +props.globalData?.swapTx)} TXN</h3>
                                             {/*<p className="text-muted text-truncate mb-0">0,0<i*/}
                                             {/*    className="mdi mdi-arrow-up ml-1 text-success"></i></p>*/}
                                         </div>
@@ -194,7 +194,7 @@ export const PoolsPaneSide = (props) => {
                             </CardBody>
                         </Card>
                     </Col>
-                    <Col sm="3">
+                    <Col sm="12" md="6" lg="3">
                         <Card>
                             <CardBody>
                                 <h5 className="text-muted mb-4"><i

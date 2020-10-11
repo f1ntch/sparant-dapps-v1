@@ -24,7 +24,7 @@ export const PoolTableItem = (props) => {
                 </td>
 
                 <td>
-                    <h6>{props.symbol}</h6>
+                    {props.symbol}
                 </td>
                 <td className="d-none d-lg-table-cell">
                     {formatUSD(props.price, context.spartanPrice)}
@@ -44,13 +44,13 @@ export const PoolTableItem = (props) => {
                 <td>
                     <Link to={`/pool/stake?pool=${props.address}`}>
                         <Button color="primary"
-                                className="btn btn-primary waves-effect waves-light mr-4">
+                                className="btn btn-primary waves-effect waves-light m-1">
                             <i className="bx bx-log-in-circle"></i> {props.t("Join")}
                         </Button>
                     </Link>
                     <Link to={`/pool/swap?pool=${props.address}`}>
                         <button type="button"
-                                className="btn btn-primary waves-effect waves-light">
+                                className="btn btn-primary waves-effect waves-light m-1">
                             <i className="bx bx-transfer-alt"></i> {props.t("Trade")}
                         </button>
                     </Link>

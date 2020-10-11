@@ -18,9 +18,10 @@ export const InputPane = (props) => {
     return (
         <div>
             <div>
-                <p className="text-muted mb-2"><i
-
-                    className="bx bx-wallet mr-1 "></i> {props.t("Wallet Balance")}</p>
+                <p className="text-muted mb-2">
+                    <i className="bx bx-wallet mr-1" />
+                    {props.t("Wallet Balance")}
+                </p>
                 <h5>{convertFromWei(props.paneData?.balance)} {props.paneData?.symbol}</h5>
                 <br/>
                 <Label>{props.t("Add Amount :")}</Label>
